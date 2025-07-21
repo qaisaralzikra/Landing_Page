@@ -12,19 +12,24 @@
             <h1 class="fs-2qx">Daftar Daerah</h1>
             <span></span>
         </div>
-        <div class="border-1 w-75 h-50px w-lg-25 rounded-3">
-            <form
-                @submit.prevent="handleSearch"
-                class="d-flex align-items-center position-relative my-1 flex-grow-1 flex-sm-grow-0 w-100 w-sm-300px"
-            >
-                <i class="bi bi-search position-absolute ms-5 fs-4"></i>
-                <input
-                    type="text"
-                    class="form-control form-control-solid ps-13 fs-5"
-                    placeholder="Cari Daerah"
-                />
-            </form>
-            <div></div>
+        <div class=" d-flex flex-column gap-4">
+            <div class="border-1 w-75 h-50px w-lg-25 rounded-3">
+                <form
+                    @submit.prevent="handleSearch"
+                    class="d-flex align-items-center position-relative my-1 flex-grow-1 flex-sm-grow-0 w-100 w-sm-300px"
+                >
+                    <i class="bi bi-search position-absolute ms-5 fs-4"></i>
+                    <input
+                        type="text"
+                        class="form-control form-control-solid ps-13 fs-5"
+                        placeholder="Cari Daerah"
+                    />
+                </form>
+            </div>
+            <div class=" d-flex flex-row pt-4 ps-2 rounded-2 gap-3 w-100px align-items-center border-2 border-secondary">
+                <p class="ri-filter-3-line fs-1"></p>
+                <p class="fs-3 fw-semibold">Terbaru</p>
+            </div>
             <div></div>
         </div>
     </div>
