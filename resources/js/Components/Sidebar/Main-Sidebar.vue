@@ -32,22 +32,30 @@
                             :class="[$page.url.startsWith('/admin/dashboard') ? 'fw-bold' : 'fw-semibold', 'menu-title fs-5']">Dashboard</span>
                         </Link>
                     </div>
+                    <div class="menu-item">
+                        <Link class="menu-link menu-link-mysecondary"
+                            :class="{ 'active': $page.url.startsWith('/admin/dashboard') }" href="/admin/dashboard">
+                        <span class="menu-icon">
+                            <i
+                                :class="[$page.url.startsWith('/admin/dashboard') ? 'ri-bank-fill' : 'ri-bank-line',
+                                    'fs-2'
+                                ]"></i>
+                        </span>
+                        <span
+                            :class="[$page.url.startsWith('/admin/dashboard') ? 'fw-bold' : 'fw-semibold', 'menu-title fs-5']">Daftar Daerah</span>
+                        </Link>
+                    </div>
                     <div class="menu-item pt-4">
                         <div class="menu-content py-1">
-                            <span class="text-gray-500 fw-semibold text-uppercase fs-7" style="letter-spacing: 0.06em;">Publikasi</span>
+                            <span class="text-gray-500 fw-semibold text-uppercase fs-7" style="letter-spacing: 0.06em;">PORTAL</span>
                         </div>
                     </div>
                     <div class="menu-item">
                         <Link class="menu-link menu-link-mysecondary"
                             :class="{ 'active': $page.url.startsWith('/admin/galleries') }" href="/admin/galleries">
-                        <span class="menu-icon">
-                            <i
-                                :class="[$page.url.startsWith('/admin/galleries') ? 'ri-folder-image-fill' :
-                                    'ri-folder-image-line', 'fs-2'
-                                ]"></i>
-                        </span>
+                        <img src="/assets/media/logos/logo-kab-bone.png" alt="" srcset="" class="rounded-2 me-4" style="width: 17px; ">
                         <span
-                            :class="[$page.url.startsWith('/admin/galleries') ? 'fw-bold' : 'fw-semibold', 'menu-title fs-5']">Galeri</span>
+                            :class="[$page.url.startsWith('/admin/galleries') ? 'fw-bold' : 'fw-semibold', 'menu-title fs-5']">Kab.Bone</span>
                         </Link>
                     </div>
                     <div class="menu-item">
