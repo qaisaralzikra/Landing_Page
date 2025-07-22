@@ -18,16 +18,9 @@
     "dependencies": {
         "@inertiajs/vue3": "^2.0.10",
         "@vitejs/plugin-vue": "^5.2.4",
-<<<<<<< HEAD
         "dropzone": "^6.0.0-beta.2",
-=======
-<<<<<<< HEAD
-        "vue": "^3.5.14"
-=======
->>>>>>> cf070519122bd8b63b5e3d3c431cf3fd85dcab91
-        "sweetalert2": "^11.22.2",
         "vue": "^3.5.14",
+        "sweetalert2": "^11.22.2",
         "ziggy-js": "^1.8.2"
->>>>>>> 4d7bc11eb53d1fa292c6f3b0aaf1493ba8cf0504
     }
 }

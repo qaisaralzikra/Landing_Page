@@ -55,7 +55,7 @@
                                     '/admin/dashboard'
                                 ),
                             }"
-                            href="/admin/dashboard"
+                            href="/dashboard"
                         >
                             <span class="menu-icon">
                                 <i
@@ -86,7 +86,7 @@
                                     '/admin/dashboard'
                                 ),
                             }"
-                            href="/admin/dashboard"
+                            href="/daftarkab"
                         >
                             <span class="menu-icon">
                                 <i
@@ -118,7 +118,8 @@
                             >
                         </div>
                     </div>
-                    <div class="menu-item">
+                    <div class="menu-item" v-for="daerah in post"
+                    :key="daerah.id">
                         <Link
                             class="menu-link menu-link-mysecondary"
                             :class="{
@@ -129,7 +130,7 @@
                             href="/admin/galleries"
                         >
                             <img
-                                src="/public/assets/media/logos/logo-kab-bone.png"
+                                :src="`/storage/${daerah.logo_daerah}`"
                                 alt=""
                                 srcset=""
                                 class="rounded-2 me-4"
@@ -142,13 +143,9 @@
                                         : 'fw-semibold',
                                     'menu-title fs-4',
                                 ]"
-                                >Kab.Bone</span
+                                >{{ daerah.nama_daerah }}</span
                             >
                         </Link>
-
-                        <div class="menu-inner flex-column collapse" id="kt_app_sidebar_menu_dashboards_collapse">
-                            
-                        </div>
                     </div>
                     <a
                         class="btn btn-flex btn-color-primary d-flex  fs-base p-0 ms-2 mb-2 toggle collapsible collapsed"
@@ -252,14 +249,13 @@
     </div>
 </template>
 
-<script>
-import { Link } from "@inertiajs/vue3";
+<script setup>
+import { Link, usePage } from "@inertiajs/vue3";
 
-export default {
-    components: {
-        Link,
-    },
-};
+const page = usePage()
+
+const post = page.props.daerahs
+
 </script>
 
 <style>

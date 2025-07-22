@@ -2,9 +2,7 @@
     <div class="my-10 mx-10 d-flex flex-column gap-3">
         <div>
             <ol class="breadcrumb text-muted fs-6 fw-semibold">
-                <li class="breadcrumb-item">
-                    <Link href="/dashboard" class="fs-4">Dashboard</Link>
-                </li>
+                <li class="breadcrumb-item fs-4 text-primary">Dashboard</li>
                 <li class="breadcrumb-item text-muted fs-4">Daftar Daerah</li>
             </ol>
         </div>
@@ -79,6 +77,42 @@
                             <p class="text-gray-600 fs-4">
                                 Belum ada album atau pencarian tidak sesuai.
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div
+        class="app-main flex-column flex-row-fluid justify-content-center align-self-center align-self-lg-start"
+        id="kt_app_main"
+    >
+        <div class="d-flex flex-column flex-column-fluid mt-5 mt-lg-0">
+            <div class="container-fluid float-start mt-20 mt-lg-0">
+                <div class="my-1 d-flex flex-wrap gap-20 gap-md-15 gap-lg-8">
+                    <div
+                        v-for="album in daerahs"
+                        :key="album.id"
+                        class="ps-5 pt-12 pb-6 pe-5 rounded-2 shadow-sm bg-white d-flex flex-column gap-5 align-items-center text-center"
+                        style="max-width: 200px; width: 150px"
+                    >
+                        <div>
+                            <img
+                                :src="`/storage/${album.logo_daerah}`"
+                                alt=""
+                                class="w-70px h-70px w-lg-100px h-lg-75px"
+                            />
+                        </div>
+                        <div class="d-flex flex-column gap-0">
+                            <span
+                                class="text-center fw-normal text-uppercase fs-6"
+                                style="color: rgba(60, 60, 67, 0.75);"
+                                >{{ album.daerah }}</span
+                            >
+                            <span
+                                class="text-black text-center fw-bold text-uppercase fs-4"
+                                >{{ album.nama_daerah }}</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -320,7 +354,6 @@ const resetForm = () => {
     );
     if (drawerCloseBtn) drawerCloseBtn.click();
 };
-
 
 const submit = () => {
     const submitBtn = document.querySelector("#kt_drawer_submit_button");
