@@ -133,17 +133,71 @@
                                     <label
                                         for="name"
                                         class="required form-label fs-5"
+                                        >Logo Daerah</label
+                                    >
+                                    <div
+                                        id="partner-dropzone"
+                                        :key="dropzoneKey"
+                                        class="dropzone border-dashed border-myprimary rounded p-5 text-center"
+                                    >
+                                        <div
+                                            class="dz-message needsclick flex-column text-center gap-5 p-5"
+                                        >
+                                            <i
+                                                class="ri-image-add-line text-myprimary fs-3x"
+                                            ></i>
+                                            <div>
+                                                <h3
+                                                    class="fs-5 fw-bold text-gray-900 mb-2"
+                                                >
+                                                    Jatuhkan file di sini / klik
+                                                    untuk mengunggah.
+                                                </h3>
+                                                <span
+                                                    class="fs-7 fw-semibold text-gray-400"
+                                                    >Maksimal 5 MB</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        v-if="form.errors.logo_daerah"
+                                        class="text-mydanger mt-2"
+                                    >
+                                        {{ form.errors.logo_daerah }}
+                                    </div>
+                                </div>
+                                <div class="mb-5 fv-row">
+                                    <label
+                                        for="name"
+                                        class="required form-label fs-5"
                                         >Nama Daerah</label
                                     >
                                     <div class="d-flex flex-row">
-                                        <select v-model="daerah" name="" id="" class="border-1 border-secondary w-60px form-control bg-secondary" style="border-radius: 2px 0 0 2px;">
-                                            <option value="Kabupaten" class="fs-5 py-1 px-1">Kab</option>
-                                            <option value="Kota" class="fs-5 py-1 px-1">Kota</option>
+                                        <select
+                                            v-model="form.daerah"
+                                            name=""
+                                            id=""
+                                            class="border-1 border-secondary w-60px form-control bg-secondary"
+                                            style="border-radius: 2px 0 0 2px"
+                                        >
+                                            <option
+                                                value="Kabupaten"
+                                                class="fs-5 py-1 px-1"
+                                            >
+                                                Kab
+                                            </option>
+                                            <option
+                                                value="Kota"
+                                                class="fs-5 py-1 px-1"
+                                            >
+                                                Kota
+                                            </option>
                                         </select>
                                         <input
                                             type="text"
                                             class="form-control fs-5"
-                                            style="border-radius: 0 2px 2px 0;"
+                                            style="border-radius: 0 2px 2px 0"
                                             v-model="form.nama_daerah"
                                             placeholder="Masukkan nama daerah..."
                                         />
@@ -208,9 +262,14 @@
 </template>
 
 <script setup>
+defineOptions({
+    name: "Daftar_Kab",
+});
+
 import { Head, useForm, usePage } from "@inertiajs/vue3";
 import Swal from "sweetalert2";
-import { ref, nextTick, watch } from "vue";
+import { ref, nextTick, watch, onMounted } from "vue";
+import Dropzone from "dropzone";
 
 defineProps({
     daerahs: {
@@ -219,7 +278,8 @@ defineProps({
     },
 });
 
-
+const dropzoneKey = ref(Date.now());
+const dropzoneRef = ref(null);
 const page = usePage();
 
 const form = useForm({
@@ -232,8 +292,8 @@ const form = useForm({
 const drawerCloseBtn = document.querySelector(
     "#kt_drawer_example_advanced_close"
 );
+
 if (drawerCloseBtn) drawerCloseBtn.click();
-const dropzoneKey = ref(Date.now());
 const openDrawer = async () => {
     dropzoneKey.value = Date.now();
     await nextTick();
@@ -244,10 +304,12 @@ const openDrawer = async () => {
         drawer.show();
     }
 };
-const dropzoneRef = ref(null);
+
 const resetForm = () => {
-    form.name = "";
-    form.link = "";
+    form.logo_daerah = "";
+    form.nama_daerah = "";
+    form.daerah = "";
+    form.deskripsi = "";
 
     if (dropzoneRef.value) {
         dropzoneRef.value.removeAllFiles(true);
@@ -258,11 +320,23 @@ const resetForm = () => {
     );
     if (drawerCloseBtn) drawerCloseBtn.click();
 };
+
+
 const submit = () => {
     const submitBtn = document.querySelector("#kt_drawer_submit_button");
     if (submitBtn) {
         submitBtn.setAttribute("data-kt-indicator", "on");
         submitBtn.setAttribute("disabled", true);
+    }
+
+    const payload = new FormData();
+    payload.append("nama_daerah", form.name);
+    payload.append("daerah", form.link);
+    if (
+        form.logo_daerah &&
+        (form.logo_daerah instanceof File || form.logo_daerah instanceof Blob)
+    ) {
+        payload.append("logo_daerah", form.logo_daerah);
     }
 
     const cleanup = () => {
@@ -272,9 +346,19 @@ const submit = () => {
         }
     };
 
+    if (!form.logo_daerah) {
+        Swal.fire({
+            icon: "error",
+            title: "Masukkan Inputan Yang Benar Pada Gambar",
+            text: page.props.session.success,
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
     console.log(form);
     // console.log(route('anggotas.store'))
-    form.post(route("daerah.store"), {
+    form.post(route("daerah.store", payload), {
+        forceFormData: true,
         onSuccess: () => {
             Swal.fire({
                 icon: "success",
@@ -294,10 +378,53 @@ const submit = () => {
                 showConfirmButton: false,
                 timer: 2000,
             });
-            form.reset("");
+            cleanup();
+            form.reset();
         },
     });
 };
+watch(dropzoneKey, () => {
+    nextTick(() => {
+        const dz = new Dropzone("#partner-dropzone", {
+            url: "/",
+            paramName: "logo_daerah",
+            maxFiles: 1,
+            maxFilesize: 10,
+            acceptedFiles: "image/jpeg,image/png",
+            autoProcessQueue: false,
+            addRemoveLinks: true,
+            dictRemoveFile: "Hapus",
+            init: function () {
+                this.on("addedfile", function (file) {
+                    form.logo_daerah = file;
+                });
+
+                this.on("removedfile", function () {
+                    form.logo_daerah = null;
+                });
+
+                dropzoneRef.value = this;
+
+                if (isEditMode.value && editing.value?.logo) {
+                    const mockFile = {
+                        name: editing.value.logo.split("/").pop(),
+                    };
+                    this.emit("addedfile", mockFile);
+                    this.emit(
+                        "thumbnail",
+                        mockFile,
+                        `/storage/${editing.value.logo}`
+                    );
+                    this.emit("complete", mockFile);
+                    mockFile.previewElement.classList.add(
+                        "dz-success",
+                        "dz-complete"
+                    );
+                }
+            },
+        });
+    });
+});
 </script>
 
 <style lang="scss" scoped></style>

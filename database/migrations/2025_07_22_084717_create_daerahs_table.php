@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('daerahs', function (Blueprint $table) {
             $table->id();
-            $table->string('logo_daerah');
+            $table->string('logo_daerah')->nullable();
             $table->enum('daerah', ['Kabupaten', 'Kota']);
             $table->string('nama_daerah');
-            $table->text('deskripsi');
+            $table->text('deskripsi')->default('');
             $table->timestamps();
         });
     }
