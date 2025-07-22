@@ -118,8 +118,11 @@
                             >
                         </div>
                     </div>
-                    <div class="menu-item" v-for="daerah in post"
-                    :key="daerah.id">
+                    <div
+                        class="menu-item"
+                        v-for="daerah in post"
+                        :key="daerah.id"
+                    >
                         <Link
                             class="menu-link menu-link-mysecondary"
                             :class="{
@@ -147,33 +150,32 @@
                             >
                         </Link>
                     </div>
-                    <a
-                        class="btn btn-flex btn-color-primary d-flex  fs-base p-0 ms-2 mb-2 toggle collapsible collapsed"
-                        data-bs-toggle="collapse"
-                        href="#kt_app_sidebar_menu_dashboards_collapse"
-                        data-kt-toggle-text="Sembunyikan"
-                    >
-                        <span class="svg-icon toggle-on svg-icon-2 ">
-                            <i class="ri-add-line"></i>
-                            
-                        </span>
-                        <span class="svg-icon toggle-off svg-icon-2 ">
-                            <i class="ri-subtract-line"></i>
-                        </span>
-                         <span data-kt-toggle-text-target="true"
-                            >Lihat 12 Lainnya</span
+                    <div>
+                        <div
+                            class="menu-inner flex-column collapse"
+                            id="kt_app_sidebar_menu_dashboards_collapse"
                         >
-                        
+                            
+                        </div>
+                        <a
+                            class="btn btn-flex btn-color-primary d-flex fs-base p-0 ms-2 mb-2 toggle collapsible collapsed"
+                            data-bs-toggle="collapse"
+                            href="#kt_app_sidebar_menu_dashboards_collapse"
+                            data-kt-toggle-text="Sembunyikan"
+                        >
+                            <span class="svg-icon toggle-on svg-icon-2">
+                                <i class="ri-add-line"></i>
+                            </span>
+                            <span class="svg-icon toggle-off svg-icon-2">
+                                <i class="ri-subtract-line"></i>
+                            </span>
+                            <span data-kt-toggle-text-target="true"
+                                >Lihat 12 Lainnya</span
+                            >
 
-                        <!-- isi -->
-                                            
-                    </a>
-                     <div class="menu-inner flex-column collapse" id="kt_app_sidebar_menu_dashboards_collapse">
-
-                        pdcoekof
+                            <!-- isi -->
+                        </a>
                     </div>
-
-
 
                     <div class="menu-item pt-4">
                         <div class="menu-content py-1">
@@ -252,48 +254,42 @@
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
 
-const page = usePage()
+const page = usePage();
 
-const post = page.props.daerahs
-
+const post = page.props.daerahs;
 </script>
 
 <style>
 .menu-link-mysecondary:hover {
-    background-color: #3B82F61A; /* Bootstrap light */
-    
+    background-color: #3b82f61a; /* Bootstrap light */
 }
 
 .menu-link-mysecondary:hover .menu-title,
 .menu-link-mysecondary:hover .menu-icon i {
-    color: #000000 ; 
-    
+    color: #000000;
+
     /* Bootstrap primary */
 }
 
-.menu-title{
-    font-family: 'NunitoSans', sans-serif;
+.menu-title {
+    font-family: "NunitoSans", sans-serif;
     font-size: 1.2rem;
 }
-
 
 .menu-link-mysecondary,
 .menu-link-mysecondary .menu-title,
 .menu-link-mysecondary .menu-icon i {
     transition: all 0.1s ease-in-out;
-    color: #3C3C43BF;
-  
+    color: #3c3c43bf;
 }
 
 .menu-link.active {
-    background-color:  #3B82F61A; /* abu lebih gelap */
+    background-color: #3b82f61a; /* abu lebih gelap */
     color: #000000;
 }
 
 @font-face {
-  font-family: 'NunitoSans';
-  src: url('/assets/media/font/NunitoSans2.ttf') format('truetype');
+    font-family: "NunitoSans";
+    src: url("/assets/media/font/NunitoSans2.ttf") format("truetype");
 }
-
-
 </style>
