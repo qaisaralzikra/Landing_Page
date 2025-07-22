@@ -17,12 +17,12 @@
             <Link href="/admin/dashboard">
                 <img
                     alt="Logo"
-                    src="/assets/media/logos/glp-indtim-logo.png"
-                    class="h-40px app-sidebar-logo-default theme-light-show"
+                    src="/public/assets/media/logos/afila-logo.svg"
+                    class="h-45px app-sidebar-logo-default theme-light-show"
                 />
                 <img
                     alt="Logo"
-                    src="/assets/media/logos/glp-indtim-logo.png"
+                    src="/public/assets/media/logos/afila-logo.svg"
                     class="h-25px app-sidebar-logo-minimize"
                 />
             </Link>
@@ -72,7 +72,7 @@
                                     $page.url.startsWith('/admin/dashboard')
                                         ? 'fw-bold'
                                         : 'fw-semibold',
-                                    'menu-title fs-5',
+                                    'menu-title fs-4',
                                 ]"
                                 >Dashboard</span
                             >
@@ -103,7 +103,7 @@
                                     $page.url.startsWith('/admin/dashboard')
                                         ? 'fw-bold'
                                         : 'fw-semibold',
-                                    'menu-title fs-5',
+                                    'menu-title fs-4',
                                 ]"
                                 >Daftar Daerah</span
                             >
@@ -129,7 +129,7 @@
                             href="/admin/galleries"
                         >
                             <img
-                                src="/assets/media/logos/logo-kab-bone.png"
+                                src="/public/assets/media/logos/logo-kab-bone.png"
                                 alt=""
                                 srcset=""
                                 class="rounded-2 me-4"
@@ -140,7 +140,7 @@
                                     $page.url.startsWith('/admin/galleries')
                                         ? 'fw-bold'
                                         : 'fw-semibold',
-                                    'menu-title fs-5',
+                                    'menu-title fs-4',
                                 ]"
                                 >Kab.Bone</span
                             >
@@ -211,7 +211,7 @@
                                     $page.url.startsWith('/admin/user')
                                         ? 'fw-bold'
                                         : 'fw-semibold',
-                                    'menu-title fs-5',
+                                    'menu-title fs-4',
                                 ]"
                                 >Pengaturan</span
                             >
@@ -240,7 +240,7 @@
                                     $page.url.startsWith('/admin/user')
                                         ? 'fw-bold'
                                         : 'fw-semibold',
-                                    'menu-title fs-5',
+                                    'menu-title fs-4',
                                 ]"
                                 >Akun</span
                             >
@@ -270,12 +270,16 @@ export default {
 
 .menu-link-mysecondary:hover .menu-title,
 .menu-link-mysecondary:hover .menu-icon i {
-    color: #000000 ; /* Bootstrap primary */
+    color: #000000 ; 
+    
+    /* Bootstrap primary */
 }
 
 .menu-title{
-    font-size: 16px;
+    font-family: 'NunitoSans', sans-serif;
+    font-size: 1.2rem;
 }
+
 
 .menu-link-mysecondary,
 .menu-link-mysecondary .menu-title,
@@ -287,8 +291,13 @@ export default {
 
 .menu-link.active {
     background-color:  #3B82F61A; /* abu lebih gelap */
-    font-weight: bold;
     color: #000000;
 }
+
+@font-face {
+  font-family: 'NunitoSans';
+  src: url('/assets/media/font/NunitoSans2.ttf') format('truetype');
+}
+
 
 </style>
