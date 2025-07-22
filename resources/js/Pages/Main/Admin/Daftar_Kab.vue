@@ -1,300 +1,303 @@
 <template>
-    <div class="my-10 mx-10 d-flex flex-column gap-3">
-        <div>
-            <ol class="breadcrumb text-muted fs-6 fw-semibold">
-                <li class="breadcrumb-item fs-4 text-primary">Dashboard</li>
-                <li class="breadcrumb-item text-muted fs-4">Daftar Daerah</li>
-            </ol>
-        </div>
-        <div>
-            <h1 class="fs-2qx">Daftar Daerah</h1>
-            <span></span>
-        </div>
-        <div
-            class="d-flex flex-column flex-lg-row gap-4 justify-content-lg-between"
-        >
-            <div class="border-1 w-75 h-50px w-lg-25 rounded-2">
-                <form
-                    @submit.prevent="handleSearch"
-                    class="d-flex align-items-center position-relative my-1"
-                >
-                    <i class="bi bi-search position-absolute ms-5 fs-4"></i>
-                    <input
-                        type="text"
-                        class="form-control ps-13 fs-5"
-                        placeholder="Cari Daerah"
-                    />
-                </form>
-            </div>
-            <div class="d-flex flex-row gap-4 align-items-center">
-                <button
-                    class="border-1 rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
-                    style="
-                        border: 1px solid;
-                        color: rgba(60, 60, 67, 0.75);
-                        border-color: rgba(60, 60, 67, 0.75);
-                    "
-                >
-                    <p class="ri-filter-3-line fs-1 m-0"></p>
-                    <p class="fs-3 fw-semibold m-0">Terbaru</p>
-                </button>
-                <button
-                    @click="
-                        () => {
-                            resetForm();
-                            openDrawer();
-                        }
-                    "
-                    class="btn-primary btn py-1 rounded-2 text-white px-4 d-flex flex-row gap-3 align-items-center"
-                >
-                    <p class="m-0 ri-add-fill fs-1 m-0"></p>
-                    <p class="fs-3 fw-semibold m-0">Daerah</p>
-                </button>
-            </div>
-        </div>
-    </div>
+    <navigation>
 
-    <div
-        v-if="daerahs.length === 0"
-        class="app-main flex-column flex-row-fluid justify-content-center align-self-center mx-10"
-        style="justify-self: center"
-        id="kt_app_main"
-    >
-        <div class="d-flex flex-column flex-column-fluid">
-            <div class="container-fluid float-start">
-                <div class="my-20 d-flex flex-wrap gap-20 gap-md-15 gap-lg-8">
-                    <div>
-                        <div
-                            class="text-center py-0 d-flex align-items-center flex-column"
-                        >
-                            <img
-                                src="../../../../../public/assets/media/illustrations/empty.png"
-                                alt="Tidak ada data"
-                                class="mh-300px"
-                            />
-                            <h2 class="text-gray-800 mb-4">
-                                Album Tidak Ditemukan
-                            </h2>
-                            <p class="text-gray-600 fs-4">
-                                Belum ada album atau pencarian tidak sesuai.
-                            </p>
-                        </div>
-                    </div>
+        <div class="d-flex flex-column gap-3">
+            <div>
+                <ol class="breadcrumb text-muted fs-6 fw-semibold">
+                    <li class="breadcrumb-item fs-4 text-primary">Dashboard</li>
+                    <li class="breadcrumb-item text-muted fs-4">Daftar Daerah</li>
+                </ol>
+            </div>
+            <div>
+                <h1 class="fs-2qx">Daftar Daerah</h1>
+                <span></span>
+            </div>
+            <div
+                class="d-flex flex-column flex-lg-row gap-4 justify-content-lg-between"
+            >
+                <div class="border-1 w-75 h-50px w-lg-25 rounded-2">
+                    <form
+                        @submit.prevent="handleSearch"
+                        class="d-flex align-items-center position-relative my-1"
+                    >
+                        <i class="bi bi-search position-absolute ms-5 fs-4"></i>
+                        <input
+                            type="text"
+                            class="form-control ps-13 fs-5"
+                            placeholder="Cari Daerah"
+                        />
+                    </form>
+                </div>
+                <div class="d-flex flex-row gap-4 align-items-center">
+                    <button
+                        class="border-1 rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
+                        style="
+                            border: 1px solid;
+                            color: rgba(60, 60, 67, 0.75);
+                            border-color: rgba(60, 60, 67, 0.75);
+                        "
+                    >
+                        <p class="ri-filter-3-line fs-1 m-0"></p>
+                        <p class="fs-3 fw-semibold m-0">Terbaru</p>
+                    </button>
+                    <button
+                        @click="
+                            () => {
+                                resetForm();
+                                openDrawer();
+                            }
+                        "
+                        class="btn-primary btn py-1 rounded-2 text-white px-4 d-flex flex-row gap-3 align-items-center"
+                    >
+                        <p class="m-0 ri-add-fill fs-1 m-0"></p>
+                        <p class="fs-3 fw-semibold m-0">Daerah</p>
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
-    <div
-        class="app-main flex-column flex-row-fluid justify-content-center  align-self-lg-start"
-        id="kt_app_main"
-    >
-        <div class="d-flex flex-column flex-column-fluid mt-5 mt-lg-0">
-            <div class="container-fluid float-start mt-20 mt-lg-0">
-                <div class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5 justify-content-center justify-content-lg-start">
-                    <div
-                        v-for="album in daerahs"
-                        :key="album.id"
-                        class="justify-content-center rounded-2 shadow-sm bg-white d-flex flex-column gap-5 align-items-center text-center"
-                        style="width: 175px; height: 232px"
-                    >
+    
+        <div
+            v-if="daerahs.length === 0"
+            class="app-main flex-column flex-row-fluid justify-content-center align-self-center mx-10"
+            style="justify-self: center"
+            id="kt_app_main"
+        >
+            <div class="d-flex flex-column flex-column-fluid">
+                <div class="container-fluid float-start">
+                    <div class="my-20 d-flex flex-wrap gap-20 gap-md-15 gap-lg-8">
                         <div>
-                            <img
-                                :src="`/storage/${album.logo_daerah}`"
-                                alt=""
-                                class="w-70px h-90px w-lg-80px h-lg-100px"
-                                
-                            />
-                        </div>
-                        <div class="d-flex flex-column gap-0">
-                            <span
-                                class="text-center fw-normal text-uppercase fs-6"
-                                style="color: rgba(60, 60, 67, 0.75);"
-                                >{{ album.daerah }}</span
+                            <div
+                                class="text-center py-0 d-flex align-items-center flex-column"
                             >
-                            <span
-                                class="text-black text-center fw-bold text-uppercase fs-4"
-                                >{{ album.nama_daerah }}</span
-                            >
+                                <img
+                                    src="../../../../../public/assets/media/illustrations/empty.png"
+                                    alt="Tidak ada data"
+                                    class="mh-300px"
+                                />
+                                <h2 class="text-gray-800 mb-4">
+                                    Album Tidak Ditemukan
+                                </h2>
+                                <p class="text-gray-600 fs-4">
+                                    Belum ada album atau pencarian tidak sesuai.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <form @submit.prevent="submit" style="z-index: 1000">
         <div
-            id="kt_drawer_example_advanced"
-            class="bg-body"
-            data-kt-drawer="true"
-            data-kt-drawer-activate="true"
-            data-kt-drawer-toggle="#kt_drawer_example_advanced_button"
-            data-kt-drawer-close="#kt_drawer_example_advanced_close"
-            data-kt-drawer-name="docs"
-            data-kt-drawer-overlay="true"
-            data-kt-drawer-width="{default:'100%', 'md': '500px'}"
-            data-kt-drawer-direction="end"
+            class="app-main flex-column flex-row-fluid justify-content-center  align-self-lg-start"
+            id="kt_app_main"
         >
-            <div class="card w-100 rounded-0">
-                <div
-                    class="card-header ps-6 pe-3 h-60px border-bottom border-gray-300 h-60px h-lg-70px"
-                    style="min-height: unset"
-                >
-                    <div class="card-title">
-                        <h2>Tambah Daerah</h2>
-                    </div>
-                    <div
-                        class="card-toolbar"
-                        id="kt_drawer_example_advanced_close"
-                    >
+            <div class="d-flex flex-column flex-column-fluid mt-5 mt-lg-0">
+                <div class="container-fluid float-start mt-20 mt-lg-8 p-0">
+                    <div class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5 justify-content-center justify-content-lg-start">
                         <div
-                            class="btn btn-sm btn-icon btn-mylighten rounded-pill"
+                            v-for="album in daerahs"
+                            :key="album.id"
+                            class="justify-content-center rounded-2 shadow-sm bg-white d-flex flex-column gap-5 align-items-center text-center"
+                            style="width: 175px; height: 232px"
                         >
-                            <i class="bi bi-x-lg fs-3"></i>
+                            <div>
+                                <img
+                                    :src="`/storage/${album.logo_daerah}`"
+                                    alt=""
+                                    class="w-70px h-90px w-lg-80px h-lg-100px"
+                                    
+                                />
+                            </div>
+                            <div class="d-flex flex-column gap-0">
+                                <span
+                                    class="text-center fw-normal text-uppercase fs-6"
+                                    style="color: rgba(60, 60, 67, 0.75);"
+                                    >{{ album.daerah }}</span
+                                >
+                                <span
+                                    class="text-black text-center fw-bold text-uppercase fs-4"
+                                    >{{ album.nama_daerah }}</span
+                                >
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-body bg-light p-6 d-flex flex-column gap-7">
-                    <div class="flex-grow-1">
-                        <div class="card border border-gray-300">
-                            <div
-                                class="card-header h-auto p-6 border-bottom border-gray-300"
-                                style="min-height: unset"
-                            >
-                                <div class="card-title m-0">
-                                    <h3>Profil Daerah</h3>
-                                </div>
-                            </div>
-                            <div class="card-body p-6">
-                                <div class="mb-5 fv-row">
-                                    <label
-                                        for="name"
-                                        class="required form-label fs-5"
-                                        >Logo Daerah</label
-                                    >
-                                    <div
-                                        id="partner-dropzone"
-                                        :key="dropzoneKey"
-                                        class="dropzone border-dashed border-myprimary rounded p-5 text-center"
-                                    >
-                                        <div
-                                            class="dz-message needsclick flex-column text-center gap-5 p-5"
-                                        >
-                                            <i
-                                                class="ri-image-add-line text-myprimary fs-3x"
-                                            ></i>
-                                            <div>
-                                                <h3
-                                                    class="fs-5 fw-bold text-gray-900 mb-2"
-                                                >
-                                                    Jatuhkan file di sini / klik
-                                                    untuk mengunggah.
-                                                </h3>
-                                                <span
-                                                    class="fs-7 fw-semibold text-gray-400"
-                                                    >Maksimal 5 MB</span
-                                                >
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        v-if="form.errors.logo_daerah"
-                                        class="text-mydanger mt-2"
-                                    >
-                                        {{ form.errors.logo_daerah }}
-                                    </div>
-                                </div>
-                                <div class="mb-5 fv-row">
-                                    <label
-                                        for="name"
-                                        class="required form-label fs-5"
-                                        >Nama Daerah</label
-                                    >
-                                    <div class="d-flex flex-row">
-                                        <select
-                                            v-model="form.daerah"
-                                            name=""
-                                            id=""
-                                            class="w-60px border-1 input-group border-secondary form-control bg-secondary"
-                                            style="border-radius: 2px 0 0 2px"
-                                        >
-                                            <option
-                                                value="Kabupaten"
-                                                class="fs-5"
-                                            >
-                                                Kab
-                                            </option>
-                                            <option
-                                                value="Kota"
-                                                class="fs-5"
-                                            >
-                                                Kota
-                                            </option>
-                                        </select>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            style="border-radius: 0 2px 2px 0"
-                                            v-model="form.nama_daerah"
-                                            placeholder="Masukkan nama daerah..."
-                                        />
-                                    </div>
-                                    <div
-                                        v-if="form.errors.nama_daerah"
-                                        class="text-mydanger mt-2"
-                                    >
-                                        {{ form.errors.name_daerah }}
-                                    </div>
-                                </div>
-
-                                <div class="fv-row">
-                                    <label class="required form-label fs-5"
-                                        >Deskripsi</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="form-control fs-5"
-                                        v-model="form.deskripsi"
-                                        required
-                                        placeholder="Masukkan deskripsi singkat..."
-                                    />
-                                    <div
-                                        v-if="form.errors.deskripsi"
-                                        class="text-mydanger mt-2"
-                                    >
-                                        {{ form.errors.deskripsi }}
-                                    </div>
-                                </div>
-                            </div>
+            </div>
+        </div>
+        <form @submit.prevent="submit" style="z-index: 1000">
+            <div
+                id="kt_drawer_example_advanced"
+                class="bg-body"
+                data-kt-drawer="true"
+                data-kt-drawer-activate="true"
+                data-kt-drawer-toggle="#kt_drawer_example_advanced_button"
+                data-kt-drawer-close="#kt_drawer_example_advanced_close"
+                data-kt-drawer-name="docs"
+                data-kt-drawer-overlay="true"
+                data-kt-drawer-width="{default:'100%', 'md': '500px'}"
+                data-kt-drawer-direction="end"
+            >
+                <div class="card w-100 rounded-0">
+                    <div
+                        class="card-header ps-6 pe-3 h-60px border-bottom border-gray-300 h-60px h-lg-70px"
+                        style="min-height: unset"
+                    >
+                        <div class="card-title">
+                            <h2>Tambah Daerah</h2>
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <button
-                            type="reset"
-                            class="btn btn-sm btn-mylight fs-5 me-3"
+                        <div
+                            class="card-toolbar"
                             id="kt_drawer_example_advanced_close"
                         >
-                            Batal
-                        </button>
-                        <button
-                            type="submit"
-                            id="kt_drawer_submit_button"
-                            class="btn btn-sm btn-dark fs-5"
-                        >
-                            <span class="indicator-label">
-                                Tambah daerah
-                            </span>
-                            <span class="indicator-progress">
-                                Mohon Tunggu...
-                                <span
-                                    class="spinner-border spinner-border-sm align-middle ms-2"
-                                ></span>
-                            </span>
-                        </button>
+                            <div
+                                class="btn btn-sm btn-icon btn-mylighten rounded-pill"
+                            >
+                                <i class="bi bi-x-lg fs-3"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body bg-light p-6 d-flex flex-column gap-7">
+                        <div class="flex-grow-1">
+                            <div class="card border border-gray-300">
+                                <div
+                                    class="card-header h-auto p-6 border-bottom border-gray-300"
+                                    style="min-height: unset"
+                                >
+                                    <div class="card-title m-0">
+                                        <h3>Profil Daerah</h3>
+                                    </div>
+                                </div>
+                                <div class="card-body p-6">
+                                    <div class="mb-5 fv-row">
+                                        <label
+                                            for="name"
+                                            class="required form-label fs-5"
+                                            >Logo Daerah</label
+                                        >
+                                        <div
+                                            id="partner-dropzone"
+                                            :key="dropzoneKey"
+                                            class="dropzone border-dashed border-myprimary rounded p-5 text-center"
+                                        >
+                                            <div
+                                                class="dz-message needsclick flex-column text-center gap-5 p-5"
+                                            >
+                                                <i
+                                                    class="ri-image-add-line text-myprimary fs-3x"
+                                                ></i>
+                                                <div>
+                                                    <h3
+                                                        class="fs-5 fw-bold text-gray-900 mb-2"
+                                                    >
+                                                        Jatuhkan file di sini / klik
+                                                        untuk mengunggah.
+                                                    </h3>
+                                                    <span
+                                                        class="fs-7 fw-semibold text-gray-400"
+                                                        >Maksimal 5 MB</span
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            v-if="form.errors.logo_daerah"
+                                            class="text-mydanger mt-2"
+                                        >
+                                            {{ form.errors.logo_daerah }}
+                                        </div>
+                                    </div>
+                                    <div class="mb-5 fv-row">
+                                        <label
+                                            for="name"
+                                            class="required form-label fs-5"
+                                            >Nama Daerah</label
+                                        >
+                                        <div class="d-flex flex-row">
+                                            <select
+                                                v-model="form.daerah"
+                                                name=""
+                                                id=""
+                                                class="w-60px border-1 input-group border-secondary form-control bg-secondary"
+                                                style="border-radius: 2px 0 0 2px"
+                                            >
+                                                <option
+                                                    value="Kabupaten"
+                                                    class="fs-5"
+                                                >
+                                                    Kab
+                                                </option>
+                                                <option
+                                                    value="Kota"
+                                                    class="fs-5"
+                                                >
+                                                    Kota
+                                                </option>
+                                            </select>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                style="border-radius: 0 2px 2px 0"
+                                                v-model="form.nama_daerah"
+                                                placeholder="Masukkan nama daerah..."
+                                            />
+                                        </div>
+                                        <div
+                                            v-if="form.errors.nama_daerah"
+                                            class="text-mydanger mt-2"
+                                        >
+                                            {{ form.errors.name_daerah }}
+                                        </div>
+                                    </div>
+    
+                                    <div class="fv-row">
+                                        <label class="required form-label fs-5"
+                                            >Deskripsi</label
+                                        >
+                                        <input
+                                            type="text"
+                                            class="form-control fs-5"
+                                            v-model="form.deskripsi"
+                                            required
+                                            placeholder="Masukkan deskripsi singkat..."
+                                        />
+                                        <div
+                                            v-if="form.errors.deskripsi"
+                                            class="text-mydanger mt-2"
+                                        >
+                                            {{ form.errors.deskripsi }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button
+                                type="reset"
+                                class="btn btn-sm btn-mylight fs-5 me-3"
+                                id="kt_drawer_example_advanced_close"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                type="submit"
+                                id="kt_drawer_submit_button"
+                                class="btn btn-sm btn-dark fs-5"
+                            >
+                                <span class="indicator-label">
+                                    Tambah daerah
+                                </span>
+                                <span class="indicator-progress">
+                                    Mohon Tunggu...
+                                    <span
+                                        class="spinner-border spinner-border-sm align-middle ms-2"
+                                    ></span>
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </navigation>
 </template>
 
 <script setup>
@@ -306,6 +309,7 @@ import { Head, useForm, usePage } from "@inertiajs/vue3";
 import Swal from "sweetalert2";
 import { ref, nextTick, watch, onMounted } from "vue";
 import Dropzone from "dropzone";
+import navigation from "../../../Layout/navigation.vue";
 
 defineProps({
     daerahs: {

@@ -28,7 +28,7 @@
             </Link>
         </div>
         <div
-            class="app-sidebar-menu overflow-hidden flex-column-fluid border-end border-gray-300"
+            class="app-sidebar-menu overflow-y-scroll flex-column-fluid border-end border-gray-300"
         >
             <div
                 id="kt_app_sidebar_menu_wrapper"
@@ -109,76 +109,98 @@
                             >
                         </Link>
                     </div>
-                    <div class="menu-item pt-4">
-                        <div class="menu-content py-1">
-                            <span
-                                class="text-gray-500 fw-semibold text-uppercase fs-7"
-                                style="letter-spacing: 0.06em"
-                                >PORTAL</span
-                            >
-                        </div>
-                    </div>
-                    <div
-                        class="menu-item"
-                        v-for="daerah in post"
-                        :key="daerah.id"
-                    >
-                        <Link
-                            class="menu-link menu-link-mysecondary d-flex flex-row align-items-center"
-                            :class="{
-                                active: $page.url.startsWith(
-                                    '/admin/galleries'
-                                ),
-                            }"
-                            href="/admin/galleries"
-                        >
-                            <img
-                                :src="`/storage/${daerah.logo_daerah}`"
-                                alt=""
-                                srcset=""
-                                class="rounded-2 me-4"
-                                width="19px"
-                                height="20px"
-                            />
-                            <span
-                                class="text-capitalize"
-                                :class="[
-                                    $page.url.startsWith('/admin/galleries')
-                                        ? 'fw-bold'
-                                        : 'fw-semibold',
-                                    'menu-title fs-4',
-                                ]"
-                                >{{ daerah.nama_daerah }}
-                            </span
-                            >
-                        </Link>
-                    </div>
-                    <div>
-                        <div
-                            class="menu-inner flex-column collapse"
-                            id="kt_app_sidebar_menu_dashboards_collapse"
-                        >
-                        <!-- isi -->
-                    </div>
-                        <a
-                            class="btn btn-flex btn-color-primary d-flex fs-5 p-0 ms-2 mb-2 toggle collapsible collapsed"
-                            data-bs-toggle="collapse"
-                            href="#kt_app_sidebar_menu_dashboards_collapse"
-                            data-kt-toggle-text="Sembunyikan"
-                        >
-                            <span class="svg-icon toggle-on  svg-icon-2">
-                                <i class="ri-add-line fs-4"></i>
-                            </span>
-                            <span class="svg-icon toggle-off  svg-icon-2">
-                                <i class="ri-subtract-line fs-4"></i>
-                            </span>
-                            <span data-kt-toggle-text-target="true"
-                                >Lihat 12 Lainnya</span
-                            >
+                    <!-- Bagian Judul -->
+<div class="menu-item pt-4">
+  <div class="menu-content py-1">
+    <span
+      class="text-gray-500 fw-semibold text-uppercase fs-7"
+      style="letter-spacing: 0.06em"
+    >
+      PORTAL
+    </span>
+  </div>
+</div>
 
-                            
-                        </a>
-                    </div>
+<!-- 5 Pertama -->
+<div
+  class="menu-item"
+  v-for="(daerah, ) in post.slice(0, 5)"
+  :key="daerah.id"
+>
+  <Link
+    class="menu-link menu-link-mysecondary d-flex flex-row align-items-center"
+    :class="{ active: $page.url.startsWith('/admin/galleries') }"
+    href="/admin/galleries"
+  >
+    <img
+      :src="`/storage/${daerah.logo_daerah}`"
+      alt=""
+      class="rounded-2 me-4"
+      width="19"
+      height="20"
+    />
+    <span
+      class="text-capitalize"
+      :class="[
+        $page.url.startsWith('/admin/galleries') ? 'fw-bold' : 'fw-semibold',
+        'menu-title fs-4',
+      ]"
+    >
+      {{ daerah.nama_daerah }}
+    </span>
+  </Link>
+</div>
+
+<!-- Menu Tambahan (lebih dari 5) -->
+<div v-if="post.length > 5">
+  <div class="menu-inner flex-column collapse" id="kt_app_sidebar_menu_dashboards_collapse">
+    <div
+      class="menu-item"
+      v-for="(daerah) in post.slice(5)"
+      :key="daerah.id"
+    >
+      <Link
+        class="menu-link menu-link-mysecondary d-flex flex-row align-items-center"
+        :class="{ active: $page.url.startsWith('/admin/galleries') }"
+        href="/admin/galleries"
+      >
+        <img
+          :src="`/storage/${daerah.logo_daerah}`"
+          alt=""
+          class="rounded-2 me-4"
+          width="19"
+          height="20"
+        />
+        <span
+          class="text-capitalize"
+          :class="[
+            $page.url.startsWith('/admin/galleries') ? 'fw-bold' : 'fw-semibold',
+            'menu-title fs-4',
+          ]"
+        >
+          {{ daerah.nama_daerah }}
+        </span>
+      </Link>
+    </div>
+  </div>
+
+  <!-- Tombol Toggle -->
+  <a
+    class="btn btn-flex btn-color-primary d-flex fs-5 p-0 ms-4 mb-2 toggle collapsible collapsed"
+    data-bs-toggle="collapse"
+    href="#kt_app_sidebar_menu_dashboards_collapse"
+    data-kt-toggle-text="Sembunyikan"
+  >
+    <span class="svg-icon toggle-on svg-icon-2">
+      <i class="ri-add-line fs-4"></i>
+    </span>
+    <span class="svg-icon toggle-off svg-icon-2">
+      <i class="ri-subtract-line fs-4"></i>
+    </span>
+    <span data-kt-toggle-text-target="true">Lihat {{ post.length - 5 }} Lainnya</span>
+  </a>
+</div>
+
 
                     <div class="menu-item pt-4">
                         <div class="menu-content py-1">
