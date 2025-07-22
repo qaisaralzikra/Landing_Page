@@ -186,7 +186,7 @@
 
   <!-- Tombol Toggle -->
   <a
-    class="btn btn-flex btn-color-primary d-flex fs-5 p-0 ms-4 mb-2 toggle collapsible collapsed"
+    class="btn btn-flex btn-color-primary d-flex gap-2 fs-5 p-0 ms-4 mb-2 toggle collapsible collapsed"
     data-bs-toggle="collapse"
     href="#kt_app_sidebar_menu_dashboards_collapse"
     data-kt-toggle-text="Sembunyikan"

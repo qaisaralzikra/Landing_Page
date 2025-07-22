@@ -14,9 +14,12 @@ class DaerahController extends Controller
     public function index()
     {
         $daerah = Daerah::all();
+        $activities = Daerah::count();
         
         return Inertia::render('Main/Admin/Daftar_Kab', [
-            'daerahs' => $daerah
+            'daerahs' => $daerah,
+            'jumlah' => $activities
+
         ]);
     }
 

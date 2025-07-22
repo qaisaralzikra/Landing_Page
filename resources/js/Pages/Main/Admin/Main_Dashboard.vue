@@ -5,12 +5,6 @@
         Website Pengelolaan Portal Aplikasi Umum Pemerintah
     </p>
     </navigation>
-
- 
-                        
-                
-
-    
 </template>
 
 <script setup>

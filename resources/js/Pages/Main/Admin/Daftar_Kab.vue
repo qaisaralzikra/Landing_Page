@@ -3,19 +3,20 @@
 
         <div class="d-flex flex-column gap-3">
             <div>
-                <ol class="breadcrumb text-muted fs-6 fw-semibold">
-                    <li class="breadcrumb-item fs-4 text-primary">Dashboard</li>
-                    <li class="breadcrumb-item text-muted fs-4">Daftar Daerah</li>
+                <ol class="text-muted fs-6 fw-semibold d-flex flex-row gap-4 align-items-center p-0">
+                    <span class=" fs-4 text-primary">Dashboard</span>
+                    <span class="fs-1">/</span>
+                    <span class=" fs-4">Daftar Daerah</span>
                 </ol>
             </div>
-            <div>
+            <div class="d-flex flex-row align-items-center gap-5">
                 <h1 class="fs-2qx">Daftar Daerah</h1>
-                <span></span>
+                <span class="text-primary py-1 px-5 fs-5 rounded-4" style="background-color: rgba(59, 130, 246, 0.1);">{{ jumlah }}</span>
             </div>
             <div
                 class="d-flex flex-column flex-lg-row gap-4 justify-content-lg-between"
             >
-                <div class="border-1 w-75 h-50px w-lg-25 rounded-2">
+                <div class="border-1 w-75 w-md-300px w-lg-400px rounded-2">
                     <form
                         @submit.prevent="handleSearch"
                         class="d-flex align-items-center position-relative my-1"
@@ -90,18 +91,18 @@
             class="app-main flex-column flex-row-fluid justify-content-center  align-self-lg-start"
             id="kt_app_main"
         >
-            <div class="d-flex flex-column flex-column-fluid mt-5 mt-lg-0">
-                <div class="container-fluid float-start mt-20 mt-lg-8 p-0">
+            <div class="d-flex flex-column flex-column-fluid mt-0 mt-lg-0">
+                <div class="container-fluid float-start mt-10 mt-lg-8 p-0">
                     <div class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5 justify-content-center justify-content-lg-start">
                         <div
-                            v-for="album in daerahs"
-                            :key="album.id"
+                            v-for="daerah in daerahs"
+                            :key="daerah.id"
                             class="justify-content-center rounded-2 shadow-sm bg-white d-flex flex-column gap-5 align-items-center text-center"
                             style="width: 175px; height: 232px"
                         >
                             <div>
                                 <img
-                                    :src="`/storage/${album.logo_daerah}`"
+                                    :src="`/storage/${daerah.logo_daerah}`"
                                     alt=""
                                     class="w-70px h-90px w-lg-80px h-lg-100px"
                                     
@@ -111,11 +112,11 @@
                                 <span
                                     class="text-center fw-normal text-uppercase fs-6"
                                     style="color: rgba(60, 60, 67, 0.75);"
-                                    >{{ album.daerah }}</span
+                                    >{{ daerah.daerah }}</span
                                 >
                                 <span
                                     class="text-black text-center fw-bold text-uppercase fs-4"
-                                    >{{ album.nama_daerah }}</span
+                                    >{{ daerah.nama_daerah }}</span
                                 >
                             </div>
                         </div>
@@ -316,6 +317,7 @@ defineProps({
         type: Array,
         default: () => [],
     },
+    jumlah: Number,
 });
 
 const dropzoneKey = ref(Date.now());
@@ -406,6 +408,9 @@ const submit = () => {
                 showConfirmButton: false,
                 timer: 2000,
             });
+            setTimeout(() => {
+                    window.location.reload();
+                }, 100);
             cleanup();
             form.reset("");
         },
