@@ -19,6 +19,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @inertiaHead
     @routes()
+    <style>
+        body {
+            background-color: rgba(245, 245, 245, 1);
+        }
+    </style>
 </head>
 
 <body>

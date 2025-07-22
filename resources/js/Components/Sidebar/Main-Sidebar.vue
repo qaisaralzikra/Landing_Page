@@ -1,7 +1,7 @@
 <template>
     <div
         id="kt_app_sidebar"
-        class="app-sidebar flex-column"
+        class="app-sidebar flex-column "
         data-kt-drawer="true"
         data-kt-drawer-name="app-sidebar"
         data-kt-drawer-activate="{default: true, lg: false}"
@@ -18,12 +18,12 @@
                 <img
                     alt="Logo"
                     src="/public/assets/media/logos/afila-logo.svg"
-                    class="h-45px app-sidebar-logo-default theme-light-show"
+                    class="h-40px w-95px app-sidebar-logo-default theme-light-show"
                 />
                 <img
                     alt="Logo"
                     src="/public/assets/media/logos/afila-logo.svg"
-                    class="h-25px app-sidebar-logo-minimize"
+                    class="h-20px w-90px app-sidebar-logo-minimize"
                 />
             </Link>
         </div>
