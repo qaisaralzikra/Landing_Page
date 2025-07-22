@@ -3,7 +3,7 @@
         <div>
             <ol class="breadcrumb text-muted fs-6 fw-semibold">
                 <li class="breadcrumb-item">
-                    <Link href="#" class="fs-4">Dashboard</Link>
+                    <Link href="/dashboard" class="fs-4">Dashboard</Link>
                 </li>
                 <li class="breadcrumb-item text-muted fs-4">Daftar Daerah</li>
             </ol>
@@ -23,14 +23,14 @@
                     <i class="bi bi-search position-absolute ms-5 fs-4"></i>
                     <input
                         type="text"
-                        class="form-control form-control-solid ps-13 fs-5"
+                        class="form-control ps-13 fs-5"
                         placeholder="Cari Daerah"
                     />
                 </form>
             </div>
             <div class="d-flex flex-row gap-4 align-items-center">
                 <div
-                    class="border-1 rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
+                    class="border-1 form-control rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
                     style="
                         color: rgba(60, 60, 67, 0.75);
                         border-color: rgba(60, 60, 67, 0.75);
@@ -219,6 +219,7 @@ defineProps({
     },
 });
 
+
 const page = usePage();
 
 const form = useForm({
@@ -288,7 +289,7 @@ const submit = () => {
         onError: () => {
             Swal.fire({
                 icon: "error",
-                title: "Daeah Gagal Ditambah",
+                title: "Daerah Gagal Ditambah",
                 text: page.props.session.error,
                 showConfirmButton: false,
                 timer: 2000,

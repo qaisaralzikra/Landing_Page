@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d16698d78b5f34dc9d90c6098657041f",
+    "content-hash": "2e8a06dce4331ce5ecc4e94422c2683a",
     "packages": [
         {
             "name": "brick/math",
@@ -5576,36 +5576,39 @@
         },
         {
             "name": "tightenco/ziggy",
-            "version": "v1.0.0",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/ziggy.git",
-                "reference": "95132ce755bfbb25bbb1d63a6447093748edfb7f"
+                "reference": "b362a422a90d4fdd52f1647bb11661216f1eba70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/ziggy/zipball/95132ce755bfbb25bbb1d63a6447093748edfb7f",
-                "reference": "95132ce755bfbb25bbb1d63a6447093748edfb7f",
+                "url": "https://api.github.com/repos/tighten/ziggy/zipball/b362a422a90d4fdd52f1647bb11661216f1eba70",
+                "reference": "b362a422a90d4fdd52f1647bb11661216f1eba70",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": ">=5.4@dev"
+                "ext-json": "*",
+                "laravel/framework": ">=9.0",
+                "php": ">=8.1"
             },
             "require-dev": {
-                "orchestra/testbench": "^6.0",
-                "phpunit/phpunit": "^9.2"
+                "orchestra/testbench": "^7.0 || ^8.0 || ^9.0",
+                "phpunit/phpunit": "^9.5 || ^10.3"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Tightenco\\Ziggy\\ZiggyServiceProvider"
+                        "Tighten\\Ziggy\\ZiggyServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Tightenco\\Ziggy\\": "src/"
+                    "Tighten\\Ziggy\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -5626,7 +5629,7 @@
                     "email": "jacob@tighten.co"
                 }
             ],
-            "description": "Generates a Blade directive exporting all of your named Laravel routes. Also provides a nice route() helper function in JavaScript.",
+            "description": "Use your Laravel named routes in JavaScript.",
             "homepage": "https://github.com/tighten/ziggy",
             "keywords": [
                 "Ziggy",
@@ -5636,9 +5639,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/ziggy/issues",
-                "source": "https://github.com/tighten/ziggy/tree/v1.0.0"
+                "source": "https://github.com/tighten/ziggy/tree/main"
             },
-            "time": "2020-11-06T22:19:04+00:00"
+            "time": "2024-02-20T21:12:24+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -8228,7 +8231,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "tightenco/ziggy": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

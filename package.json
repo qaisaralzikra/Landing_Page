@@ -20,6 +20,6 @@
         "@vitejs/plugin-vue": "^5.2.4",
         "sweetalert2": "^11.22.2",
         "vue": "^3.5.14",
-        "ziggy-js": "2.0"
+        "ziggy-js": "^1.8.2"
     }
 }

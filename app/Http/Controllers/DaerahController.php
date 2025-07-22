@@ -36,13 +36,13 @@ class DaerahController extends Controller
         $validated = $request->validate([
             'logo_daerah' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_daerah' => 'required|string',
-            'deskripsi' => 'required|text',
+            'deskripsi' => 'required|string',
             'daerah' => 'required|in:Kabupaten,Kota',
         ]);
 
         // Simpan gambar
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('images', 'public');
+        if ($request->hasFile('logo_daerah')) {
+            $validated['logo_daerah'] = $request->file('logo_daerah')->store('images', 'public');
         }
 
         Daerah::create($validated);
