@@ -6,7 +6,7 @@
         data-kt-drawer-name="app-sidebar"
         data-kt-drawer-activate="{default: true, lg: false}"
         data-kt-drawer-overlay="true"
-        data-kt-drawer-width="225px"
+        data-kt-drawer-width="268px"
         data-kt-drawer-direction="start"
         data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle"
     >
@@ -151,82 +151,32 @@
                         </div>
                     </div>
                     <a
-                        class="btn btn-flex btn-color-primary d-flex flex-stack fs-base p-0 ms-2 mb-2 toggle collapsible collapsed"
+                        class="btn btn-flex btn-color-primary d-flex  fs-base p-0 ms-2 mb-2 toggle collapsible collapsed"
                         data-bs-toggle="collapse"
                         href="#kt_app_sidebar_menu_dashboards_collapse"
-                        data-kt-toggle-text="Show Less"
+                        data-kt-toggle-text="Sembunyikan"
                     >
-                        <span data-kt-toggle-text-target="true"
-                            >Show 12 More</span
+                        <span class="svg-icon toggle-on svg-icon-2 ">
+                            <i class="ri-add-line"></i>
+                            
+                        </span>
+                        <span class="svg-icon toggle-off svg-icon-2 ">
+                            <i class="ri-subtract-line"></i>
+                        </span>
+                         <span data-kt-toggle-text-target="true"
+                            >Lihat 12 Lainnya</span
                         >
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen036.svg-->
-                        <span class="svg-icon toggle-on svg-icon-2 me-0">
-                            <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <rect
-                                    opacity="0.3"
-                                    x="2"
-                                    y="2"
-                                    width="20"
-                                    height="20"
-                                    rx="5"
-                                    fill="currentColor"
-                                />
-                                <rect
-                                    x="6.0104"
-                                    y="10.9247"
-                                    width="12"
-                                    height="2"
-                                    rx="1"
-                                    fill="currentColor"
-                                />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
-                        <span class="svg-icon toggle-off svg-icon-2 me-0">
-                            <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <rect
-                                    opacity="0.3"
-                                    x="2"
-                                    y="2"
-                                    width="20"
-                                    height="20"
-                                    rx="5"
-                                    fill="currentColor"
-                                />
-                                <rect
-                                    x="10.8891"
-                                    y="17.8033"
-                                    width="12"
-                                    height="2"
-                                    rx="1"
-                                    transform="rotate(-90 10.8891 17.8033)"
-                                    fill="currentColor"
-                                />
-                                <rect
-                                    x="6.01041"
-                                    y="10.9247"
-                                    width="12"
-                                    height="2"
-                                    rx="1"
-                                    fill="currentColor"
-                                />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
+                        
+
+                        <!-- isi -->
+                                            
                     </a>
+                     <div class="menu-inner flex-column collapse" id="kt_app_sidebar_menu_dashboards_collapse">
+
+                        pdcoekof
+                    </div>
+
+
 
                     <div class="menu-item pt-4">
                         <div class="menu-content py-1">
@@ -312,4 +262,33 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.menu-link-mysecondary:hover {
+    background-color: #3B82F61A; /* Bootstrap light */
+    
+}
+
+.menu-link-mysecondary:hover .menu-title,
+.menu-link-mysecondary:hover .menu-icon i {
+    color: #000000 ; /* Bootstrap primary */
+}
+
+.menu-title{
+    font-size: 16px;
+}
+
+.menu-link-mysecondary,
+.menu-link-mysecondary .menu-title,
+.menu-link-mysecondary .menu-icon i {
+    transition: all 0.1s ease-in-out;
+    color: #3C3C43BF;
+  
+}
+
+.menu-link.active {
+    background-color:  #3B82F61A; /* abu lebih gelap */
+    font-weight: bold;
+    color: #000000;
+}
+
+</style>
