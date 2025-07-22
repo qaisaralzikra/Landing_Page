@@ -47,7 +47,7 @@ class DaerahController extends Controller
 
         Daerah::create($validated);
 
-        return redirect()->route('index.admin')->with('success', 'Anda berhasil Login.');
+        return redirect()->route('index.admin');
     }
 
     /**

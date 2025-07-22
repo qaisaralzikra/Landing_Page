@@ -27,16 +27,17 @@
                 </form>
             </div>
             <div class="d-flex flex-row gap-4 align-items-center">
-                <div
-                    class="border-1 form-control rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
+                <button
+                    class="border-1 rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
                     style="
+                        border: 1px solid;
                         color: rgba(60, 60, 67, 0.75);
                         border-color: rgba(60, 60, 67, 0.75);
                     "
                 >
                     <p class="ri-filter-3-line fs-1 m-0"></p>
                     <p class="fs-3 fw-semibold m-0">Terbaru</p>
-                </div>
+                </button>
                 <button
                     @click="
                         () => {
@@ -46,7 +47,7 @@
                     "
                     class="btn-primary btn py-1 rounded-2 text-white px-4 d-flex flex-row gap-3 align-items-center"
                 >
-                    <p class="m-0 ri-add-fill fs-1"></p>
+                    <p class="m-0 ri-add-fill fs-1 m-0"></p>
                     <p class="fs-3 fw-semibold m-0">Daerah</p>
                 </button>
             </div>
@@ -84,23 +85,24 @@
         </div>
     </div>
     <div
-        class="app-main flex-column flex-row-fluid justify-content-center align-self-center align-self-lg-start"
+        class="app-main flex-column flex-row-fluid justify-content-center  align-self-lg-start"
         id="kt_app_main"
     >
         <div class="d-flex flex-column flex-column-fluid mt-5 mt-lg-0">
             <div class="container-fluid float-start mt-20 mt-lg-0">
-                <div class="my-1 d-flex flex-wrap gap-20 gap-md-15 gap-lg-8">
+                <div class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5 justify-content-center justify-content-lg-start">
                     <div
                         v-for="album in daerahs"
                         :key="album.id"
-                        class="ps-5 pt-12 pb-6 pe-5 rounded-2 shadow-sm bg-white d-flex flex-column gap-5 align-items-center text-center"
-                        style="max-width: 200px; width: 150px"
+                        class="justify-content-center rounded-2 shadow-sm bg-white d-flex flex-column gap-5 align-items-center text-center"
+                        style="width: 175px; height: 232px"
                     >
                         <div>
                             <img
                                 :src="`/storage/${album.logo_daerah}`"
                                 alt=""
-                                class="w-70px h-70px w-lg-100px h-lg-75px"
+                                class="w-70px h-90px w-lg-80px h-lg-100px"
+                                
                             />
                         </div>
                         <div class="d-flex flex-column gap-0">
@@ -212,25 +214,25 @@
                                             v-model="form.daerah"
                                             name=""
                                             id=""
-                                            class="border-1 border-secondary w-60px form-control bg-secondary"
+                                            class="w-60px border-1 input-group border-secondary form-control bg-secondary"
                                             style="border-radius: 2px 0 0 2px"
                                         >
                                             <option
                                                 value="Kabupaten"
-                                                class="fs-5 py-1 px-1"
+                                                class="fs-5"
                                             >
                                                 Kab
                                             </option>
                                             <option
                                                 value="Kota"
-                                                class="fs-5 py-1 px-1"
+                                                class="fs-5"
                                             >
                                                 Kota
                                             </option>
                                         </select>
                                         <input
                                             type="text"
-                                            class="form-control fs-5"
+                                            class="form-control"
                                             style="border-radius: 0 2px 2px 0"
                                             v-model="form.nama_daerah"
                                             placeholder="Masukkan nama daerah..."
@@ -279,7 +281,7 @@
                             class="btn btn-sm btn-dark fs-5"
                         >
                             <span class="indicator-label">
-                                Tambah Partner
+                                Tambah daerah
                             </span>
                             <span class="indicator-progress">
                                 Mohon Tunggu...
