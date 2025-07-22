@@ -11,17 +11,47 @@ class DaerahController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $daerah = Daerah::all();
-        $activities = Daerah::count();
-        
-        return Inertia::render('Main/Admin/Daftar_Kab', [
-            'daerahs' => $daerah,
-            'jumlah' => $activities
+        $search = $request->query('q');
 
+        $query = Daerah::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('daerah', 'like', "%$search%")
+                    ->orWhere('nama_daerah', 'like', "%$search%");
+            });
+        }
+
+        $daerahs = $query->get();
+        $jumlah = $daerahs->count();
+
+        return Inertia::render('Main/Admin/Daftar_Kab', [ // sesuai path Vue
+            'daerahs' => $daerahs,
+            'jumlah' => $jumlah,
         ]);
     }
+
+    // public function search(Request $request)
+    // {
+    //     $search = $request->query('q');
+
+    //     $query = Daerah::query();
+
+    //     if ($search) {
+    //         $query->where(function ($q) use ($search) {
+    //             $q->where('daerah', 'like', '%' . $search . '%')
+    //                 ->orWhere('nama_daerah', 'like', '%' . $search . '%');
+    //         });
+    //     }
+
+    //     $data = $query->get();
+
+    //     return Inertia::render('Main/Admin/Daftar_Kab', [
+    //         'data' => $data,
+    //     ]);
+    // }
 
     /**
      * Show the form for creating a new resource.

@@ -1,22 +1,28 @@
 <template>
     <navigation>
-
         <div class="d-flex flex-column gap-1">
             <div>
-                <ol class="text-muted fs-6 d-flex flex-row gap-4 align-items-center p-0" style="font-weight: 700;">
-                    <span class=" fs-4 text-primary">Dashboard</span>
+                <ol
+                    class="text-muted fs-6 d-flex flex-row gap-4 align-items-center p-0"
+                    style="font-weight: 700"
+                >
+                    <span class="fs-4 text-primary">Dashboard</span>
                     <span class="fs-1">/</span>
-                    <span class=" fs-4">Daftar Daerah</span>
+                    <span class="fs-4">Daftar Daerah</span>
                 </ol>
             </div>
             <div class="d-flex flex-row align-items-center gap-5">
                 <h1 class="fs-2qx">Daftar Daerah</h1>
-                <span class="text-primary py-1 px-5 fs-5 rounded-4 fw-bold" style="background-color: rgba(59, 130, 246, 0.1);">{{ jumlah }}</span>
+                <span
+                    class="text-primary py-1 px-5 fs-5 rounded-4 fw-bold"
+                    style="background-color: rgba(59, 130, 246, 0.1)"
+                    >{{ jumlah }}</span
+                >
             </div>
             <div
                 class="d-flex flex-column flex-lg-row gap-4 justify-content-lg-between"
             >
-                <div >
+                <div>
                     <form
                         @submit.prevent="handleSearch"
                         class="d-flex align-items-center position-relative my-1"
@@ -24,8 +30,9 @@
                         <i class="bi bi-search position-absolute ms-5 fs-4"></i>
                         <input
                             type="text"
-                            class=" ps-13 fs-5 py-3 rounded-2 w-75 w-md-300px w-lg-350px"
-                            style="border: 1px solid rgba(60, 60, 67, 0.25);"
+                            v-model="search"
+                            class="ps-13 fs-5 py-3 rounded-2 w-75 w-md-300px w-lg-350px"
+                            style="border: 1px solid rgba(60, 60, 67, 0.25)"
                             placeholder="Cari Daerah"
                         />
                     </form>
@@ -57,7 +64,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div
             v-if="daerahs.length === 0"
             class="app-main flex-column flex-row-fluid justify-content-center align-self-center mx-10"
@@ -66,7 +73,9 @@
         >
             <div class="d-flex flex-column flex-column-fluid">
                 <div class="container-fluid float-start">
-                    <div class="my-20 d-flex flex-wrap gap-20 gap-md-15 gap-lg-8">
+                    <div
+                        class="my-20 d-flex flex-wrap gap-20 gap-md-15 gap-lg-8"
+                    >
                         <div>
                             <div
                                 class="text-center py-0 d-flex align-items-center flex-column"
@@ -89,29 +98,35 @@
             </div>
         </div>
         <div
-            class="app-main flex-column flex-row-fluid justify-content-center  align-self-lg-start"
+            class="app-main flex-column flex-row-fluid justify-content-center align-self-lg-start"
             id="kt_app_main"
         >
             <div class="d-flex flex-column flex-column-fluid mt-0 mt-lg-0">
                 <div class="container-fluid float-start mt-10 mt-lg-8 p-0">
-                    <div class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5">
+                    <div
+                        class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5"
+                    >
                         <div
                             v-for="daerah in daerahs"
                             :key="daerah.id"
-                            class="justify-content-center rounded-2  bg-white d-flex flex-column gap-5 align-items-center text-center w-150px h-200px w-md-175px h-md-225px"
-                            style="width: 175px; height: 232px; border: 1px solid rgba(118, 118, 128, 0.12);"
+                            class="justify-content-center rounded-2 bg-white d-flex flex-column gap-5 align-items-center text-center w-150px h-200px w-md-175px h-md-225px"
+                            style="
+                                width: 175px;
+                                height: 232px;
+                                border: 1px solid rgba(118, 118, 128, 0.12);
+                            "
                         >
                             <div>
                                 <img
                                     :src="`/storage/${daerah.logo_daerah}`"
                                     alt=""
-                                    class="w-90px h-100px w-lg-100px h-lg-110px"
+                                    class="w-90px h-100px w-lg-100px h-lg-110px rounded-2"
                                 />
                             </div>
                             <div class="d-flex flex-column gap-0">
                                 <span
                                     class="text-center fw-normal text-uppercase fs-6"
-                                    style="color: rgba(60, 60, 67, 0.75);"
+                                    style="color: rgba(60, 60, 67, 0.75)"
                                     >{{ daerah.daerah }}</span
                                 >
                                 <span
@@ -156,7 +171,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body bg-light p-6 d-flex flex-column gap-7">
+                    <div
+                        class="card-body bg-light p-6 d-flex flex-column gap-7"
+                    >
                         <div class="flex-grow-1">
                             <div class="card border border-gray-300">
                                 <div
@@ -189,8 +206,8 @@
                                                     <h3
                                                         class="fs-5 fw-bold text-gray-900 mb-2"
                                                     >
-                                                        Jatuhkan file di sini / klik
-                                                        untuk mengunggah.
+                                                        Jatuhkan file di sini /
+                                                        klik untuk mengunggah.
                                                     </h3>
                                                     <span
                                                         class="fs-7 fw-semibold text-gray-400"
@@ -218,7 +235,9 @@
                                                 name=""
                                                 id=""
                                                 class="w-60px border-1 input-group border-secondary form-control bg-secondary"
-                                                style="border-radius: 2px 0 0 2px"
+                                                style="
+                                                    border-radius: 2px 0 0 2px;
+                                                "
                                             >
                                                 <option
                                                     value="Kabupaten"
@@ -236,7 +255,9 @@
                                             <input
                                                 type="text"
                                                 class="form-control"
-                                                style="border-radius: 0 2px 2px 0"
+                                                style="
+                                                    border-radius: 0 2px 2px 0;
+                                                "
                                                 v-model="form.nama_daerah"
                                                 placeholder="Masukkan nama daerah..."
                                             />
@@ -248,7 +269,7 @@
                                             {{ form.errors.name_daerah }}
                                         </div>
                                     </div>
-    
+
                                     <div class="fv-row">
                                         <label class="required form-label fs-5"
                                             >Deskripsi</label
@@ -306,11 +327,12 @@ defineOptions({
     name: "Daftar_Kab",
 });
 
-import { Head, useForm, usePage } from "@inertiajs/vue3";
+import { Head, useForm, usePage, router } from "@inertiajs/vue3";
 import Swal from "sweetalert2";
 import { ref, nextTick, watch, onMounted } from "vue";
 import Dropzone from "dropzone";
 import navigation from "../../../Layout/navigation.vue";
+import { debounce } from "lodash";
 
 defineProps({
     daerahs: {
@@ -318,6 +340,28 @@ defineProps({
         default: () => [],
     },
     jumlah: Number,
+});
+
+// Ambil query q dari URL jika ada
+const search = ref(new URL(document.location).searchParams.get("q") || "");
+
+// Kirim pencarian ke server
+const handleSearch = debounce(() => {
+    console.log("🔍 Search triggered: ", search.value);
+    router.get(
+        route("index.admin"),
+        {
+            q: search.value,
+        },
+        {
+            preserveState: true,
+            replace: true,
+        }
+    );
+}, 500);
+
+watch(search, () => {
+    handleSearch();
 });
 
 const dropzoneKey = ref(Date.now());
@@ -409,8 +453,8 @@ const submit = () => {
                 timer: 2000,
             });
             setTimeout(() => {
-                    window.location.reload();
-                }, 100);
+                window.location.reload();
+            }, 100);
             cleanup();
             form.reset("");
         },
