@@ -1,7 +1,10 @@
 import { createApp, h } from 'vue'
-import { createInertiaApp } from '@inertiajs/vue3'
+import { createInertiaApp, Head} from '@inertiajs/vue3'
+import { ZiggyVue } from 'ziggy-js/vue';    // precise import path
+import { Ziggy } from './ziggy';    
 
 createInertiaApp({
+  title: (title) => `Admin ${title}`,
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
     return pages[`./Pages/${name}.vue`]
@@ -9,6 +12,8 @@ createInertiaApp({
   setup({ el, App, props, plugin }) {
     createApp({ render: () => h(App, props) })
       .use(plugin)
+      .use(ZiggyVue,Ziggy)
+      .component('Head', Head)
       .mount(el)
   },
   progress: {

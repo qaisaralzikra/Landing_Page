@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\DaerahController;
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Main/Admin/Main_Dashboard');
 });
-Route::get('/daftarkab', function () {
-    return Inertia::render('Main/Admin/Daftar_Kab');
-});
+
+Route::post('/daerah', [DaerahController::class, 'store'])->name('daerah.store');
+Route::get('/daftarkab', [DaerahController::class, 'index'])->name('index.admin');
