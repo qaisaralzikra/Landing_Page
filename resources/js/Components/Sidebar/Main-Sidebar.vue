@@ -124,7 +124,7 @@
                         :key="daerah.id"
                     >
                         <Link
-                            class="menu-link menu-link-mysecondary"
+                            class="menu-link menu-link-mysecondary d-flex flex-row align-items-center"
                             :class="{
                                 active: $page.url.startsWith(
                                     '/admin/galleries'
@@ -137,16 +137,19 @@
                                 alt=""
                                 srcset=""
                                 class="rounded-2 me-4"
-                                style="width: 17px"
+                                width="19px"
+                                height="20px"
                             />
                             <span
+                                class="text-capitalize"
                                 :class="[
                                     $page.url.startsWith('/admin/galleries')
                                         ? 'fw-bold'
                                         : 'fw-semibold',
                                     'menu-title fs-4',
                                 ]"
-                                >{{ daerah.nama_daerah }}</span
+                                >{{ daerah.nama_daerah }}
+                            </span
                             >
                         </Link>
                     </div>
@@ -155,25 +158,25 @@
                             class="menu-inner flex-column collapse"
                             id="kt_app_sidebar_menu_dashboards_collapse"
                         >
-                            
-                        </div>
+                        <!-- isi -->
+                    </div>
                         <a
-                            class="btn btn-flex btn-color-primary d-flex fs-base p-0 ms-2 mb-2 toggle collapsible collapsed"
+                            class="btn btn-flex btn-color-primary d-flex fs-5 p-0 ms-2 mb-2 toggle collapsible collapsed"
                             data-bs-toggle="collapse"
                             href="#kt_app_sidebar_menu_dashboards_collapse"
                             data-kt-toggle-text="Sembunyikan"
                         >
-                            <span class="svg-icon toggle-on svg-icon-2">
-                                <i class="ri-add-line"></i>
+                            <span class="svg-icon toggle-on  svg-icon-2">
+                                <i class="ri-add-line fs-4"></i>
                             </span>
-                            <span class="svg-icon toggle-off svg-icon-2">
-                                <i class="ri-subtract-line"></i>
+                            <span class="svg-icon toggle-off  svg-icon-2">
+                                <i class="ri-subtract-line fs-4"></i>
                             </span>
                             <span data-kt-toggle-text-target="true"
                                 >Lihat 12 Lainnya</span
                             >
 
-                            <!-- isi -->
+                            
                         </a>
                     </div>
 
