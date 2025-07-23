@@ -45,6 +45,30 @@ class DaerahController extends Controller
         ]);
     }
 
+    public function componentHeroSection($nama_daerah)
+    {
+        // Decode jika URL mengandung spasi atau karakter khusus
+        $nama_daerah = urldecode($nama_daerah);
+
+        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
+
+        return Inertia::render('Main/Admin/Daerah_Components/HeroSection', [
+            'daerah' => $daerah,
+        ]);
+    }
+
+    public function componentAppSection($nama_daerah)
+    {
+        // Decode jika URL mengandung spasi atau karakter khusus
+        $nama_daerah = urldecode($nama_daerah);
+
+        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
+
+        return Inertia::render('Main/Admin/Daerah_Components/AppSection', [
+            'daerah' => $daerah,
+        ]);
+    }
+
 
     // public function search(Request $request)
     // {

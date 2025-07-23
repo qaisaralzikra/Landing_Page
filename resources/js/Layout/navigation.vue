@@ -27,7 +27,7 @@
                     id="kt_app_wrapper"
                 >
                     <main-sidebar />
-                    <div class="mx-10 my-10">
+                    <div class="mx-10 my-5">
                         <slot />
                     </div>
                 </div>
