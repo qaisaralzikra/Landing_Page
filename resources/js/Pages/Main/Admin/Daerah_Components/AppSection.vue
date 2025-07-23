@@ -4,7 +4,58 @@
         :reset-form="resetForm"
         :open-drawer="openDrawer"
     >
-        <div class="mt-10 mt-lg-8"></div>
+        <div
+            v-if="app.length === 0"
+            class="app-main flex-column flex-row-fluid justify-content-center align-self-center mx-10"
+            style="justify-self: center"
+            id="kt_app_main"
+        >
+            <div class="d-flex flex-column flex-column-fluid">
+                <div class="container-fluid float-start">
+                    <div
+                        class="my-20 d-flex flex-wrap gap-20 gap-md-15 gap-lg-8"
+                    >
+                        <div>
+                            <div
+                                class="text-center py-0 d-flex align-items-center flex-column"
+                            >
+                                <img
+                                    src="../../../../../../public/assets/media/illustrations/empty.png"
+                                    alt="Tidak ada data"
+                                    class="mh-300px"
+                                />
+                                <h2 class="text-gray-800 mb-4">
+                                    Data Tidak Ditemukan
+                                </h2>
+                                <p class="text-gray-600 fs-4">
+                                    Belum ada data atau pencarian tidak sesuai.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-10 mt-lg-8">
+            <div v-for="apps in app" :key="apps.id" class="bg-white rounded-2">
+                <div>
+                    <img
+                        :src="`/storage/${apps.logo_app}`"
+                        alt=""
+                        class="rounded-4"
+                        width="253px"
+                        height="200px"
+                    />
+                </div>
+                <div>
+                    <span>{{ apps.nama_app }}</span>
+                </div>
+                <div>
+                    <span>{{ apps.deskripsi }}</span>
+                </div>
+                <div></div>
+            </div>
+        </div>
         <form @submit.prevent="submit" style="z-index: 1000">
             <div
                 id="kt_drawer_example_advanced"
@@ -192,7 +243,7 @@ const page = usePage();
 
 const { daerah } = defineProps({
     daerah: Object,
-    hero: Object,
+    app: Object,
     errors: Object,
     flash: Object,
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AppSection;
 use App\Models\Daerah;
 use App\Models\HeroSection;
 use Illuminate\Http\Request;
@@ -75,11 +76,11 @@ class DaerahController extends Controller
     {
         $search = $request->query('q');
 
-        $query = HeroSection::query();
+        $query = AppSection::query();
 
         if ($search) {
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%$search%")
+                $q->where('nama_app', 'like', "%$search%")
                     ->orWhere('subtitle', 'like', "%$search%");
             });
         }
@@ -92,7 +93,7 @@ class DaerahController extends Controller
 
         return Inertia::render('Main/Admin/Daerah_Components/AppSection', [
             'daerah' => $daerah,
-            'hero' => $heros,
+            'app' => $heros,
         ]);
     }
 
