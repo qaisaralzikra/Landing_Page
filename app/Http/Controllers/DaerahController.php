@@ -33,6 +33,19 @@ class DaerahController extends Controller
         ]);
     }
 
+    public function showByNama($nama_daerah)
+    {
+        // Decode jika URL mengandung spasi atau karakter khusus
+        $nama_daerah = urldecode($nama_daerah);
+
+        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
+
+        return Inertia::render('Main/Admin/Daerah_Show', [
+            'daerah' => $daerah,
+        ]);
+    }
+
+
     // public function search(Request $request)
     // {
     //     $search = $request->query('q');

@@ -4,11 +4,10 @@
             <div>
                 <ol
                     class="text-muted fs-6 d-flex flex-row gap-4 align-items-center p-0"
-                    style="font-weight: 700"
                 >
-                    <span class="fs-4 text-primary">Dashboard</span>
+                    <span class="fs-4 text-primary" style="font-weight: 700">Dashboard</span>
                     <span class="fs-1">/</span>
-                    <span class="fs-4">Daftar Daerah</span>
+                    <span class="fs-4" style="font-weight: 400">Daftar Daerah</span>
                 </ol>
             </div>
             <div class="d-flex flex-row align-items-center gap-5">
@@ -86,10 +85,10 @@
                                     class="mh-300px"
                                 />
                                 <h2 class="text-gray-800 mb-4">
-                                    Album Tidak Ditemukan
+                                    Data Tidak Ditemukan
                                 </h2>
                                 <p class="text-gray-600 fs-4">
-                                    Belum ada album atau pencarian tidak sesuai.
+                                    Belum ada data atau pencarian tidak sesuai.
                                 </p>
                             </div>
                         </div>
