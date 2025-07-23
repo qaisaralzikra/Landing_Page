@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Daerah;
+use App\Models\HeroSection;
 use Illuminate\Http\Request;
 use inertia\Inertia;
 
@@ -45,8 +46,20 @@ class DaerahController extends Controller
         ]);
     }
 
-    public function componentHeroSection($nama_daerah)
+    public function componentHeroSection($nama_daerah, Request $request)
     {
+        $search = $request->query('q');
+
+        $query = HeroSection::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%")
+                    ->orWhere('subtitle', 'like', "%$search%");
+            });
+        }
+
+        $heros = $query->get();
         // Decode jika URL mengandung spasi atau karakter khusus
         $nama_daerah = urldecode($nama_daerah);
 
@@ -54,11 +67,24 @@ class DaerahController extends Controller
 
         return Inertia::render('Main/Admin/Daerah_Components/HeroSection', [
             'daerah' => $daerah,
+            'hero' => $heros,
         ]);
     }
 
-    public function componentAppSection($nama_daerah)
+    public function componentAppSection($nama_daerah, Request $request)
     {
+        $search = $request->query('q');
+
+        $query = HeroSection::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%")
+                    ->orWhere('subtitle', 'like', "%$search%");
+            });
+        }
+
+        $heros = $query->get();
         // Decode jika URL mengandung spasi atau karakter khusus
         $nama_daerah = urldecode($nama_daerah);
 
@@ -66,33 +92,10 @@ class DaerahController extends Controller
 
         return Inertia::render('Main/Admin/Daerah_Components/AppSection', [
             'daerah' => $daerah,
+            'hero' => $heros,
         ]);
     }
 
-
-    // public function search(Request $request)
-    // {
-    //     $search = $request->query('q');
-
-    //     $query = Daerah::query();
-
-    //     if ($search) {
-    //         $query->where(function ($q) use ($search) {
-    //             $q->where('daerah', 'like', '%' . $search . '%')
-    //                 ->orWhere('nama_daerah', 'like', '%' . $search . '%');
-    //         });
-    //     }
-
-    //     $data = $query->get();
-
-    //     return Inertia::render('Main/Admin/Daftar_Kab', [
-    //         'data' => $data,
-    //     ]);
-    // }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
@@ -117,9 +120,8 @@ class DaerahController extends Controller
 
         Daerah::create($validated);
 
-        return redirect()->route('index.admin');
+        return redirect()->route(route: 'index.admin');
     }
-
     /**
      * Display the specified resource.
      */

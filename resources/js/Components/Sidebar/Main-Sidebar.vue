@@ -9,6 +9,7 @@
         data-kt-drawer-width="268px"
         data-kt-drawer-direction="start"
         data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle"
+        style="width: 268px"
     >
         <div
             class="app-sidebar-logo px-6 border-end border-gray-300"
@@ -291,10 +292,12 @@
                             >
                         </Link>
                     </div>
+                    <slot></slot>
                 </div>
             </div>
         </div>
     </div>
+    
 </template>
 
 <script setup>
@@ -304,6 +307,8 @@ import route from "ziggy-js";
 const page = usePage();
 
 const post = page.props.daerahs;
+
+
 </script>
 
 <style>
