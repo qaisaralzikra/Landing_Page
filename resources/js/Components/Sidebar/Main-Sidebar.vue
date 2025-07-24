@@ -137,9 +137,7 @@
                             <img
                                 :src="`/storage/${daerah.logo_daerah}`"
                                 alt=""
-                                class="rounded-2 me-4"
-                                width="19"
-                                height="20"
+                                class="rounded-2 me-4 w-20px h-20px"
                             />
                             <span
                                 class="text-capitalize"
@@ -185,9 +183,7 @@
                                     <img
                                         :src="`/storage/${daerah.logo_daerah}`"
                                         alt=""
-                                        class="rounded-2 me-4"
-                                        width="19"
-                                        height="20"
+                                        class="rounded-2 me-4 w-20px h-20px"
                                     />
                                     <span
                                         class="text-capitalize"
