@@ -132,7 +132,7 @@
                                 ),
                             }"
                             :href="
-                                route('daerah.show.nama', daerah.nama_daerah)
+                                route('daerah.show.hero', daerah.nama_daerah)
                             "
                         >
                             <img
@@ -292,7 +292,6 @@
                             >
                         </Link>
                     </div>
-                    <slot></slot>
                 </div>
             </div>
         </div>

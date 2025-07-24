@@ -33,6 +33,7 @@ class AppSectionController extends Controller
             'logo_app' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_app' => 'required|string',
             'deskripsi' => 'required|string',
+            'link' => 'required|string',
             'daerah_id' => 'required|exists:daerahs,id',
         ]);
 
