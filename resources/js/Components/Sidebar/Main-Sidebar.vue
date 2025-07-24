@@ -52,7 +52,7 @@
                             class="menu-link menu-link-mysecondary"
                             :class="{
                                 active: $page.url.startsWith(
-                                    '/admin/dashboard'
+                                    '/dashboard'
                                 ),
                             }"
                             href="/dashboard"
@@ -60,7 +60,7 @@
                             <span class="menu-icon">
                                 <i
                                     :class="[
-                                        $page.url.startsWith('/admin/dashboard')
+                                        $page.url.startsWith('/dashboard')
                                             ? 'ri-dashboard-fill'
                                             : 'ri-dashboard-line',
                                         'fs-2',
@@ -69,10 +69,9 @@
                             </span>
                             <span
                                 :class="[
-                                    $page.url.startsWith('/admin/dashboard')
-                                        ? 'fw-bold'
-                                        : 'fw-semibold',
-                                    'menu-title fs-4',
+                                    $page.url.startsWith('/dashboard')
+                                        ? ['fw-bold', 'text-dark']
+                                        :'menu-title ',
                                 ]"
                                 >Dashboard</span
                             >
@@ -83,7 +82,7 @@
                             class="menu-link menu-link-mysecondary"
                             :class="{
                                 active: $page.url.startsWith(
-                                    '/admin/dashboard'
+                                    '/daftarkab'
                                 ),
                             }"
                             href="/daftarkab"
@@ -91,7 +90,7 @@
                             <span class="menu-icon">
                                 <i
                                     :class="[
-                                        $page.url.startsWith('/admin/dashboard')
+                                        $page.url.startsWith('/daftarkab')
                                             ? 'ri-bank-fill'
                                             : 'ri-bank-line',
                                         'fs-2',
@@ -100,10 +99,10 @@
                             </span>
                             <span
                                 :class="[
-                                    $page.url.startsWith('/admin/dashboard')
-                                        ? 'fw-bold'
+                                    $page.url.startsWith('/daftarkab')
+                                        ? ['fw-bold', 'text-dark']
                                         : 'fw-semibold',
-                                    'menu-title fs-4',
+                                    ' fs-4',
                                 ]"
                                 >Daftar Daerah</span
                             >
@@ -298,7 +297,8 @@ const post = page.props.daerahs;
 
 .menu-title {
     font-family: "NunitoSans", sans-serif;
-    font-size: 1.2rem;
+    font-weight: 600;
+   
 }
 
 .menu-link-mysecondary,
