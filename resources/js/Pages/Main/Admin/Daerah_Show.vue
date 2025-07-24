@@ -25,14 +25,14 @@ const { daerah } = defineProps({
                         >Daftar Daerah</span
                     >
                     <span class="fs-1">/</span>
-                    <span class="fs-4" style="font-weight: 400">{{
+                    <span class="fs-4 text-capitalize" style="font-weight: 400">{{
                         daerah.nama_daerah
                     }}</span>
                 </ol>
             </div>
             <div class="d-flex flex-row align-items-center gap-5">
-                <h1 class="fs-2qx">{{ daerah.daerah }}</h1>
-                <h1 class="fs-2qx">{{ daerah.nama_daerah }}</h1>
+                <h1 class="fs-2qx text-capitalize">{{ daerah.daerah }}</h1>
+                <h1 class="fs-2qx text-capitalize">{{ daerah.nama_daerah }}</h1>
             </div>
             <div
                 class="d-flex flex-column gap-10 flex-lg-row justify-content-lg-between"

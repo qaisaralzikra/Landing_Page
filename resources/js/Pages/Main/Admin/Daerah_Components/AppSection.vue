@@ -5,7 +5,7 @@
         :open-drawer="openDrawer"
     >
         <div
-            v-if="app.length === 0"
+            v-if="apps.length === 0"
             class="app-main flex-column flex-row-fluid justify-content-center align-self-center mx-10"
             style="justify-self: center"
             id="kt_app_main"
@@ -36,24 +36,69 @@
                 </div>
             </div>
         </div>
-        <div class="mt-10 mt-lg-8">
-            <div v-for="apps in app" :key="apps.id" class="bg-white rounded-2">
-                <div>
-                    <img
-                        :src="`/storage/${apps.logo_app}`"
-                        alt=""
-                        class="rounded-4"
-                        width="253px"
-                        height="200px"
-                    />
+        <div
+            class="app-main flex-column flex-row-fluid justify-content-center align-self-lg-start"
+            id="kt_app_main"
+        >
+            <div class="d-flex flex-column flex-column-fluid mt-0 mt-lg-0">
+                <div class="container-fluid float-start mt-10 mt-lg-8 p-0">
+                    <div
+                        class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5"
+                    >
+                        <div
+                            v-for="app in apps"
+                            :key="app.id"
+                            class="p-3 d-flex flex-column gap-4 bg-white rounded-2 w-lg-275px"
+                            style="border: 1px solid rgba(118, 118, 128, 0.12)"
+                        >
+                            <div
+                                style="justify-self: center"
+                                class="w-md-250px h-md-200px w-150px h-100px"
+                            >
+                                <img
+                                    :src="`/storage/${app.logo_app}`"
+                                    alt=""
+                                    class="rounded-4 w-md-250px h-md-200px w-150px h-100px"
+                                />
+                            </div>
+                            <div style="justify-self: center">
+                                <span class="fw-bolder fs-2">{{
+                                    app.nama_app
+                                }}</span>
+                            </div>
+                            <div style="justify-self: center; color: rgba(60, 60, 67, 0.75);">
+                                <span class="fs-6" style="">{{
+                                    app.deskripsi
+                                }}</span>
+                            </div>
+                            <div style="justify-self: center" class="mt-auto">
+                                <a
+                                    target="_blank"
+                                    :href="`${app.link}`"
+                                    class="d-flex flex-row align-items-center justify-content-center mt-auto rounded-3 gap-1 text-white bg-primary py-3"
+                                >
+                                    <div
+                                        class="d-flex align-items-center gap-2 fw-bold"
+                                    >
+                                        <span>Buka Aplikasi</span>
+                                        <span
+                                            ><svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="w-15px h-15px"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                            >
+                                                <path
+                                                    d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"
+                                                ></path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <span>{{ apps.nama_app }}</span>
-                </div>
-                <div>
-                    <span>{{ apps.deskripsi }}</span>
-                </div>
-                <div></div>
             </div>
         </div>
         <form @submit.prevent="submit" style="z-index: 1000">
@@ -181,8 +226,23 @@
                                     </div>
                                     <div class="fv-row">
                                         <label class="required form-label fs-5"
-                                            >Daerah Id</label
+                                            >Link Aplikasi</label
                                         >
+                                        <input
+                                            type="text"
+                                            class="form-control fs-5"
+                                            v-model="form.link"
+                                            required
+                                            placeholder="Masukkan Link Aplikasi..."
+                                        />
+                                        <div
+                                            v-if="form.errors.link"
+                                            class="text-mydanger mt-2"
+                                        >
+                                            {{ form.errors.link }}
+                                        </div>
+                                    </div>
+                                    <div class="fv-row d-none">
                                         <input
                                             type="text"
                                             class="form-control fs-5"
@@ -232,7 +292,7 @@
 </template>
 
 <script setup>
-import { Head, useForm, usePage, router } from "@inertiajs/vue3";
+import { Head, useForm, usePage, router, Link } from "@inertiajs/vue3";
 import Swal from "sweetalert2";
 import { ref, nextTick, watch, onMounted } from "vue";
 import Dropzone from "dropzone";
@@ -243,7 +303,7 @@ const page = usePage();
 
 const { daerah } = defineProps({
     daerah: Object,
-    app: Object,
+    apps: Object,
     errors: Object,
     flash: Object,
 });
@@ -255,6 +315,7 @@ const form = useForm({
     logo_app: "",
     nama_app: "",
     deskripsi: "",
+    link: "",
     daerah_id: daerah.id,
 });
 
@@ -278,6 +339,7 @@ const resetForm = () => {
     form.logo_app = "";
     form.nama_app = "";
     form.deskripsi = "";
+    form.link = "";
 
     if (dropzoneRef.value) {
         dropzoneRef.value.removeAllFiles(true);
@@ -328,7 +390,7 @@ const submit = () => {
     }
     console.log(form);
     // console.log(route('anggotas.store'))
-    form.post(route("app.store", daerah.nama_daerah), payload, {
+    form.post(route("app.store", daerah.nama_daerah , payload), {
         forceFormData: true,
         onSuccess: () => {
             Swal.fire({

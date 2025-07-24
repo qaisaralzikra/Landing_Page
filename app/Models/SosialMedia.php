@@ -2,19 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Daerah;
 use Illuminate\Database\Eloquent\Model;
 
-class AppSection extends Model
+class SosialMedia extends Model
 {
-    protected $table = "app_sections";
-
     protected $fillable = [
-        'logo_app',
-        'nama_app',
-        'deskripsi',
         'daerah_id',
-        'link',
+        'media_sosial',
+        'link_sosmed',
     ];
 
     public function daerah()

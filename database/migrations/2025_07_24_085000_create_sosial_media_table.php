@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('sosial_media', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('daerah_id')->constrained()->onDelete('cascade');
+            $table->enum('media_sosial', ['instagram', 'facebook', 'youtube', 'x', 'email'])->nullable();
+            $table->string('link_sosmed')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('sosial_media');
+    }
+};

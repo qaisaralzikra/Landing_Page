@@ -120,6 +120,7 @@
   </div>
 </div>
 
+<<<<<<< HEAD
 <!-- 5 Pertama -->
 <div
   class="menu-item"
@@ -149,6 +150,45 @@
     </span>
   </Link>
 </div>
+=======
+                    <!-- 5 Pertama -->
+                    <div
+                        class="menu-item"
+                        v-for="daerah in post.slice(0, 5)"
+                        :key="daerah.id"
+                    >
+                        <Link
+                            class="menu-link menu-link-mysecondary d-flex flex-row align-items-center"
+                            :class="{
+                                active: $page.url.startsWith(
+                                    '/admin/galleries'
+                                ),
+                            }"
+                            :href="
+                                route('daerah.show.hero', daerah.nama_daerah)
+                            "
+                        >
+                            <img
+                                :src="`/storage/${daerah.logo_daerah}`"
+                                alt=""
+                                class="rounded-2 me-4"
+                                width="19"
+                                height="20"
+                            />
+                            <span
+                                class="text-capitalize"
+                                :class="[
+                                    $page.url.startsWith('/admin/galleries')
+                                        ? 'fw-bold'
+                                        : 'fw-semibold',
+                                    'menu-title fs-4',
+                                ]"
+                            >
+                                {{ daerah.nama_daerah }}
+                            </span>
+                        </Link>
+                    </div>
+>>>>>>> 2bdbe720f76915b1f906f874a971ea7e7be6c652
 
 <!-- Menu Tambahan (lebih dari 5) -->
 <div v-if="post.length > 5">

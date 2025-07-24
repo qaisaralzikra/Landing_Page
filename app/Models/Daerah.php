@@ -25,4 +25,9 @@ class Daerah extends Model
     {
         return $this->hasMany(AppSection::class);
     }
+
+    public function sosialMedia()
+    {
+        return $this->hasMany(SosialMedia::class);
+    }
 }
