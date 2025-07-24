@@ -1,7 +1,7 @@
 <template>
     <div
         id="kt_app_sidebar"
-        class="app-sidebar flex-column "
+        class="app-sidebar flex-column"
         data-kt-drawer="true"
         data-kt-drawer-name="app-sidebar"
         data-kt-drawer-activate="{default: true, lg: false}"
@@ -51,9 +51,7 @@
                         <Link
                             class="menu-link menu-link-mysecondary"
                             :class="{
-                                active: $page.url.startsWith(
-                                    '/dashboard'
-                                ),
+                                active: $page.url.startsWith('/dashboard'),
                             }"
                             href="/dashboard"
                         >
@@ -71,7 +69,8 @@
                                 :class="[
                                     $page.url.startsWith('/dashboard')
                                         ? ['fw-bold', 'text-dark']
-                                        :'menu-title ','fs-4'
+                                        : 'menu-title ',
+                                    'fs-4',
                                 ]"
                                 >Dashboard</span
                             >
@@ -81,9 +80,7 @@
                         <Link
                             class="menu-link menu-link-mysecondary"
                             :class="{
-                                active: $page.url.startsWith(
-                                    '/daftarkab'
-                                ),
+                                active: $page.url.startsWith('/daftarkab'),
                             }"
                             href="/daftarkab"
                         >
@@ -109,48 +106,17 @@
                         </Link>
                     </div>
                     <!-- Bagian Judul -->
-<div class="menu-item pt-4">
-  <div class="menu-content py-1">
-    <span
-      class="text-gray-500 fw-semibold text-uppercase fs-7"
-      style="letter-spacing: 0.06em"
-    >
-      PORTAL
-    </span>
-  </div>
-</div>
+                    <div class="menu-item pt-4">
+                        <div class="menu-content py-1">
+                            <span
+                                class="text-gray-500 fw-semibold text-uppercase fs-7"
+                                style="letter-spacing: 0.06em"
+                            >
+                                PORTAL
+                            </span>
+                        </div>
+                    </div>
 
-<<<<<<< HEAD
-<!-- 5 Pertama -->
-<div
-  class="menu-item"
-  v-for="(daerah, ) in post.slice(0, 5)"
-  :key="daerah.id"
->
-  <Link
-    class="menu-link menu-link-mysecondary d-flex flex-row align-items-center"
-    :class="{ active: $page.url.startsWith('/admin/galleries') }"
-    href="/admin/galleries"
-  >
-    <img
-      :src="`/storage/${daerah.logo_daerah}`"
-      alt=""
-      class="rounded-2 me-4"
-      width="19"
-      height="20"
-    />
-    <span
-      class="text-capitalize"
-      :class="[
-        $page.url.startsWith(`/daftarkab/${daerah.nama_daerah}`) ? 'fw-bold' : 'fw-semibold',
-        'menu-title fs-4',
-      ]"
-    >
-      {{ daerah.nama_daerah }}
-    </span>
-  </Link>
-</div>
-=======
                     <!-- 5 Pertama -->
                     <div
                         class="menu-item"
@@ -171,12 +137,16 @@
                             <img
                                 :src="`/storage/${daerah.logo_daerah}`"
                                 alt=""
-                                class="rounded-2 me-4 w-20px h-20px"
+                                class="rounded-2 me-4"
+                                width="19"
+                                height="20"
                             />
                             <span
                                 class="text-capitalize"
                                 :class="[
-                                    $page.url.startsWith('/admin/galleries')
+                                    $page.url.startsWith(
+                                        `/daftarkab/${daerah.nama_daerah}`
+                                    )
                                         ? 'fw-bold'
                                         : 'fw-semibold',
                                     'menu-title fs-4',
@@ -186,7 +156,6 @@
                             </span>
                         </Link>
                     </div>
->>>>>>> 2bdbe720f76915b1f906f874a971ea7e7be6c652
 
                     <!-- Menu Tambahan (lebih dari 5) -->
                     <div v-if="post.length > 5">
@@ -237,23 +206,24 @@
                             </div>
                         </div>
 
-  <!-- Tombol Toggle -->
-  <a
-    class="btn btn-flex btn-color-primary d-flex gap-2 fs-5 p-0 ms-4 mb-2 toggle collapsible collapsed"
-    data-bs-toggle="collapse"
-    href="#kt_app_sidebar_menu_dashboards_collapse"
-    data-kt-toggle-text="Sembunyikan"
-  >
-    <span class="svg-icon toggle-on svg-icon-2">
-      <i class="ri-add-line fs-4"></i>
-    </span>
-    <span class="svg-icon toggle-off svg-icon-2">
-      <i class="ri-subtract-line fs-4"></i>
-    </span>
-    <span data-kt-toggle-text-target="true">Lihat {{ post.length - 5 }} Lainnya</span>
-  </a>
-</div>
-
+                        <!-- Tombol Toggle -->
+                        <a
+                            class="btn btn-flex btn-color-primary d-flex gap-2 fs-5 p-0 ms-4 mb-2 toggle collapsible collapsed"
+                            data-bs-toggle="collapse"
+                            href="#kt_app_sidebar_menu_dashboards_collapse"
+                            data-kt-toggle-text="Sembunyikan"
+                        >
+                            <span class="svg-icon toggle-on svg-icon-2">
+                                <i class="ri-add-line fs-4"></i>
+                            </span>
+                            <span class="svg-icon toggle-off svg-icon-2">
+                                <i class="ri-subtract-line fs-4"></i>
+                            </span>
+                            <span data-kt-toggle-text-target="true"
+                                >Lihat {{ post.length - 5 }} Lainnya</span
+                            >
+                        </a>
+                    </div>
 
                     <div class="menu-item pt-4">
                         <div class="menu-content py-1">
@@ -331,6 +301,7 @@
 
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
+import route from 'ziggy-js';
 
 const page = usePage();
 
@@ -352,7 +323,6 @@ const post = page.props.daerahs;
 .menu-title {
     font-family: "NunitoSans", sans-serif;
     font-weight: 600;
-   
 }
 
 .menu-link-mysecondary,
