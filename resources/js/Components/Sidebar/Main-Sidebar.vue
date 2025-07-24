@@ -100,7 +100,7 @@
                                     $page.url.startsWith('/daftarkab')
                                         ? 'fw-bold'
                                         : 'fw-semibold',
-                                    'menu-title fs-4',
+                                    ' fs-4',
                                 ]"
                                 >Daftar Daerah</span
                             >
@@ -324,7 +324,8 @@ const post = page.props.daerahs;
 
 .menu-title {
     font-family: "NunitoSans", sans-serif;
-    font-size: 1.2rem;
+    font-weight: 600;
+   
 }
 
 .menu-link-mysecondary,
