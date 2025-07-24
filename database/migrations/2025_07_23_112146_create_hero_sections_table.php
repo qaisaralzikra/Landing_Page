@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('daerahs', function (Blueprint $table) {
+        Schema::create('hero_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('logo_daerah');
-            $table->enum('daerah', ['Kabupaten', 'Kota']);
-            $table->string('nama_daerah');
-            $table->text('deskripsi')->nullable();
+            $table->string('bgimage')->nullable();
+            $table->string('title');
+            $table->string('subtitle');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('daerahs');
+        Schema::dropIfExists('hero_sections');
     }
 };

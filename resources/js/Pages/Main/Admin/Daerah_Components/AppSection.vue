@@ -1,71 +1,11 @@
 <template>
-    <navigation>
-        <div class="d-flex flex-column gap-1">
-            <div>
-                <ol
-                    class="text-muted fs-6 d-flex flex-row gap-4 align-items-center p-0"
-                >
-                    <span class="fs-4 text-primary" style="font-weight: 700">Dashboard</span>
-                    <span class="fs-1">/</span>
-                    <span class="fs-4" style="font-weight: 400">Daftar Daerah</span>
-                </ol>
-            </div>
-            <div class="d-flex flex-row align-items-center gap-5">
-                <h1 class="fs-2qx">Daftar Daerah</h1>
-                <span
-                    class="text-primary py-1 px-5 fs-5 rounded-4 fw-bold"
-                    style="background-color: rgba(59, 130, 246, 0.1)"
-                    >{{ jumlah }}</span
-                >
-            </div>
-            <div
-                class="d-flex flex-column flex-lg-row gap-4 justify-content-lg-between"
-            >
-                <div>
-                    <form
-                        @submit.prevent="handleSearch"
-                        class="d-flex align-items-center position-relative my-1"
-                    >
-                        <i class="bi bi-search position-absolute ms-5 fs-4"></i>
-                        <input
-                            type="text"
-                            v-model="search"
-                            class="ps-13 fs-5 py-3 rounded-2 w-75 w-md-300px w-lg-350px"
-                            style="border: 1px solid rgba(60, 60, 67, 0.25)"
-                            placeholder="Cari Daerah"
-                        />
-                    </form>
-                </div>
-                <div class="d-flex flex-row gap-4 align-items-center">
-                    <button
-                        class="border-1 rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
-                        style="
-                            border: 1px solid;
-                            color: rgba(60, 60, 67, 0.75);
-                            border-color: rgba(60, 60, 67, 0.25);
-                        "
-                    >
-                        <p class="ri-filter-3-line fs-1 m-0"></p>
-                        <p class="fs-3 fw-semibold m-0">Terbaru</p>
-                    </button>
-                    <button
-                        @click="
-                            () => {
-                                resetForm();
-                                openDrawer();
-                            }
-                        "
-                        class="btn-primary btn py-1 rounded-2 text-white px-4 d-flex flex-row gap-3 align-items-center"
-                    >
-                        <p class="m-0 ri-add-fill fs-1 m-0"></p>
-                        <p class="fs-3 fw-semibold m-0">Daerah</p>
-                    </button>
-                </div>
-            </div>
-        </div>
-
+    <Daerah_Show
+        :daerah="daerah"
+        :reset-form="resetForm"
+        :open-drawer="openDrawer"
+    >
         <div
-            v-if="daerahs.length === 0"
+            v-if="app.length === 0"
             class="app-main flex-column flex-row-fluid justify-content-center align-self-center mx-10"
             style="justify-self: center"
             id="kt_app_main"
@@ -80,7 +20,7 @@
                                 class="text-center py-0 d-flex align-items-center flex-column"
                             >
                                 <img
-                                    src="../../../../../public/assets/media/illustrations/empty.png"
+                                    src="../../../../../../public/assets/media/illustrations/empty.png"
                                     alt="Tidak ada data"
                                     class="mh-300px"
                                 />
@@ -96,46 +36,24 @@
                 </div>
             </div>
         </div>
-        <div
-            class="app-main flex-column flex-row-fluid justify-content-center align-self-lg-start"
-            id="kt_app_main"
-        >
-            <div class="d-flex flex-column flex-column-fluid mt-0 mt-lg-0">
-                <div class="container-fluid float-start mt-10 mt-lg-8 p-0">
-                    <div
-                        class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5"
-                    >
-                        <div
-                            v-for="daerah in daerahs"
-                            :key="daerah.id"
-                            class="justify-content-center rounded-2 bg-white d-flex flex-column gap-5 align-items-center text-center w-150px h-200px w-md-175px h-md-225px"
-                            style="
-                                width: 175px;
-                                height: 232px;
-                                border: 1px solid rgba(118, 118, 128, 0.12);
-                            "
-                        >
-                            <div>
-                                <img
-                                    :src="`/storage/${daerah.logo_daerah}`"
-                                    alt=""
-                                    class="w-90px h-100px w-lg-100px h-lg-110px rounded-2"
-                                />
-                            </div>
-                            <div class="d-flex flex-column gap-0">
-                                <span
-                                    class="text-center fw-normal text-uppercase fs-6"
-                                    style="color: rgba(60, 60, 67, 0.75)"
-                                    >{{ daerah.daerah }}</span
-                                >
-                                <span
-                                    class="text-black text-center fw-bold text-uppercase fs-4"
-                                    >{{ daerah.nama_daerah }}</span
-                                >
-                            </div>
-                        </div>
-                    </div>
+        <div class="mt-10 mt-lg-8">
+            <div v-for="apps in app" :key="apps.id" class="bg-white rounded-2">
+                <div>
+                    <img
+                        :src="`/storage/${apps.logo_app}`"
+                        alt=""
+                        class="rounded-4"
+                        width="253px"
+                        height="200px"
+                    />
                 </div>
+                <div>
+                    <span>{{ apps.nama_app }}</span>
+                </div>
+                <div>
+                    <span>{{ apps.deskripsi }}</span>
+                </div>
+                <div></div>
             </div>
         </div>
         <form @submit.prevent="submit" style="z-index: 1000">
@@ -157,7 +75,7 @@
                         style="min-height: unset"
                     >
                         <div class="card-title">
-                            <h2>Tambah Daerah</h2>
+                            <h2>Tambah Apps Section</h2>
                         </div>
                         <div
                             class="card-toolbar"
@@ -180,7 +98,7 @@
                                     style="min-height: unset"
                                 >
                                     <div class="card-title m-0">
-                                        <h3>Profil Daerah</h3>
+                                        <h3>Data Apps Section</h3>
                                     </div>
                                 </div>
                                 <div class="card-body p-6">
@@ -188,7 +106,7 @@
                                         <label
                                             for="name"
                                             class="required form-label fs-5"
-                                            >Logo Daerah</label
+                                            >Logo Apps</label
                                         >
                                         <div
                                             id="partner-dropzone"
@@ -216,75 +134,67 @@
                                             </div>
                                         </div>
                                         <div
-                                            v-if="form.errors.logo_daerah"
+                                            v-if="form.errors.logo_app"
                                             class="text-mydanger mt-2"
                                         >
-                                            {{ form.errors.logo_daerah }}
+                                            {{ form.errors.logo_app }}
                                         </div>
                                     </div>
                                     <div class="mb-5 fv-row">
                                         <label
                                             for="name"
                                             class="required form-label fs-5"
-                                            >Nama Daerah</label
+                                            >Nama Aplikasi</label
                                         >
-                                        <div class="d-flex flex-row">
-                                            <select
-                                                v-model="form.daerah"
-                                                name=""
-                                                id=""
-                                                class="w-60px border-1 input-group border-secondary form-control bg-secondary"
-                                                style="
-                                                    border-radius: 2px 0 0 2px;
-                                                "
-                                            >
-                                                <option
-                                                    value="Kabupaten"
-                                                    class="fs-5"
-                                                >
-                                                    Kab
-                                                </option>
-                                                <option
-                                                    value="Kota"
-                                                    class="fs-5"
-                                                >
-                                                    Kota
-                                                </option>
-                                            </select>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                style="
-                                                    border-radius: 0 2px 2px 0;
-                                                "
-                                                v-model="form.nama_daerah"
-                                                placeholder="Masukkan nama daerah..."
-                                            />
-                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control fs-5"
+                                            v-model="form.nama_app"
+                                            required
+                                            placeholder="Masukkan Title..."
+                                        />
                                         <div
-                                            v-if="form.errors.nama_daerah"
+                                            v-if="form.errors.nama_app"
                                             class="text-mydanger mt-2"
                                         >
-                                            {{ form.errors.name_daerah }}
+                                            {{ form.errors.nama_app }}
                                         </div>
                                     </div>
 
                                     <div class="fv-row">
                                         <label class="required form-label fs-5"
-                                            >Deskripsi</label
+                                            >deskripsi</label
                                         >
                                         <input
                                             type="text"
                                             class="form-control fs-5"
                                             v-model="form.deskripsi"
                                             required
-                                            placeholder="Masukkan deskripsi singkat..."
+                                            placeholder="Masukkan Subtitle..."
                                         />
                                         <div
                                             v-if="form.errors.deskripsi"
                                             class="text-mydanger mt-2"
                                         >
                                             {{ form.errors.deskripsi }}
+                                        </div>
+                                    </div>
+                                    <div class="fv-row">
+                                        <label class="required form-label fs-5"
+                                            >Daerah Id</label
+                                        >
+                                        <input
+                                            type="text"
+                                            class="form-control fs-5"
+                                            v-model="form.daerah_id"
+                                            required
+                                            placeholder="Masukkan Subtitle..."
+                                        />
+                                        <div
+                                            v-if="form.errors.daerah_id"
+                                            class="text-mydanger mt-2"
+                                        >
+                                            {{ form.errors.daerah_id }}
                                         </div>
                                     </div>
                                 </div>
@@ -318,60 +228,34 @@
                 </div>
             </div>
         </form>
-    </navigation>
+    </Daerah_Show>
 </template>
 
 <script setup>
-defineOptions({
-    name: "Daftar_Kab",
-});
-
 import { Head, useForm, usePage, router } from "@inertiajs/vue3";
 import Swal from "sweetalert2";
 import { ref, nextTick, watch, onMounted } from "vue";
 import Dropzone from "dropzone";
-import navigation from "../../../Layout/navigation.vue";
-import { debounce } from "lodash";
+import Daerah_Show from "../Daerah_Show.vue";
+import route from "ziggy-js";
 
-defineProps({
-    daerahs: {
-        type: Array,
-        default: () => [],
-    },
-    jumlah: Number,
-});
+const page = usePage();
 
-// Ambil query q dari URL jika ada
-const search = ref(new URL(document.location).searchParams.get("q") || "");
-
-// Kirim pencarian ke server
-const handleSearch = debounce(() => {
-    console.log("🔍 Search triggered: ", search.value);
-    router.get(
-        route("index.admin"),
-        {
-            q: search.value,
-        },
-        {
-            preserveState: true,
-            replace: true,
-        }
-    );
-}, 500);
-
-watch(search, () => {
-    handleSearch();
+const { daerah } = defineProps({
+    daerah: Object,
+    app: Object,
+    errors: Object,
+    flash: Object,
 });
 
 const dropzoneKey = ref(Date.now());
 const dropzoneRef = ref(null);
-const page = usePage();
 
 const form = useForm({
-    logo_daerah: "",
-    nama_daerah: "",
-    daerah: "",
+    logo_app: "",
+    nama_app: "",
     deskripsi: "",
+    daerah_id: daerah.id,
 });
 
 const drawerCloseBtn = document.querySelector(
@@ -391,9 +275,8 @@ const openDrawer = async () => {
 };
 
 const resetForm = () => {
-    form.logo_daerah = "";
-    form.nama_daerah = "";
-    form.daerah = "";
+    form.logo_app = "";
+    form.nama_app = "";
     form.deskripsi = "";
 
     if (dropzoneRef.value) {
@@ -414,13 +297,14 @@ const submit = () => {
     }
 
     const payload = new FormData();
-    payload.append("nama_daerah", form.name);
-    payload.append("daerah", form.link);
+    payload.append("nama_app", form.nama_app);
+    payload.append("deskripsi", form.deskripsi);
+    payload.append("daerah_id", form.daerah_id);
     if (
-        form.logo_daerah &&
-        (form.logo_daerah instanceof File || form.logo_daerah instanceof Blob)
+        form.logo_app &&
+        (form.logo_app instanceof File || form.logo_app instanceof Blob)
     ) {
-        payload.append("logo_daerah", form.logo_daerah);
+        payload.append("logo_app", form.logo_app);
     }
 
     const cleanup = () => {
@@ -430,32 +314,31 @@ const submit = () => {
         }
     };
 
-    if (!form.logo_daerah) {
+    if (!form.logo_app) {
         Swal.fire({
             icon: "error",
             title: "Masukkan Inputan Yang Benar Pada Gambar",
-            text: page.props.session.success,
+            text: page.props.session.error,
             showConfirmButton: false,
             timer: 2000,
         });
+        setTimeout(() => {
+            window.location.reload();
+        }, 100);
     }
     console.log(form);
     // console.log(route('anggotas.store'))
-    form.post(route("daerah.store", payload), {
+    form.post(route("app.store", daerah.nama_daerah), payload, {
         forceFormData: true,
         onSuccess: () => {
             Swal.fire({
                 icon: "success",
-                title: "Daerah Berhasil Ditambah",
-                text: page.props.session.success,
+                title: "Berhasil",
+                text: page.props.success || "Data berhasil disimpan",
                 showConfirmButton: false,
                 timer: 2000,
             });
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
-            cleanup();
-            form.reset("");
+            form.reset();
         },
         onError: () => {
             Swal.fire({
@@ -474,7 +357,7 @@ watch(dropzoneKey, () => {
     nextTick(() => {
         const dz = new Dropzone("#partner-dropzone", {
             url: "/",
-            paramName: "logo_daerah",
+            paramName: "bgimage",
             maxFiles: 1,
             maxFilesize: 10,
             acceptedFiles: "image/jpeg,image/png",
@@ -483,11 +366,11 @@ watch(dropzoneKey, () => {
             dictRemoveFile: "Hapus",
             init: function () {
                 this.on("addedfile", function (file) {
-                    form.logo_daerah = file;
+                    form.logo_app = file;
                 });
 
                 this.on("removedfile", function () {
-                    form.logo_daerah = null;
+                    form.logo_app = null;
                 });
 
                 dropzoneRef.value = this;

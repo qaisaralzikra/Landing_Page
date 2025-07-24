@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\HeroSection;
+use App\Models\AppSection;
 use Illuminate\Database\Eloquent\Model;
 
 class Daerah extends Model
@@ -14,4 +16,13 @@ class Daerah extends Model
         'nama_daerah',
         'eskripsi',
     ];
+
+    public function heroSections()
+    {
+        return $this->hasMany(HeroSection::class);
+    }
+    public function appSections()
+    {
+        return $this->hasMany(AppSection::class);
+    }
 }
