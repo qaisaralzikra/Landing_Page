@@ -55,7 +55,7 @@
                                 <img
                                     :src="`/storage/${heros.bgimage}`"
                                     alt=""
-                                    class="rounded-4 w-md-800px h-md-150px w-700px h-125px"
+                                    class="rounded-4 w-md-375px h-md-150px w-375px h-125px"
                                 />
                             </div>
                             <div class="flex-column d-flex">
