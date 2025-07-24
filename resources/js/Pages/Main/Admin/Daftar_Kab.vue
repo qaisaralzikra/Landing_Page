@@ -119,12 +119,24 @@
                                 border: 1px solid rgba(118, 118, 128, 0.12);
                             "
                         >
-                            <div>
+                            <div class="d-block overlay position-relative">
                                 <img
                                     :src="`/storage/${daerah.logo_daerah}`"
                                     alt=""
-                                    class="w-90px h-100px w-lg-100px h-lg-110px rounded-2"
+                                    class="overlay-wrapper w-90px h-100px w-lg-100px h-lg-110px rounded-2"
                                 />
+                                <div
+                                    class="overlay-layer position-absolute top-0 start-0 w-100 h-100 d-flex gap-3 align-items-center justify-content-center bg-dark bg-opacity-25 rounded-4"
+                                >
+                                    <button
+                                        @click.prevent="destroy(daerah.id)"
+                                        class="p-0 bg-transparent border-0"
+                                    >
+                                        <i
+                                            class="ri-delete-bin-fill text-white fs-2x"
+                                        ></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="d-flex flex-column gap-0">
                                 <span
@@ -387,8 +399,23 @@
                                         />
                                     </div>
                                 </div>
-                                <div style="background-color: rgba(59, 130, 246, 0.1);width: 90%;" class="text-center rounded-2 py-3 align-self-center mb-6">
-                                    <button type="button" @click="addSosmed" class="text-primary fs-4 fw-bold rounded-2">
+                                <div
+                                    style="
+                                        background-color: rgba(
+                                            59,
+                                            130,
+                                            246,
+                                            0.1
+                                        );
+                                        width: 90%;
+                                    "
+                                    class="text-center rounded-2 py-3 align-self-center mb-6"
+                                >
+                                    <button
+                                        type="button"
+                                        @click="addSosmed"
+                                        class="text-primary fs-4 fw-bold rounded-2"
+                                    >
                                         + Tambah Sosmed
                                     </button>
                                 </div>
@@ -466,6 +493,50 @@ const handleSearch = debounce(() => {
 watch(search, () => {
     handleSearch();
 });
+
+const destroy = (id) => {
+    Swal.fire({
+        icon: "warning",
+        title: "Apakah Anda yakin?",
+        text: "Anda tidak akan dapat mengembalikan ini!",
+        showCancelButton: true,
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
+        customClass: {
+            popup: "swal-custom-icon",
+            confirmButton: "btn btn-sm btn-myprimary",
+            cancelButton: "btn btn-sm btn-mydanger",
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            router.delete("/daftarkab/delete", {
+                data: { id: id }, // kirim ID lewat body
+                onSuccess: () => {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Dihapus!",
+                        text: "Data Anggota berhasil dihapus!",
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        customClass: {
+                            popup: "swal-custom-icon",
+                        },
+                    });
+                    window.location.reload();
+                },
+                onError: () => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Gagal!",
+                        text: "Gagal menghapus data.",
+                        showConfirmButton: true,
+                    });
+                },
+            });
+        }
+    });
+};
 
 const dropzoneKey = ref(Date.now());
 const dropzoneRef = ref(null);
