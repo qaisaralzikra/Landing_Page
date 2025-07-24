@@ -52,13 +52,7 @@
                         <Link
                             class="menu-link menu-link-mysecondary"
                             :class="{
-<<<<<<< HEAD
-                                active: $page.url.startsWith(
-                                    '/dashboard'
-                                ),
-=======
                                 active: $page.url.startsWith('/dashboard'),
->>>>>>> 26eb3e4046d37fef03b79160ccce1ea65ec62be5
                             }"
                             href="/dashboard"
                         >
@@ -75,14 +69,9 @@
                             <span
                                 :class="[
                                     $page.url.startsWith('/dashboard')
-<<<<<<< HEAD
-                                        ? ['fw-bold', 'text-dark']
-                                        :'menu-title ',
-=======
                                         ? 'fw-bold'
                                         : 'fw-semibold',
                                     'menu-title fs-4',
->>>>>>> 26eb3e4046d37fef03b79160ccce1ea65ec62be5
                                 ]"
                                 >Dashboard</span
                             >
@@ -92,13 +81,7 @@
                         <Link
                             class="menu-link menu-link-mysecondary"
                             :class="{
-<<<<<<< HEAD
-                                active: $page.url.startsWith(
-                                    '/daftarkab'
-                                ),
-=======
                                 active: $page.url.startsWith('/daftarkab'),
->>>>>>> 26eb3e4046d37fef03b79160ccce1ea65ec62be5
                             }"
                             href="/daftarkab"
                         >
@@ -115,11 +98,7 @@
                             <span
                                 :class="[
                                     $page.url.startsWith('/daftarkab')
-<<<<<<< HEAD
-                                        ? ['fw-bold', 'text-dark']
-=======
                                         ? 'fw-bold'
->>>>>>> 26eb3e4046d37fef03b79160ccce1ea65ec62be5
                                         : 'fw-semibold',
                                     ' fs-4',
                                 ]"
