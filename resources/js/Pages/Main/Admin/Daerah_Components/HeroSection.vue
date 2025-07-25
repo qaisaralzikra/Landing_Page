@@ -48,15 +48,29 @@
                         <div
                             v-for="heros in hero"
                             :key="heros.id"
-                            class="p-3 d-flex flex-md-row flex-column align-items-center align-items-md-start gap-4 bg-white rounded-2 w-550px"
+                            class="p-3 py-5 d-flex flex-md-row flex-column align-items-center align-items-md-start gap-4 bg-white rounded-2 w-550px"
                             style="border: 1px solid rgba(118, 118, 128, 0.12)"
                         >
-                            <div style="justify-self: center">
-                                <img
-                                    :src="`/storage/${heros.bgimage}`"
-                                    alt=""
-                                    class="rounded-4 w-md-375px h-md-150px w-375px h-125px"
-                                />
+                            <div class="d-block overlay position-relative">
+                                <div style="justify-self: center">
+                                    <img
+                                        :src="`/storage/${heros.bgimage}`"
+                                        alt=""
+                                        class="overlay-wrapper rounded-4 w-md-375px h-md-150px w-175px h-125px"
+                                    />
+                                </div>
+                                <div
+                                    class="overlay-layer position-absolute top-0 start-0 w-100 h-100 d-flex gap-3 align-items-center justify-content-center bg-dark bg-opacity-25 rounded-4"
+                                >
+                                    <button
+                                        @click.prevent="destroy(heros.id)"
+                                        class="p-0 bg-transparent border-0"
+                                    >
+                                        <i
+                                            class="ri-delete-bin-fill text-white fs-2x"
+                                        ></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="flex-column d-flex">
                                 <div style="justify-self: center">
@@ -304,6 +318,50 @@ const openDrawer = async () => {
         const drawer = KTDrawer.getInstance(drawerEl) || new KTDrawer(drawerEl);
         drawer.show();
     }
+};
+
+const destroy = (id) => {
+    Swal.fire({
+        icon: "warning",
+        title: "Apakah Anda yakin?",
+        text: "Anda tidak akan dapat mengembalikan ini!",
+        showCancelButton: true,
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
+        customClass: {
+            popup: "swal-custom-icon",
+            confirmButton: "btn btn-sm btn-myprimary",
+            cancelButton: "btn btn-sm btn-mydanger",
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            router.delete("delete.hero", {
+                data: { id: id }, // kirim ID lewat body
+                onSuccess: () => {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Dihapus!",
+                        text: "Data Anggota berhasil dihapus!",
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        customClass: {
+                            popup: "swal-custom-icon",
+                        },
+                    });
+                    window.location.reload();
+                },
+                onError: () => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Gagal!",
+                        text: "Gagal menghapus data.",
+                        showConfirmButton: true,
+                    });
+                },
+            });
+        }
+    });
 };
 
 const resetForm = () => {

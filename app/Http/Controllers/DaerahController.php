@@ -215,4 +215,28 @@ class DaerahController extends Controller
 
         return back()->with('success', 'Anggota berhasil dihapus.');
     }
+
+    public function destroyhero(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:daerahs,id',
+        ]);
+
+        $daerah = Daerah::find($request->id);
+        $daerah->delete();
+
+        return back()->with('success', 'Hero Section berhasil dihapus.');
+    }
+
+    public function destroyapp(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:daerahs,id',
+        ]);
+
+        $daerah = Daerah::find($request->id);
+        $daerah->delete();
+
+        return back()->with('success', 'App Section berhasil dihapus.');
+    }
 }
