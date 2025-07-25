@@ -129,7 +129,7 @@
                             class="menu-link menu-link-mysecondary d-flex flex-row align-items-center"
                             :class="{
                                 active: $page.url.startsWith(
-                                    '/admin/galleries'
+                                    `/daerah/${daerah.nama_daerah}/`
                                 ),
                             }"
                             :href="
@@ -145,7 +145,7 @@
                                 class="text-capitalize"
                                 :class="[
                                     $page.url.startsWith(`/daerah/${daerah.nama_daerah}`)
-                                        ? ['fw-bold', 'text-dark']
+                                        ? ['fw-bold', 'text-dark','']
                                         : 'menu-title ',
                                     'fs-4',
                                 ]"
@@ -170,7 +170,7 @@
                                     class="menu-link menu-link-mysecondary d-flex flex-row align-items-center"
                                     :class="{
                                         active: $page.url.startsWith(
-                                            '/admin/galleries'
+                                            `/daerah/${daerah.nama_daerah}`
                                         ),
                                     }"
                                     :href="
@@ -189,11 +189,11 @@
                                         class="text-capitalize"
                                         :class="[
                                             $page.url.startsWith(
-                                                '/admin/galleries'
+                                                `/daerah/${daerah.nama_daerah}`
                                             )
-                                                ? 'fw-bold'
-                                                : 'fw-semibold',
-                                            'menu-title fs-4',
+                                                ? ['fw-bold', 'text-dark','']
+                                        : 'menu-title ',
+                                    'fs-4',
                                         ]"
                                     >
                                         {{ daerah.nama_daerah }}
