@@ -48,12 +48,12 @@
                         <div
                             v-for="app in apps"
                             :key="app.id"
-                            class="p-3 d-flex flex-column gap-4 bg-white rounded-2 w-lg-275px"
+                            class="p-3 d-flex flex-column gap-4 bg-white rounded-2 w-175px w-md-275px"
                             style="border: 1px solid rgba(118, 118, 128, 0.12)"
                         >
                             <div
                                 style="justify-self: center"
-                                class="w-md-250px h-md-200px w-150px h-100px"
+                                class="w-md-250px h-md-200px w-150px h-100px align-self-center"
                             >
                                 <img
                                     :src="`/storage/${app.logo_app}`"
@@ -274,7 +274,7 @@
                                 class="btn btn-sm btn-dark fs-5"
                             >
                                 <span class="indicator-label">
-                                    Tambah daerah
+                                    Tambah Aplikasi
                                 </span>
                                 <span class="indicator-progress">
                                     Mohon Tunggu...
@@ -400,6 +400,9 @@ const submit = () => {
                 showConfirmButton: false,
                 timer: 2000,
             });
+            setTimeout(() => {
+            window.location.reload();
+        }, 100);
             form.reset();
         },
         onError: () => {

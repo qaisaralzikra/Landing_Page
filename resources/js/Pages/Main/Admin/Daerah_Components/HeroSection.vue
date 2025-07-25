@@ -4,7 +4,90 @@
         :reset-form="resetForm"
         :open-drawer="openDrawer"
     >
-        <div class="mt-10 mt-lg-8"></div>
+        <div
+            v-if="hero.length === 0"
+            class="app-main flex-column flex-row-fluid justify-content-center align-self-center mx-10"
+            style="justify-self: center"
+            id="kt_app_main"
+        >
+            <div class="d-flex flex-column flex-column-fluid">
+                <div class="container-fluid float-start">
+                    <div
+                        class="my-20 d-flex flex-wrap gap-20 gap-md-15 gap-lg-8"
+                    >
+                        <div>
+                            <div
+                                class="text-center py-0 d-flex align-items-center flex-column"
+                            >
+                                <img
+                                    src="../../../../../../public/assets/media/illustrations/empty.png"
+                                    alt="Tidak ada data"
+                                    class="mh-300px"
+                                />
+                                <h2 class="text-gray-800 mb-4">
+                                    Data Tidak Ditemukan
+                                </h2>
+                                <p class="text-gray-600 fs-4">
+                                    Belum ada data atau pencarian tidak sesuai.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="app-main flex-column flex-row-fluid justify-content-center align-self-lg-start"
+            id="kt_app_main"
+        >
+            <div class="d-flex flex-column flex-column-fluid mt-0 mt-lg-0">
+                <div class="container-fluid float-start mt-10 mt-lg-8 p-0">
+                    <div
+                        class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5"
+                    >
+                        <div
+                            v-for="heros in hero"
+                            :key="heros.id"
+                            class="p-3 d-flex flex-md-row flex-column align-items-center align-items-md-start gap-4 bg-white rounded-2 w-550px"
+                            style="border: 1px solid rgba(118, 118, 128, 0.12)"
+                        >
+                            <div style="justify-self: center">
+                                <img
+                                    :src="`/storage/${heros.bgimage}`"
+                                    alt=""
+                                    class="rounded-4 w-md-375px h-md-150px w-375px h-125px"
+                                />
+                            </div>
+                            <div class="flex-column d-flex">
+                                <div style="justify-self: center">
+                                    <span class="fw-bolder fs-2">{{
+                                        heros.title
+                                    }}</span>
+                                </div>
+                                <div
+                                    style="
+                                        justify-self: center;
+                                        color: rgba(60, 60, 67, 0.75);
+                                    "
+                                >
+                                    <span
+                                        class="fs-6 text-truncate-1"
+                                        style="
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                            display: -webkit-box;
+                                            -webkit-line-clamp: 5; /* Batasi ke 2 baris */
+                                            -webkit-box-orient: vertical;
+                                        "
+                                        >{{ heros.subtitle }}</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <form @submit.prevent="submit" style="z-index: 1000">
             <div
                 id="kt_drawer_example_advanced"
@@ -128,7 +211,7 @@
                                             {{ form.errors.subtitle }}
                                         </div>
                                     </div>
-                                    <div class="fv-row">
+                                    <div class="fv-row d-none">
                                         <label class="required form-label fs-5"
                                             >Daerah Id</label
                                         >
@@ -163,7 +246,7 @@
                                 class="btn btn-sm btn-dark fs-5"
                             >
                                 <span class="indicator-label">
-                                    Tambah daerah
+                                    Tambah Hero Section
                                 </span>
                                 <span class="indicator-progress">
                                     Mohon Tunggu...
@@ -277,7 +360,7 @@ const submit = () => {
     }
     console.log(form);
     // console.log(route('anggotas.store'))
-    form.post(route("hero.store", daerah.nama_daerah), payload, {
+    form.post(route("hero.store", daerah.nama_daerah, payload), {
         forceFormData: true,
         onSuccess: () => {
             Swal.fire({
@@ -287,6 +370,9 @@ const submit = () => {
                 showConfirmButton: false,
                 timer: 2000,
             });
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
             form.reset();
         },
         onError: () => {

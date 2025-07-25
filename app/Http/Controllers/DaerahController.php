@@ -41,7 +41,14 @@ class DaerahController extends Controller
     {
         $search = $request->query('q');
 
-        $query = HeroSection::query();
+        // Decode nama daerah jika ada spasi atau karakter spesial
+        $nama_daerah = urldecode($nama_daerah);
+
+        // Cari data daerah berdasarkan nama
+        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
+
+        // Filter data AppSection berdasarkan daerah_id yang cocok
+        $query = HeroSection::where('daerah_id', $daerah->id);
 
         if ($search) {
             $query->where(function ($q) use ($search) {
@@ -51,14 +58,10 @@ class DaerahController extends Controller
         }
 
         $heros = $query->get();
-        // Decode jika URL mengandung spasi atau karakter khusus
-        $nama_daerah = urldecode($nama_daerah);
-
-        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
 
         return Inertia::render('Main/Admin/Daerah_Components/HeroSection', [
             'daerah' => $daerah,
-            'hero' => $heros,
+            'hero' => $heros, // Ganti dari 'app' agar lebih konsisten
         ]);
     }
 
@@ -92,30 +95,24 @@ class DaerahController extends Controller
 
     public function componentFooterSection($nama_daerah, Request $request)
     {
-        $search = $request->query('q');
-
-        // Decode nama daerah jika ada spasi atau karakter spesial
+        // Decode nama daerah dari URL
         $nama_daerah = urldecode($nama_daerah);
 
-        // Cari data daerah berdasarkan nama
-        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
-
         // Filter data AppSection berdasarkan daerah_id yang cocok
-        $query = AppSection::where('daerah_id', $daerah->id);
+        
+        // Ambil hanya 1 data daerah yang cocok
+        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
+        
+        $query = SosialMedia::where('daerah_id', $daerah->id);
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('nama_app', 'like', "%$search%")
-                    ->orWhere('deskripsi', 'like', "%$search%");
-            });
-        }
+        $sosmed = $query->get();
 
-        $apps = $query->get();
-
+        // Kirim hanya data daerah itu ke view
         return Inertia::render('Main/Admin/Daerah_Components/FooterSection', [
             'daerah' => $daerah,
-            'apps' => $apps, // Ganti dari 'app' agar lebih konsisten
+            'sosmed' => $sosmed,
         ]);
+
     }
 
 
@@ -207,8 +204,15 @@ class DaerahController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Daerah $daerah)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate([
+            'id' => 'required|exists:daerahs,id',
+        ]);
+
+        $daerah = Daerah::find($request->id);
+        $daerah->delete();
+
+        return back()->with('success', 'Anggota berhasil dihapus.');
     }
 }

@@ -17,22 +17,22 @@ const { daerah } = defineProps({
                 <ol
                     class="text-muted fs-6 d-flex flex-row gap-4 align-items-center p-0"
                 >
-                    <span class="fs-4 text-primary" style="font-weight: 700"
+                    <span class="fs-md-4 fs-5 text-primary" style="font-weight: 700"
                         >Dashboard</span
                     >
-                    <span class="fs-1">/</span>
-                    <span class="fs-4 text-primary" style="font-weight: 700"
+                    <span class="fs-md-1 fs-2">/</span>
+                    <span class="fs-md-4 fs-5 text-primary" style="font-weight: 700"
                         >Daftar Daerah</span
                     >
-                    <span class="fs-1">/</span>
-                    <span class="fs-4 text-capitalize" style="font-weight: 400">{{
+                    <span class="fs-md-1 fs-2">/</span>
+                    <span class="fs-md-4 fs-5 text-capitalize" style="font-weight: 400">{{
                         daerah.nama_daerah
                     }}</span>
                 </ol>
             </div>
-            <div class="d-flex flex-row align-items-center gap-5">
-                <h1 class="fs-2qx text-capitalize">{{ daerah.daerah }}</h1>
-                <h1 class="fs-2qx text-capitalize">{{ daerah.nama_daerah }}</h1>
+            <div class="d-flex flex-row align-items-center gap-3">
+                <h1 class="fs-md-2qx fs-1 text-capitalize">{{ daerah.daerah }}</h1>
+                <h1 class="fs-md-2qx fs-1 text-capitalize">{{ daerah.nama_daerah }}</h1>
             </div>
             <div
                 class="d-flex flex-column gap-10 flex-lg-row justify-content-lg-between"
@@ -58,7 +58,7 @@ const { daerah } = defineProps({
                                 : 'no-active'
                         "
                     >
-                        <span class="fs-3">Hero Section</span>
+                        <span class="fs-md-3 fs-5">Hero Section</span>
                     </Link>
                     <Link
                         :href="route('daerah.show.app', daerah.nama_daerah)"
@@ -72,7 +72,7 @@ const { daerah } = defineProps({
                                 : 'no-active'
                         "
                     >
-                        <span class="fs-3">Apps Section</span>
+                        <span class="fs-md-3 fs-5">Apps Section</span>
                     </Link>
                     <Link
                         :href="route('daerah.show.footer', daerah.nama_daerah)"
@@ -86,10 +86,18 @@ const { daerah } = defineProps({
                                 : 'no-active'
                         "
                     >
-                        <span class="fs-3">Footer Section</span>
+                        <span class="fs-md-3 fs-5">Footer Section</span>
                     </Link>
                 </div>
-                <div class="d-flex flex-row gap-4 align-items-center">
+                <div class="d-flex flex-row gap-4 align-items-center" :class="
+                            $page.url.startsWith(
+                                `/daerah/${encodeURIComponent(
+                                    daerah.nama_daerah
+                                )}/footer`
+                            )
+                                ? 'd-none'
+                                : 'd-flex'
+                        ">
                     <button
                         class="border-1 rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
                         style="
