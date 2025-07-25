@@ -15,6 +15,8 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
     Route::post('/login/post', [LoginController::class, 'login'])->name('login.post');
 });
+Route::get('/registrasi', [LoginController::class, 'registrasi']);
+Route::post('/registrasi/store', [LoginController::class, 'storeRegistrasi'])->name('registrasi.store');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 Route::post('/daerah', [DaerahController::class, 'store'])->name('daerah.store');
 Route::post('/daerah/{nama_daerah}/herosection/store', [HeroSectionController::class, 'store'])->name('hero.store');
