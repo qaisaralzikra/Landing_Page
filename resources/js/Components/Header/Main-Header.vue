@@ -31,7 +31,7 @@
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold d-flex align-items-center fs-5">
                                         
-                                        <span class="badge bg-mysecondary text-mysecondary fw-bold fs-8 px-2 py-1 ms-2">Admin</span>
+                                        <span class="badge bg-msecondary text-mysecondary fw-bold fs-8 px-2 py-1 ms-2">Admin</span>
                                     </div>
                                     <p class="fw-semibold text-muted fs-7 mb-0">
                                         </p>
@@ -41,7 +41,7 @@
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5">
                             <Link href="/logout" method="POST" as="button"
-                                class="px-5 btn btn-mydanger w-100 text-start">Keluar</Link>
+                                class="px-5 btn btn-danger w-100 text-start">Keluar</Link>
                         </div>
                     </div>
                 </div>

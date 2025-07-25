@@ -12,7 +12,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Main/Admin/Main_Dashboard');
 })->name('dashboard');
 Route::middleware('guest')->group(function () {
-    Route::get('/', [LoginController::class, 'showLogin'])->name('login');
+    Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
     Route::post('/login/post', [LoginController::class, 'login'])->name('login.post');
 });
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
