@@ -144,12 +144,10 @@
                             <span
                                 class="text-capitalize"
                                 :class="[
-                                    $page.url.startsWith(
-                                        `/daftarkab/${daerah.nama_daerah}`
-                                    )
-                                        ? 'fw-bold'
-                                        : 'fw-semibold',
-                                    'menu-title fs-4',
+                                    $page.url.startsWith(`/daerah/${daerah.nama_daerah}`)
+                                        ? ['fw-bold', 'text-dark']
+                                        : 'menu-title ',
+                                    'fs-4',
                                 ]"
                             >
                                 {{ daerah.nama_daerah }}
@@ -177,7 +175,7 @@
                                     }"
                                     :href="
                                         route(
-                                            'daerah.show.nama',
+                                            'daerah.show.hero',
                                             daerah.nama_daerah
                                         )
                                     "
