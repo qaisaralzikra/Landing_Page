@@ -53,7 +53,7 @@
                                 <img
                                     :src="`/storage/${daerah.logo_daerah}`"
                                     alt=""
-                                    class="rounded-4 w-md-450px h-md-150px w-475px h-125px"
+                                    class="rounded-4 w-md-150px h-md-150px w-125px h-125px"
                                 />
                             </div>
                             <div class="flex-column d-flex gap-md-3 gap-2">

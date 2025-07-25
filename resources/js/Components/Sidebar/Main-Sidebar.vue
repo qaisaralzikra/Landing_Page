@@ -294,8 +294,8 @@
                     <div
                         @click="
                             () => {
-                                resetForm();
-                                openDrawer();
+                                resetFormDaerah();
+                                openDrawerDaerah();
                             }
                         "
                         style="width: 90%"
