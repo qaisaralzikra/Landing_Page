@@ -89,7 +89,15 @@ const { daerah } = defineProps({
                         <span class="fs-3">Footer Section</span>
                     </Link>
                 </div>
-                <div class="d-flex flex-row gap-4 align-items-center">
+                <div class="d-flex flex-row gap-4 align-items-center" :class="
+                            $page.url.startsWith(
+                                `/daerah/${encodeURIComponent(
+                                    daerah.nama_daerah
+                                )}/footer`
+                            )
+                                ? 'd-none'
+                                : 'd-flex'
+                        ">
                     <button
                         class="border-1 rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
                         style="

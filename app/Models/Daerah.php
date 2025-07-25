@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\HeroSection;
 use App\Models\AppSection;
+use App\Models\Footer;
 use Illuminate\Database\Eloquent\Model;
 
 class Daerah extends Model
@@ -14,7 +15,7 @@ class Daerah extends Model
         'logo_daerah',
         'daerah',
         'nama_daerah',
-        'eskripsi',
+        'deskripsi',
     ];
 
     public function heroSections()
@@ -30,4 +31,10 @@ class Daerah extends Model
     {
         return $this->hasMany(SosialMedia::class);
     }
+
+    public function footer()
+    {
+        return $this->hasMany(Footer::class);
+    }
+
 }

@@ -246,7 +246,7 @@
                                 class="btn btn-sm btn-dark fs-5"
                             >
                                 <span class="indicator-label">
-                                    Tambah daerah
+                                    Tambah Hero Section
                                 </span>
                                 <span class="indicator-progress">
                                     Mohon Tunggu...
