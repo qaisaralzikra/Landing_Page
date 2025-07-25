@@ -64,7 +64,7 @@
                 </button>
             </div>
         </form>
-        <div class="col col-6 bgimage" style="width: 60%; height: 100vh"></div>
+        <div class="col col-6 bgimage" style="width: 60%; height: 100vh;"></div>
     </div>
     <div class="d-block d-lg-none bgimage" style="width: 100%; height: 100vh">
         <form
