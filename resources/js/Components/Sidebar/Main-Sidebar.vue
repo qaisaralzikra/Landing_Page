@@ -118,7 +118,6 @@
                         </div>
                     </div>
 
-
                     <!-- 5 Pertama -->
                     <div
                         class="menu-item"
@@ -144,8 +143,10 @@
                             <span
                                 class="text-capitalize"
                                 :class="[
-                                    $page.url.startsWith(`/daerah/${daerah.nama_daerah}`)
-                                        ? ['fw-bold', 'text-dark','']
+                                    $page.url.startsWith(
+                                        `/daerah/${daerah.nama_daerah}`
+                                    )
+                                        ? ['fw-bold', 'text-dark', '']
                                         : 'menu-title ',
                                     'fs-4',
                                 ]"
@@ -191,9 +192,9 @@
                                             $page.url.startsWith(
                                                 `/daerah/${daerah.nama_daerah}`
                                             )
-                                                ? ['fw-bold', 'text-dark','']
-                                        : 'menu-title ',
-                                    'fs-4',
+                                                ? ['fw-bold', 'text-dark', '']
+                                                : 'menu-title ',
+                                            'fs-4',
                                         ]"
                                     >
                                         {{ daerah.nama_daerah }}
@@ -289,6 +290,29 @@
                             >
                         </Link>
                     </div>
+                    <!-- button -->
+                    <div
+                        style="width: 90%"
+                        class=" mb-10 cursor-pointer mt-10 mx-auto menu-item py-10  border border-secondary border-dashed border-2  text-center rounded-2 d-flex flex-column flex-center justify-content-center"
+                    >
+                        <div>
+                            <!--begin::Icon-->
+                            <i
+                                style="font-size: 40px"
+                                class="ri-bank-fill text-primary"
+                            ></i>
+
+                            <div class="d-flex flex-column">
+                                <h5 class="mb-1 text-capitalize">
+                                    tambah daerah
+                                </h5>
+
+                                <span class="textcapitalize fs-6 text-gray-600"
+                                    >portal aplikasi</span
+                                >
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -297,7 +321,7 @@
 
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
-import route from 'ziggy-js';
+import route from "ziggy-js";
 
 const page = usePage();
 
