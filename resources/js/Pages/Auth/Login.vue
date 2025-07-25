@@ -107,6 +107,14 @@
                     {{ form.errors.password }}
                 </div>
             </div>
+            <div class="mb-5">
+                <span>
+                    <span class="text-white">
+                        You Want To Create An Account?
+                    </span>
+                        <Link href="/registrasi">Registrasi</Link>
+                    </span>
+            </div>
             <div class="d-grid mb-10">
                 <button
                     type="submit"

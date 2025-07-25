@@ -47,12 +47,14 @@
                         id="kt_header_user_menu_toggle"
                     >
                         <div
-                            class="symbol-label rounded-circle fs-3 fw-semibold bg-primary text-white"
+                            class="symbol-label rounded-circle fs-md-3 fs-5 fw-bold bg-primary text-white"
                         >
                             {{ getInitial }}
                         </div>
-                        <div class="fw-bold d-flex align-items-center fs-3">
-                            {{ user.name }}
+                        <div class="fw-bold d-flex align-items-center">
+                            <span class="fs-md-4 fs-5">
+                                {{ user.name }}
+                            </span>
                             <i
                                 class="ri-arrow-down-s-fill ms-2 fs-4 text-dark"
                             ></i>
