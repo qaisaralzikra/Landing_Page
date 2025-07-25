@@ -119,38 +119,6 @@
     </span>
   </div>
 </div>
-
-<<<<<<< HEAD
-<!-- 5 Pertama -->
-<div
-  class="menu-item"
-  v-for="(daerah, ) in post.slice(0, 5)"
-  :key="daerah.id"
->
-  <Link
-    class="menu-link menu-link-mysecondary d-flex flex-row align-items-center"
-    :class="{ active: $page.url.startsWith('/admin/galleries') }"
-    href="/admin/galleries"
-  >
-    <img
-      :src="`/storage/${daerah.logo_daerah}`"
-      alt=""
-      class="rounded-2 me-4"
-      width="19"
-      height="20"
-    />
-    <span
-      class="text-capitalize"
-      :class="[
-        $page.url.startsWith(`/daftarkab/${daerah.nama_daerah}`) ? 'fw-bold' : 'fw-semibold',
-        'menu-title fs-4',
-      ]"
-    >
-      {{ daerah.nama_daerah }}
-    </span>
-  </Link>
-</div>
-=======
                     <!-- 5 Pertama -->
                     <div
                         class="menu-item"
