@@ -48,7 +48,7 @@
                         <div
                             v-for="heros in hero"
                             :key="heros.id"
-                            class="p-3 d-flex flex-row align-items-center align-items-md-start gap-4 bg-white rounded-2 w-550px"
+                            class="p-3 d-flex flex-md-row flex-column align-items-center align-items-md-start gap-4 bg-white rounded-2 w-550px"
                             style="border: 1px solid rgba(118, 118, 128, 0.12)"
                         >
                             <div style="justify-self: center">
