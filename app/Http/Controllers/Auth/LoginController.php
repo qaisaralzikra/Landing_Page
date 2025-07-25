@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -39,6 +40,20 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+        return redirect('/login');
+    }
+
+    public function registrasi() {
+        return Inertia::render('Auth/Registrasi');
+    }
+
+    public function storeRegistrasi(Request $request) {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+        User::create($validated);
         return redirect('/login');
     }
 }

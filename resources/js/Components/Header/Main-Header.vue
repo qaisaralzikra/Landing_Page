@@ -68,6 +68,7 @@
                         <!-- Header -->
                         <!-- Logout -->
                         <div class="menu-item px-5">
+
                             <Link
                                 href="/logout"
                                 method="POST"
@@ -76,6 +77,7 @@
                             >
                                 Keluar
                             </Link>
+
                         </div>
                     </div>
                 </div>

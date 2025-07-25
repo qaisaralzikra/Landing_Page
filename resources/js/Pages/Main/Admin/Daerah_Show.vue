@@ -99,17 +99,6 @@ const { daerah } = defineProps({
                                 : 'd-flex'
                         ">
                     <button
-                        class="border-1 rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
-                        style="
-                            border: 1px solid;
-                            color: rgba(60, 60, 67, 0.75);
-                            border-color: rgba(60, 60, 67, 0.25);
-                        "
-                    >
-                        <p class="ri-filter-3-line fs-1 m-0"></p>
-                        <p class="fs-3 fw-semibold m-0">Terbaru</p>
-                    </button>
-                    <button
                         @click="
                             () => {
                                 resetForm();

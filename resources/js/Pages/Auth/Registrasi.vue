@@ -9,9 +9,23 @@
             id="kt_sign_in_form"
         >
             <div class="text-center mb-11">
-                <h1 class="text-dark fs-2hx fw-bolder mb-4">Hello Admin 👋</h1>
+                <h1 class="text-dark fs-2hx fw-bolder mb-4">Hello Brother 👋</h1>
                 <div class="text-gray-600 fw-semibold fs-4">
-                    Masuk untuk mengelola halaman Portal Daerah
+                    Registrasi untuk mengelola halaman Portal Daerah
+                </div>
+            </div>
+            <div class="fv-row mb-4">
+                <input
+                    type="text"
+                    placeholder="Nama Lengkap"
+                    name="email"
+                    autocomplete="off"
+                    v-model="form.name"
+                    class="form-control fs-5"
+                    :class="{ 'is-invalid': form.errors.name }"
+                />
+                <div v-if="form.errors.name" class="text-danger mt-2">
+                    {{ form.errors.name }}
                 </div>
             </div>
             <div class="fv-row mb-4">
@@ -42,12 +56,6 @@
                     {{ form.errors.password }}
                 </div>
             </div>
-            <div class="mb-5">
-                <span>
-                        You Want To Create An Account?
-                        <Link href="/registrasi">Registrasi</Link>
-                    </span>
-            </div>
             <div class="d-grid mb-10">
                 <button
                     type="submit"
@@ -74,9 +82,23 @@
         >
         <div class="py-20">
             <div class="text-center mb-11">
-                <h1 class="text-white fs-2hx fw-bolder mb-4">Hello Admin 👋</h1>
+                <h1 class="text-white fs-2hx fw-bolder mb-4">Hello Brother 👋</h1>
                 <div class="text-gray-400 fw-semibold fs-4">
-                    Masuk untuk mengelola halaman Portal Daerah
+                    Registrasi untuk mengelola halaman Portal Daerah
+                </div>
+            </div>
+            <div class="fv-row mb-4">
+                <input
+                    type="text"
+                    placeholder="Nama Lengkap"
+                    name="email"
+                    autocomplete="off"
+                    v-model="form.name"
+                    class="form-control fs-5"
+                    :class="{ 'is-invalid': form.errors.name }"
+                />
+                <div v-if="form.errors.name" class="text-danger mt-2">
+                    {{ form.errors.name }}
                 </div>
             </div>
             <div class="fv-row mb-4">
@@ -135,18 +157,19 @@ import Swal from "sweetalert2";
 const page = usePage();
 
 const form = useForm({
+    name: "",
     email: "",
     password: "",
 });
 
 const submit = () => {
     console.log(form);
-    form.post(route("login.post"), {
+    form.post(route("registrasi.store"), {
         forceFormData: true,
         onSuccess: () => {
             Swal.fire({
                 icon: "success",
-                title: "Data Berhasil Ditemukan\nLogin Berhasil",
+                title: "Akun Berhasil Dibuat\nSilahkan Login",
                 text: page.props.session.success,
                 showConfirmButton: false,
                 timer: 2000,
@@ -158,7 +181,7 @@ const submit = () => {
         onError: () => {
             Swal.fire({
                 icon: "error",
-                title: "Data Tidak Ditemukan\nLogin Gagal",
+                title: "AKun Gagal Dibuat",
                 text: page.props.session.error,
                 showConfirmButton: false,
                 timer: 2000,
