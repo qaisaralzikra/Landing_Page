@@ -38,7 +38,7 @@
                 <div
                     class="app-navbar-item ms-1 ms-lg-3"
                     id="kt_header_user_menu_toggle"
-                >
+                >   
                     <div
                         class="gap-3 cursor-pointer d-flex symbol symbol-35px symbol-md-40px"
                         data-kt-menu-trigger="click"
