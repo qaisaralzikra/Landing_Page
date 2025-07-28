@@ -11,10 +11,10 @@
         data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle"
     >
         <div
-            class="app-sidebar-logo px-6 py-4 border-end border-gray-300"
+            class="app-sidebar-logo px-6 border-end border-gray-300"
             id="kt_app_sidebar_logo"
         >
-            <Link href="/dashboard">
+            <Link href="/admin/dashboard">
                 <img
                     alt="Logo"
                     src="/public/assets/media/logos/afila-logo.svg"
@@ -68,9 +68,9 @@
                             <span
                                 :class="[
                                     $page.url.startsWith('/dashboard')
-                                        ? ['fw-bold', 'text-dark']
-                                        : 'menu-title ',
-                                    'fs-4',
+                                        ? 'menu-title-after'
+                                        : 'menu-title'
+                                    
                                 ]"
                                 >Dashboard</span
                             >
@@ -97,9 +97,9 @@
                             <span
                                 :class="[
                                     $page.url.startsWith('/daftarkab')
-                                        ? ['fw-bold', 'text-dark']
-                                        : 'menu-title',
-                                    ' fs-4',
+                                        ? 'menu-title-after'
+                                        : 'menu-title'
+                                 
                                 ]"
                                 >Daftar Daerah</span
                             >
@@ -146,9 +146,9 @@
                                     $page.url.startsWith(
                                         `/daerah/${daerah.nama_daerah}`
                                     )
-                                        ? ['fw-bold', 'text-dark', '']
+                                        ? 'menu-title-after'
                                         : 'menu-title ',
-                                    'fs-4',
+                              
                                 ]"
                             >
                                 {{ daerah.nama_daerah }}
@@ -192,7 +192,7 @@
                                             $page.url.startsWith(
                                                 `/daerah/${daerah.nama_daerah}`
                                             )
-                                                ? ['fw-bold', 'text-dark', '']
+                                                ? 'menu-title-after'
                                                 : 'menu-title ',
                                             'fs-4',
                                         ]"
@@ -205,16 +205,16 @@
 
                         <!-- Tombol Toggle -->
                         <a
-                            class="btn btn-flex btn-color-primary d-flex gap-2 fs-5 fw-semibold p-0 ms-4 mb-2 toggle collapsible collapsed"
+                            class="btn btn-flex btn-color-primary d-flex gap-2 fs-5 p-0 ms-4 mb-2 toggle collapsible collapsed"
                             data-bs-toggle="collapse"
                             href="#kt_app_sidebar_menu_dashboards_collapse"
                             data-kt-toggle-text="Sembunyikan"
                         >
                             <span class="svg-icon toggle-on svg-icon-2">
-                                <i class="ri-subtract-line fs-4"></i>
+                                <i class="ri-add-line fs-4"></i>
                             </span>
                             <span class="svg-icon toggle-off svg-icon-2">
-                                <i class="ri-add-line fs-4"></i>
+                                <i class="ri-subtract-line fs-4"></i>
                             </span>
                             <span data-kt-toggle-text-target="true"
                                 >Lihat {{ post.length - 5 }} Lainnya</span
@@ -253,9 +253,8 @@
                             <span
                                 :class="[
                                     $page.url.startsWith('/admin/user')
-                                        ? 'fw-bold'
-                                        : 'fw-semibold',
-                                    'menu-title fs-4',
+                                        ? 'menu-title-after'
+                                        :'menu-title'
                                 ]"
                                 >Pengaturan</span
                             >
@@ -282,9 +281,8 @@
                             <span
                                 :class="[
                                     $page.url.startsWith('/admin/user')
-                                        ? 'fw-bold'
-                                        : 'fw-semibold',
-                                    'menu-title fs-4',
+                                        ? 'menu-title-after'
+                                        : 'menu-title '
                                 ]"
                                 >Akun</span
                             >
@@ -293,21 +291,21 @@
                     <!-- button -->
                     <div
                         style="width: 90%"
-                        class="mb-10 cursor-pointer mt-10 mx-auto menu-item py-10 border border-secondary border-dashed border-2 text-center rounded-2 d-flex flex-column flex-center justify-content-center"
+                        class=" mb-10 cursor-pointer mt-10 mx-auto menu-item py-10  border border-secondary border-dashed border-2  text-center rounded-2 d-flex flex-column flex-center justify-content-center"
                     >
                         <div>
                             <!--begin::Icon-->
                             <i
-                                style="font-size: 40px; margin-top: -30px;"
+                                style="font-size: 40px"
                                 class="ri-bank-fill text-primary"
                             ></i>
 
                             <div class="d-flex flex-column">
-                                <h5 class=" fw-bold mb-1 text-capitalize" style="font-family: 'NunitoSans';">
+                                <h5 class="mb-1 text-capitalize">
                                     tambah daerah
                                 </h5>
 
-                                <span class="text-capitalize fs-6 text-gray-400" style="font-family: 'NunitoSans';"
+                                <span class="textcapitalize fs-6 text-gray-600"
                                     >portal aplikasi</span
                                 >
                             </div>
@@ -342,7 +340,13 @@ const post = page.props.daerahs;
 
 .menu-title {
     font-family: "NunitoSans", sans-serif;
-    font-weight: 600;
+    font-size:16px ;
+}
+.menu-title-after{
+    font-family: "NunitoSans", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
 }
 
 .menu-link-mysecondary,
