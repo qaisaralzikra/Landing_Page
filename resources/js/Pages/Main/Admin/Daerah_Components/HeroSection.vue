@@ -56,7 +56,7 @@
                                     <img
                                         :src="`/storage/${heros.bgimage}`"
                                         alt=""
-                                        class="overlay-wrapper rounded-4 w-md-375px h-md-150px w-175px h-125px"
+                                        class="overlay-wrapper rounded-4 w-175px h-150px"
                                     />
                                 </div>
                                 <div
@@ -320,7 +320,7 @@ const openDrawer = async () => {
     }
 };
 
-const destroy = (id) => {
+const destroy = (heroId) => {
     Swal.fire({
         icon: "warning",
         title: "Apakah Anda yakin?",
@@ -330,36 +330,44 @@ const destroy = (id) => {
         cancelButtonText: "Batal",
         customClass: {
             popup: "swal-custom-icon",
-            confirmButton: "btn btn-sm btn-myprimary",
-            cancelButton: "btn btn-sm btn-mydanger",
+            confirmButton: "btn btn-sm btn-primary",
+            cancelButton: "btn btn-sm btn-danger",
         },
     }).then((result) => {
         if (result.isConfirmed) {
-            router.delete("delete.hero", {
-                data: { id: id }, // kirim ID lewat body
-                onSuccess: () => {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Dihapus!",
-                        text: "Data Anggota berhasil dihapus!",
-                        timer: 2000,
-                        timerProgressBar: true,
-                        showConfirmButton: false,
-                        customClass: {
-                            popup: "swal-custom-icon",
-                        },
-                    });
-                    window.location.reload();
-                },
-                onError: () => {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Gagal!",
-                        text: "Gagal menghapus data.",
-                        showConfirmButton: true,
-                    });
-                },
-            });
+            router.visit(
+                route("delete.hero", { nama_daerah: daerah.nama_daerah }),
+                {
+                    method: "delete",
+                    data: {
+                        id: heroId,
+                    },
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Dihapus!",
+                            text: "Data berhasil dihapus!",
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            customClass: {
+                                popup: "swal-custom-icon",
+                            },
+                        });
+                        window.location.reload();
+                    },
+                    onError: (err) => {
+                        console.error("Gagal menghapus:", err);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal!",
+                            text: "Gagal menghapus data.",
+                            showConfirmButton: true,
+                        });
+                    },
+                }
+            );
         }
     });
 };

@@ -99,10 +99,10 @@ class DaerahController extends Controller
         $nama_daerah = urldecode($nama_daerah);
 
         // Filter data AppSection berdasarkan daerah_id yang cocok
-        
+
         // Ambil hanya 1 data daerah yang cocok
         $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
-        
+
         $query = SosialMedia::where('daerah_id', $daerah->id);
 
         $sosmed = $query->get();
@@ -216,27 +216,59 @@ class DaerahController extends Controller
         return back()->with('success', 'Anggota berhasil dihapus.');
     }
 
-    public function destroyhero(Request $request)
+    public function destroyhero(Request $request, $nama_daerah)
     {
-        $request->validate([
-            'id' => 'required|exists:daerahs,id',
-        ]);
+        // Temukan data daerah berdasarkan nama_daerah dari URL
+        $daerah = Daerah::where('nama_daerah', urldecode($nama_daerah))->firstOrFail();
 
-        $daerah = Daerah::find($request->id);
-        $daerah->delete();
+        // Ambil ID HeroSection dari request body
+        $id = $request->input('id');
 
-        return back()->with('success', 'Hero Section berhasil dihapus.');
+        // Cek jika ID tidak dikirim
+        if (!$id) {
+            return redirect()->back()->withErrors(['id' => 'ID HeroSection tidak dikirim.']);
+        }
+
+        // Temukan HeroSection berdasarkan ID dan daerah yang sesuai
+        $hero = HeroSection::where('id', $id)->where('daerah_id', $daerah->id)->first();
+
+        // Jika tidak ditemukan, kembalikan error
+        if (!$hero) {
+            return redirect()->back()->withErrors(['id' => 'Data HeroSection tidak ditemukan.']);
+        }
+
+        // Hapus HeroSection
+        $hero->delete();
+
+        // Redirect kembali (atau bisa return inertia redirect)
+        return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
 
-    public function destroyapp(Request $request)
+    public function destroyapp(Request $request, $nama_daerah)
     {
-        $request->validate([
-            'id' => 'required|exists:daerahs,id',
-        ]);
+        // Temukan data daerah berdasarkan nama_daerah dari URL
+        $daerah = Daerah::where('nama_daerah', urldecode($nama_daerah))->firstOrFail();
 
-        $daerah = Daerah::find($request->id);
-        $daerah->delete();
+        // Ambil ID HeroSection dari request body
+        $id = $request->input('id');
 
-        return back()->with('success', 'App Section berhasil dihapus.');
+        // Cek jika ID tidak dikirim
+        if (!$id) {
+            return redirect()->back()->withErrors(['id' => 'ID AppSection tidak dikirim.']);
+        }
+
+        // Temukan HeroSection berdasarkan ID dan daerah yang sesuai
+        $app = AppSection::where('id', $id)->where('daerah_id', $daerah->id)->first();
+
+        // Jika tidak ditemukan, kembalikan error
+        if (!$app) {
+            return redirect()->back()->withErrors(['id' => 'Data AppSection tidak ditemukan.']);
+        }
+
+        // Hapus HeroSection
+        $app->delete();
+
+        // Redirect kembali (atau bisa return inertia redirect)
+        return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
 }

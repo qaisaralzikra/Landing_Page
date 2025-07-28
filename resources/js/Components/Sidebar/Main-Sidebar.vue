@@ -11,10 +11,10 @@
         data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle"
     >
         <div
-            class="app-sidebar-logo px-6 border-end border-gray-300"
+            class="app-sidebar-logo px-6 py-4 border-end border-gray-300"
             id="kt_app_sidebar_logo"
         >
-            <Link href="/admin/dashboard">
+            <Link href="/dashboard">
                 <img
                     alt="Logo"
                     src="/public/assets/media/logos/afila-logo.svg"
@@ -292,12 +292,6 @@
                     </div>
                     <!-- button -->
                     <div
-                        @click="
-                            () => {
-                                resetFormDaerah();
-                                openDrawerDaerah();
-                            }
-                        "
                         style="width: 90%"
                         class="mb-10 cursor-pointer mt-10 mx-auto menu-item py-10 border border-secondary border-dashed border-2 text-center rounded-2 d-flex flex-column flex-center justify-content-center"
                     >
@@ -330,11 +324,6 @@ import { Link, usePage } from "@inertiajs/vue3";
 import route from "ziggy-js";
 
 const page = usePage();
-
-const { daerah } = defineProps({
-    resetForm: Function,
-    openDrawer: Function,
-});
 
 const post = page.props.daerahs;
 </script>

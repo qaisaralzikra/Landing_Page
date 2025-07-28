@@ -57,6 +57,7 @@
                             () => {
                                 resetForm();
                                 openDrawer();
+                                isEditMode = false;
                             }
                         "
                         class="btn-primary btn py-1 rounded-2 text-white px-4 d-flex flex-row gap-3 align-items-center"
@@ -123,11 +124,17 @@
                                 <img
                                     :src="`/storage/${daerah.logo_daerah}`"
                                     alt=""
-                                    class="overlay-wrapper w-90px h-100px w-lg-100px h-lg-110px rounded-2"
+                                    class="overlay-wrapper w-100px h-100px w-lg-100px h-lg-100px rounded-2"
                                 />
                                 <div
                                     class="overlay-layer position-absolute top-0 start-0 w-100 h-100 d-flex gap-3 align-items-center justify-content-center bg-dark bg-opacity-25 rounded-4"
                                 >
+                                    <button
+                                        @click="editDaerah(daerah)"
+                                        class="btn btn-sm btn-icon btn-mysecondary me-2"
+                                    >
+                                        <i class="ri-edit-2-fill fs-3"></i>
+                                    </button>
                                     <button
                                         @click.prevent="destroy(daerah.id)"
                                         class="p-0 bg-transparent border-0"
@@ -173,7 +180,13 @@
                         style="min-height: unset"
                     >
                         <div class="card-title">
-                            <h2>Tambah Daerah</h2>
+                            <h2>
+                                {{
+                                    isEditMode
+                                        ? "Edit Partner"
+                                        : "Tambah Partner"
+                                }}
+                            </h2>
                         </div>
                         <div
                             class="card-toolbar"
@@ -435,7 +448,11 @@
                                 class="btn btn-sm btn-dark fs-5"
                             >
                                 <span class="indicator-label">
-                                    Tambah daerah
+                                    {{
+                                        isEditMode
+                                            ? "Edit Partner"
+                                            : "Tambah Partner"
+                                    }}
                                 </span>
                                 <span class="indicator-progress">
                                     Mohon Tunggu...
@@ -540,6 +557,10 @@ const destroy = (id) => {
 
 const dropzoneKey = ref(Date.now());
 const dropzoneRef = ref(null);
+
+const editing = ref(null);
+const isEditMode = ref(false);
+
 const page = usePage();
 
 const form = useForm({
@@ -622,6 +643,9 @@ const resetForm = () => {
     form.nama_daerah = "";
     form.daerah = "";
     form.deskripsi = "";
+
+    isEditMode.value = false;
+    editing.value = null;
 
     if (dropzoneRef.value) {
         dropzoneRef.value.removeAllFiles(true);
@@ -715,24 +739,64 @@ const submit = () => {
     }
     console.log(form);
     // console.log(route('anggotas.store'))
-    form.post(route("daerah.store", payload), {
-        forceFormData: true,
-        onSuccess: () => {
-            Swal.fire({
-                icon: "success",
-                title: "Daerah Berhasil Ditambah",
-                text: page.props.session.success,
-                showConfirmButton: false,
-                timer: 2000,
-            });
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
-            cleanup();
-            form.reset("");
-        },
-    });
+    if (isEditMode.value && editing.value) {
+        payload.append("_method", "PUT");
+        router.post(`/admin/partners/${editing.value.id}`, payload, {
+            onSuccess: () => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Berhasil!",
+                    text: "Data Partner Berhasil Diperbarui!",
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: "swal-custom-icon",
+                    },
+                });
+                resetForm();
+            },
+            onFinish: cleanup,
+        });
+    } else {
+        form.post(route("daerah.store", payload), {
+            forceFormData: true,
+            onSuccess: () => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Daerah Berhasil Ditambah",
+                    text: page.props.session.success,
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
+                cleanup();
+                form.reset("");
+            },
+        });
+    }
 };
+
+const editDaerah = (daerah) => {
+    isEditMode.value = true;
+    editing.value = daerah;
+
+    form.nama_daerah = daerah.nama_daerah;
+    form.logo_daerah = daerah.logo_daerah;
+    form.daerah = daerah.daerah;
+    form.deskripsi = daerah.deskripsi;
+    form.sosial_media = [
+        {
+            media_sosial: "",
+            link_sosmed: "",
+        },
+    ],
+
+    openDrawer();
+};
+
 watch(dropzoneKey, () => {
     nextTick(() => {
         const dz = new Dropzone("#partner-dropzone", {
