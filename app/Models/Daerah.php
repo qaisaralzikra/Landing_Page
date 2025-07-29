@@ -29,7 +29,11 @@ class Daerah extends Model
 
     public function sosialMedia()
     {
-        return $this->hasMany(SosialMedia::class);
+        return $this->hasMany(SosialMedia::class, 'daerah_id');
+    }
+    public function sosial_media()
+    {
+        return $this->hasMany(SosialMedia::class, 'daerah_id');
     }
 
     public function footer()

@@ -82,7 +82,9 @@
                             :class="{
                                 active: $page.url.startsWith('/daftarkab'),
                             }"
-                            href="/daftarkab"
+                            :href="
+                                route('index.admin')
+                            "
                         >
                             <span class="menu-icon">
                                 <i

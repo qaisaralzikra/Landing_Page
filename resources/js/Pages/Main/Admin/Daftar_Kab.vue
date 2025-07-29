@@ -131,21 +131,29 @@
                                 >
                                     <button
                                         @click="editDaerah(daerah)"
-                                        class="btn btn-sm btn-icon btn-mysecondary me-2"
+                                        class="btn btn-sm btn-icon btn-secondary"
                                     >
-                                        <i class="ri-edit-2-fill fs-3"></i>
+                                        <i class="ri-edit-2-fill fs-5"></i>
                                     </button>
                                     <button
-                                        @click.prevent="destroy(daerah.id)"
-                                        class="p-0 bg-transparent border-0"
+                                        @click="destroy(daerah.id)"
+                                        class="btn btn-sm btn-icon btn-danger"
                                     >
                                         <i
-                                            class="ri-delete-bin-fill text-white fs-2x"
+                                            class="ri-delete-bin-fill text-white fs-5"
                                         ></i>
                                     </button>
                                 </div>
                             </div>
-                            <div class="d-flex flex-column gap-0">
+                            <Link
+                                class="d-flex flex-column gap-0"
+                                :href="
+                                    route(
+                                        'daerah.show.hero',
+                                        daerah.nama_daerah
+                                    )
+                                "
+                            >
                                 <span
                                     class="text-center fw-normal text-uppercase fs-6"
                                     style="color: rgba(60, 60, 67, 0.75)"
@@ -155,7 +163,7 @@
                                     class="text-black text-center fw-bold text-uppercase fs-4"
                                     >{{ daerah.nama_daerah }}</span
                                 >
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -210,6 +218,7 @@
                                 >
                                     <div class="card-title m-0">
                                         <h3>Profil Daerah</h3>
+                                        <pre>{{ form.sosial_media }}</pre>
                                     </div>
                                 </div>
                                 <div class="card-body p-6">
@@ -330,7 +339,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    v-for="(item, index) in form.sosial_media"
+                                    v-for="(item, index) in daerah.sosial_media"
                                     :key="index"
                                     class="card-body px-6 pt-6 d-flex flex-column"
                                 >
@@ -474,14 +483,16 @@ defineOptions({
     name: "Daftar_Kab",
 });
 
-import { Head, useForm, usePage, router } from "@inertiajs/vue3";
+import { Head, useForm, usePage, router, Link } from "@inertiajs/vue3";
 import Swal from "sweetalert2";
 import { ref, nextTick, watch, onMounted } from "vue";
 import Dropzone from "dropzone";
 import navigation from "../../../Layout/navigation.vue";
 import { debounce } from "lodash";
+import route from "ziggy-js";
 
 defineProps({
+    daerah: Object,
     daerahs: {
         type: Array,
         default: () => [],
@@ -532,7 +543,7 @@ const destroy = (id) => {
                     Swal.fire({
                         icon: "success",
                         title: "Dihapus!",
-                        text: "Data Anggota berhasil dihapus!",
+                        text: "Data Daerah berhasil dihapus!",
                         timer: 2000,
                         timerProgressBar: true,
                         showConfirmButton: false,
@@ -540,7 +551,11 @@ const destroy = (id) => {
                             popup: "swal-custom-icon",
                         },
                     });
-                    window.location.reload();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 100);
+                    cleanup();
+                    form.reset("");
                 },
                 onError: () => {
                     Swal.fire({
@@ -584,8 +599,8 @@ function toggleDropdown(index) {
 }
 
 function selectOption(index, value) {
-    form.sosial_media[index].media_sosial = value;
-    dropdownOpen.value = null;
+    this.form.sosial_media[index].media_sosial = value;
+    this.dropdownOpen = null;
 }
 
 function addSosmed() {
@@ -740,23 +755,18 @@ const submit = () => {
     console.log(form);
     // console.log(route('anggotas.store'))
     if (isEditMode.value && editing.value) {
-        payload.append("_method", "PUT");
-        router.post(`/admin/partners/${editing.value.id}`, payload, {
+        payload.append("_method", "POST");
+        form.post(`/daftarkab/${editing.value.id}`, {
+            preserveScroll: true,
+            forceFormData: true,
             onSuccess: () => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Berhasil!",
-                    text: "Data Partner Berhasil Diperbarui!",
-                    timer: 2000,
-                    timerProgressBar: true,
-                    showConfirmButton: false,
-                    customClass: {
-                        popup: "swal-custom-icon",
-                    },
-                });
-                resetForm();
+                Swal.fire("Berhasil!", "Data berhasil diperbarui!", "success");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
+                cleanup();
+                form.reset("");
             },
-            onFinish: cleanup,
         });
     } else {
         form.post(route("daerah.store", payload), {
@@ -784,17 +794,25 @@ const editDaerah = (daerah) => {
     editing.value = daerah;
 
     form.nama_daerah = daerah.nama_daerah;
-    form.logo_daerah = daerah.logo_daerah;
+    form.logo_daerah = null;
     form.daerah = daerah.daerah;
     form.deskripsi = daerah.deskripsi;
-    form.sosial_media = [
-        {
-            media_sosial: "",
-            link_sosmed: "",
-        },
-    ],
 
+    form.sosial_media = Array.isArray(daerah.sosial_media)
+        ? daerah.sosial_media.map((item) => ({
+              media_sosial: item.media_sosial,
+              link_sosmed: item.link_sosmed,
+          }))
+        : [
+              {
+                  media_sosial: "",
+                  link_sosmed: "",
+              },
+          ];
+
+          console.log("HASIL SETELAH MAPPING:", form.sosial_media);
     openDrawer();
+
 };
 
 watch(dropzoneKey, () => {
@@ -819,15 +837,15 @@ watch(dropzoneKey, () => {
 
                 dropzoneRef.value = this;
 
-                if (isEditMode.value && editing.value?.logo) {
+                if (isEditMode.value && editing.value?.logo_daerah) {
                     const mockFile = {
-                        name: editing.value.logo.split("/").pop(),
+                        name: editing.value.logo_daerah.split("/").pop(),
                     };
                     this.emit("addedfile", mockFile);
                     this.emit(
                         "thumbnail",
                         mockFile,
-                        `/storage/${editing.value.logo}`
+                        `/storage/${editing.value.logo_daerah}`
                     );
                     this.emit("complete", mockFile);
                     mockFile.previewElement.classList.add(
