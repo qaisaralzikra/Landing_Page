@@ -46,13 +46,13 @@
                         data-kt-menu-placement="bottom-end"
                         id="kt_header_user_menu_toggle"
                     >
-                        <div
-                            class="symbol-label rounded-circle fs-md-3 fs-5 fw-bold bg-primary text-white"
+                        <div style="font-family: 'NunitoSans'; font-weight: bold; "
+                            class="symbol-label rounded-circle fs-3 bg-primary text-white"
                         >
                             {{ getInitial }}
                         </div>
                         <div class="fw-bold d-flex align-items-center">
-                            <span class="fs-md-4 fs-5">
+                            <span class="fs-md-4 fs-5" style="font-family: 'NunitoSans'; font-weight: bold;">
                                 {{ user.name }}
                             </span>
                             <i
