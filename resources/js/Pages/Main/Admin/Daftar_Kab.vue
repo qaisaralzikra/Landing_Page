@@ -218,7 +218,6 @@
                                 >
                                     <div class="card-title m-0">
                                         <h3>Profil Daerah</h3>
-                                        <pre>{{ form.sosial_media }}</pre>
                                     </div>
                                 </div>
                                 <div class="card-body p-6">
@@ -339,7 +338,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    v-for="(item, index) in daerah.sosial_media"
+                                    v-for="(item, index) in form.sosial_media"
                                     :key="index"
                                     class="card-body px-6 pt-6 d-flex flex-column"
                                 >
@@ -350,14 +349,14 @@
                                             >Link Sosial Media</label
                                         >
                                         <button
-                                            class="text-danger fs-5"
+                                            class="text-danger fs-5 btn link-offset-3-hover"
                                             type="button"
                                             @click="removeSosmed(index)"
                                         >
                                             Hapus
                                         </button>
                                     </div>
-                                    <div class="d-flex flex-row mb-4">
+                                    <div class="fv-row d-flex flex-row mb-4 align-items-start">
                                         <!-- Custom Dropdown -->
                                         <div class="relative">
                                             <button
@@ -411,7 +410,7 @@
                                         <input
                                             type="text"
                                             class="form-control fs-5"
-                                            style="border-radius: 0 2px 2px 0"
+                                            style="border-radius: 0 5px 5px 0"
                                             v-model="item.link_sosmed"
                                             required
                                             :placeholder="
@@ -532,8 +531,8 @@ const destroy = (id) => {
         cancelButtonText: "Batal",
         customClass: {
             popup: "swal-custom-icon",
-            confirmButton: "btn btn-sm btn-myprimary",
-            cancelButton: "btn btn-sm btn-mydanger",
+            confirmButton: "btn btn-sm btn-primary",
+            cancelButton: "btn btn-sm btn-danger",
         },
     }).then((result) => {
         if (result.isConfirmed) {
@@ -794,7 +793,7 @@ const editDaerah = (daerah) => {
     editing.value = daerah;
 
     form.nama_daerah = daerah.nama_daerah;
-    form.logo_daerah = null;
+    form.logo_daerah = daerah.logo_daerah;
     form.daerah = daerah.daerah;
     form.deskripsi = daerah.deskripsi;
 
@@ -812,7 +811,6 @@ const editDaerah = (daerah) => {
 
           console.log("HASIL SETELAH MAPPING:", form.sosial_media);
     openDrawer();
-
 };
 
 watch(dropzoneKey, () => {

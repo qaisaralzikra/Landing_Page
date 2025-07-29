@@ -3,6 +3,7 @@
         :daerah="daerah"
         :reset-form="resetForm"
         :open-drawer="openDrawer"
+        :isEditMode="false"
     >
         <div
             v-if="apps.length === 0"
@@ -48,69 +49,81 @@
                         <div
                             v-for="app in apps"
                             :key="app.id"
-                            class="p-3 d-flex flex-column gap-4 bg-white rounded-2 w-175px w-md-275px"
+                            class="p-3 d-flex flex-row flex-md-column gap-4 bg-white rounded-2 w-550px w-md-275px"
                             style="border: 1px solid rgba(118, 118, 128, 0.12)"
                         >
-                            <div class="d-block overlay position-relative">
+                            <div
+                                class="d-block overlay position-relative h-150px h-md-200px"
+                            >
                                 <div style="justify-self: center">
                                     <img
                                         :src="`/storage/${app.logo_app}`"
                                         alt=""
-                                        class="overlay-wrapper rounded-4 w-250px h-200px"
+                                        class="overlay-wrapper rounded-4 w-175px h-150px w-md-250px h-md-200px"
                                     />
                                 </div>
                                 <div
-                                    class="overlay-layer position-absolute top-0 start-0 w-100 h-100 d-flex gap-3 align-items-center justify-content-center bg-dark bg-opacity-25 rounded-4"
+                                    class="overlay-layer position-absolute top-0 start-0 d-flex gap-3 align-items-center justify-content-center bg-dark bg-opacity-25 rounded-4"
                                 >
                                     <button
-                                        @click.prevent="destroy(app.id)"
-                                        class="p-0 bg-transparent border-0"
+                                        @click="editDaerah(app)"
+                                        class="btn btn-sm btn-icon btn-secondary"
+                                    >
+                                        <i class="ri-edit-2-fill fs-5"></i>
+                                    </button>
+                                    <button
+                                        @click="destroy(app.id)"
+                                        class="btn btn-sm btn-icon btn-danger"
                                     >
                                         <i
-                                            class="ri-delete-bin-fill text-white fs-2x"
+                                            class="ri-delete-bin-fill text-white fs-5"
                                         ></i>
                                     </button>
                                 </div>
                             </div>
-                            <div style="justify-self: center">
-                                <span class="fw-bolder fs-2">{{
-                                    app.nama_app
-                                }}</span>
-                            </div>
                             <div
-                                style="
-                                    justify-self: center;
-                                    color: rgba(60, 60, 67, 0.75);
-                                "
+                                class="w-425px w-md-250px d-flex flex-column gap-2"
                             >
-                                <span class="fs-6" style="">{{
-                                    app.deskripsi
-                                }}</span>
-                            </div>
-                            <div style="justify-self: center" class="mt-auto">
-                                <a
-                                    target="_blank"
-                                    :href="`${app.link}`"
-                                    class="d-flex flex-row align-items-center justify-content-center mt-auto rounded-3 gap-1 text-white bg-primary py-3"
+                                <div>
+                                    <span class="fw-bolder fs-2">{{
+                                        app.nama_app
+                                    }}</span>
+                                </div>
+                                <div
+                                    style="
+                                        justify-self: center;
+                                        color: rgba(60, 60, 67, 0.75);
+                                    "
                                 >
-                                    <div
-                                        class="d-flex align-items-center gap-2 fw-bold"
+                                    <span class="fs-6" style="">{{
+                                        app.deskripsi
+                                    }}</span>
+                                </div>
+                                <div class="mt-auto">
+                                    <a
+                                        target="_blank"
+                                        :href="`${app.link}`"
+                                        class="d-flex flex-row align-items-center justify-content-center mt-auto rounded-3 gap-1 text-white bg-primary py-3"
                                     >
-                                        <span>Buka Aplikasi</span>
-                                        <span
-                                            ><svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="w-15px h-15px"
-                                                viewBox="0 0 24 24"
-                                                fill="currentColor"
-                                            >
-                                                <path
-                                                    d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"
-                                                ></path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </a>
+                                        <div
+                                            class="d-flex align-items-center gap-2 fw-bold"
+                                        >
+                                            <span>Buka Aplikasi</span>
+                                            <span
+                                                ><svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    class="w-15px h-15px"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                                >
+                                                    <path
+                                                        d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"
+                                                    ></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -335,6 +348,9 @@ const form = useForm({
     daerah_id: daerah.id,
 });
 
+const editing = ref(null);
+const isEditMode = ref(false);
+
 const destroy = (appId) => {
     Swal.fire({
         icon: "warning",
@@ -458,34 +474,74 @@ const submit = () => {
     }
     console.log(form);
     // console.log(route('anggotas.store'))
-    form.post(route("app.store", daerah.nama_daerah, payload), {
-        forceFormData: true,
-        onSuccess: () => {
-            Swal.fire({
-                icon: "success",
-                title: "Berhasil",
-                text: page.props.success || "Data berhasil disimpan",
-                showConfirmButton: false,
-                timer: 2000,
-            });
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
-            form.reset();
-        },
-        onError: () => {
-            Swal.fire({
-                icon: "error",
-                title: "Daerah Gagal Ditambah",
-                text: page.props.session.error,
-                showConfirmButton: false,
-                timer: 2000,
-            });
-            cleanup();
-            form.reset();
-        },
-    });
+    if (isEditMode.value && editing.value) {
+        payload.append("_method", "PUT");
+
+        form.post(
+            route("app.update", {
+                nama_daerah: daerah.nama_daerah,
+                app: editing.value.id, // pastikan ID app yang di-edit
+            }),
+            {
+                preserveScroll: true,
+                forceFormData: true,
+                onSuccess: () => {
+                    Swal.fire(
+                        "Berhasil!",
+                        "Data berhasil diperbarui!",
+                        "success"
+                    );
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 100);
+                    cleanup();
+                    form.reset("");
+                },
+            }
+        );
+    } else {
+        form.post(route("app.store", daerah.nama_daerah, payload), {
+            forceFormData: true,
+            onSuccess: () => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Berhasil",
+                    text: page.props.success || "Data berhasil disimpan",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
+                form.reset();
+            },
+            onError: () => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Daerah Gagal Ditambah",
+                    text: page.props.session.error,
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                cleanup();
+                form.reset();
+            },
+        });
+    }
 };
+
+const editDaerah = (app) => {
+    isEditMode.value = true;
+    editing.value = app;
+
+    form.nama_app = app.nama_app;
+    form.logo_app = app.logo_app;
+    form.link = app.link;
+    form.deskripsi = app.deskripsi;
+
+    openDrawer();
+};
+
 watch(dropzoneKey, () => {
     nextTick(() => {
         const dz = new Dropzone("#partner-dropzone", {
@@ -508,15 +564,15 @@ watch(dropzoneKey, () => {
 
                 dropzoneRef.value = this;
 
-                if (isEditMode.value && editing.value?.logo) {
+                if (isEditMode.value && editing.value?.logo_app) {
                     const mockFile = {
-                        name: editing.value.logo.split("/").pop(),
+                        name: editing.value.logo_app.split("/").pop(),
                     };
                     this.emit("addedfile", mockFile);
                     this.emit(
                         "thumbnail",
                         mockFile,
-                        `/storage/${editing.value.logo}`
+                        `/storage/${editing.value.logo_app}`
                     );
                     this.emit("complete", mockFile);
                     mockFile.previewElement.classList.add(

@@ -21,7 +21,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->
 Route::post('/daerah', [DaerahController::class, 'store'])->name('daerah.store');
 Route::post('/daerah/{nama_daerah}/herosection/store', [HeroSectionController::class, 'store'])->name('hero.store');
 Route::post('/daerah/{nama_daerah}/appsection/store', [AppSectionController::class, 'store'])->name('app.store');
-Route::get('/daftarkab/{id}', [DaerahController::class, 'index'])->name('index.admin');
+Route::post('/daerah/{nama_daerah}/appsection/{app}', [AppSectionController::class, 'update'])->name('app.update');
+Route::get('/daftarkab', [DaerahController::class, 'index'])->name('index.admin');
 Route::post('/daftarkab/{id}', [DaerahController::class, 'update'])->name('daerah.update');
 Route::delete('/daftarkab/delete', [DaerahController::class, 'destroy'])->name('delete.daerah');
 Route::delete('/daerah/{nama_daerah}/herosection', [DaerahController::class, 'destroyhero'])->name('delete.hero');

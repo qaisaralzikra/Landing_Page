@@ -56,7 +56,7 @@
                                     class="rounded-4 w-175px h-150px"
                                 />
                             </div>
-                            <div class="flex-column d-flex gap-md-3 gap-2">
+                            <div class="flex-column d-flex gap-md-3 gap-2 w-md-325px w-400px">
                                 <div
                                     class="d-flex flex-row gap-2"
                                     style="justify-self: center"
@@ -96,7 +96,7 @@
                                         <a
                                             :href="medsos.link_sosmed"
                                             target="_blank"
-                                            class="text-gray-700 hover:text-blue-600"
+                                            class="icon-link-hover"
                                         >
                                             <!-- Facebook -->
                                             <span

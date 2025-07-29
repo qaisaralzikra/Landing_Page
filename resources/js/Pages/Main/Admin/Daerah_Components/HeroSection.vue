@@ -72,7 +72,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="flex-column d-flex">
+                            <div class="flex-column d-flex w-md-325px w-450px">
                                 <div style="justify-self: center">
                                     <span class="fw-bolder fs-2">{{
                                         heros.title

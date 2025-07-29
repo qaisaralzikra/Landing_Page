@@ -15,26 +15,23 @@ class DaerahController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request , $id)
+    public function index(Request $request)
     {
         $search = $request->query('q');
 
         $query = Daerah::query();
 
-        $daerah = Daerah::with('sosial_media')->findOrFail($id);
-
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('daerah', 'like', "%$search%")
-                ->orWhere('nama_daerah', 'like', "%$search%");
+                    ->orWhere('nama_daerah', 'like', "%$search%");
             });
         }
 
         $daerahs = $query->get();
         $jumlah = $daerahs->count();
-        
+
         return Inertia::render('Main/Admin/Daftar_Kab', [ // sesuai path Vue
-            'daerah' => $daerah,
             'daerahs' => $daerahs,
             'jumlah' => $jumlah,
         ]);
@@ -213,16 +210,15 @@ class DaerahController extends Controller
             'logo_daerah' => $validated['logo_daerah'],
         ]);
 
-        // ✅ Hapus sosial media lama
-        $daerah->sosial_media()->delete();
-
-        // ✅ Simpan ulang sosial media jika ada
+        // ✅ Simpan atau perbarui sosial media berdasarkan 'media_sosial'
         if (!empty($validated['sosial_media'])) {
             foreach ($validated['sosial_media'] as $item) {
-                $daerah->sosial_media()->create([
-                    'media_sosial' => $item['media_sosial'] ?? '',
-                    'link_sosmed' => $item['link_sosmed'] ?? '',
-                ]);
+                $daerah->sosial_media()->updateOrCreate(
+                    ['media_sosial' => $item['media_sosial']], // kriteria pencarian
+                    [
+                        'link_sosmed' => $item['link_sosmed'] ?? '',
+                    ]
+                );
             }
         }
 

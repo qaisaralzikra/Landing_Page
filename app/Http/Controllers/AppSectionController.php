@@ -69,9 +69,34 @@ class AppSectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AppSection $appSection)
+    public function update(Request $request, $nama_daerah, $id)
     {
-        //
+        $app = AppSection::findOrFail($id);
+        // ✅ Validasi lebih dulu sebelum update
+        $validated = $request->validate([
+            'logo_app' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama_app' => 'required|string',
+            'deskripsi' => 'required|string',
+            'link' => 'required|string',
+        ]);
+
+        // Temukan daerah berdasarkan nama_daerah
+        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
+
+        // Upload gambar baru jika ada
+        if ($request->hasFile('logo_app')) {
+            $validated['logo_app'] = $request->file('logo_app')->store('images', 'public');
+        }
+
+        // ✅ Update data daerah hanya sekali
+        $app->update([
+            'nama_app' => $validated['nama_app'],
+            'logo_app' => $validated['logo_app'],
+            'deskripsi' => $validated['deskripsi'],
+            'link' => $validated['link'],
+        ]);
+
+        return redirect()->back()->with('success', 'Data berhasil diperbarui');
     }
 
     /**
