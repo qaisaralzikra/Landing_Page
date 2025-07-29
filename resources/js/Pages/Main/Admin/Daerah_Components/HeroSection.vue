@@ -3,6 +3,7 @@
         :daerah="daerah"
         :reset-form="resetForm"
         :open-drawer="openDrawer"
+        :isEditMode="false"
     >
         <div
             v-if="hero.length === 0"
@@ -60,21 +61,27 @@
                                     />
                                 </div>
                                 <div
-                                    class="overlay-layer position-absolute top-0 start-0 w-100 h-100 d-flex gap-3 align-items-center justify-content-center bg-dark bg-opacity-25 rounded-4"
+                                    class="overlay-layer position-absolute top-0 start-0 d-flex gap-3 align-items-center justify-content-center bg-dark bg-opacity-25 rounded-4"
                                 >
                                     <button
-                                        @click.prevent="destroy(heros.id)"
-                                        class="p-0 bg-transparent border-0"
+                                        @click="editDaerah(heros)"
+                                        class="btn btn-sm btn-icon btn-secondary"
+                                    >
+                                        <i class="ri-edit-2-fill fs-5"></i>
+                                    </button>
+                                    <button
+                                        @click="destroy(heros.id)"
+                                        class="btn btn-sm btn-icon btn-danger"
                                     >
                                         <i
-                                            class="ri-delete-bin-fill text-white fs-2x"
+                                            class="ri-delete-bin-fill text-white fs-5"
                                         ></i>
                                     </button>
                                 </div>
                             </div>
-                            <div class="flex-column d-flex">
+                            <div class="flex-column d-flex w-md-325px w-400px">
                                 <div style="justify-self: center">
-                                    <span class="fw-bolder fs-2">{{
+                                    <span class="fw-bolder fs-2 text-capitalize">{{
                                         heros.title
                                     }}</span>
                                 </div>
@@ -297,12 +304,16 @@ const { daerah } = defineProps({
 const dropzoneKey = ref(Date.now());
 const dropzoneRef = ref(null);
 
+
 const form = useForm({
     bgimage: "",
     title: "",
     subtitle: "",
     daerah_id: daerah.id,
 });
+
+const editing = ref(null);
+const isEditMode = ref(false);
 
 const drawerCloseBtn = document.querySelector(
     "#kt_drawer_example_advanced_close"
@@ -318,6 +329,17 @@ const openDrawer = async () => {
         const drawer = KTDrawer.getInstance(drawerEl) || new KTDrawer(drawerEl);
         drawer.show();
     }
+};
+
+const editDaerah = (heros) => {
+    isEditMode.value = true;
+    editing.value = heros;
+
+    form.title = heros.title;
+    form.subtitle = heros.subtitle;
+    form.bgimage = heros.bgimage;
+
+    openDrawer();
 };
 
 const destroy = (heroId) => {
@@ -426,33 +448,60 @@ const submit = () => {
     }
     console.log(form);
     // console.log(route('anggotas.store'))
-    form.post(route("hero.store", daerah.nama_daerah, payload), {
-        forceFormData: true,
-        onSuccess: () => {
-            Swal.fire({
-                icon: "success",
-                title: "Berhasil",
-                text: page.props.success || "Data berhasil disimpan",
-                showConfirmButton: false,
-                timer: 2000,
-            });
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
-            form.reset();
-        },
-        onError: () => {
-            Swal.fire({
-                icon: "error",
-                title: "Daerah Gagal Ditambah",
-                text: page.props.session.error,
-                showConfirmButton: false,
-                timer: 2000,
-            });
-            cleanup();
-            form.reset();
-        },
-    });
+    if (isEditMode.value && editing.value) {
+        payload.append("_method", "PUT");
+
+        form.post(
+            route("hero.update", {
+                nama_daerah: daerah.nama_daerah,
+                app: editing.value.id, // pastikan ID app yang di-edit
+            }),
+            {
+                preserveScroll: true,
+                forceFormData: true,
+                onSuccess: () => {
+                    Swal.fire(
+                        "Berhasil!",
+                        "Data berhasil diperbarui!",
+                        "success"
+                    );
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 100);
+                    cleanup();
+                    form.reset("");
+                },
+            }
+        );
+    } else {
+        form.post(route("hero.store", daerah.nama_daerah, payload), {
+            forceFormData: true,
+            onSuccess: () => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Berhasil",
+                    text: page.props.success || "Data berhasil disimpan",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
+                form.reset();
+            },
+            onError: () => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Daerah Gagal Ditambah",
+                    text: page.props.session.error,
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                cleanup();
+                form.reset();
+            },
+        });
+    }
 };
 watch(dropzoneKey, () => {
     nextTick(() => {
@@ -476,15 +525,15 @@ watch(dropzoneKey, () => {
 
                 dropzoneRef.value = this;
 
-                if (isEditMode.value && editing.value?.logo) {
+                if (isEditMode.value && editing.value?.bgimage) {
                     const mockFile = {
-                        name: editing.value.logo.split("/").pop(),
+                        name: editing.value.bgimage.split("/").pop(),
                     };
                     this.emit("addedfile", mockFile);
                     this.emit(
                         "thumbnail",
                         mockFile,
-                        `/storage/${editing.value.logo}`
+                        `/storage/${editing.value.bgimage}`
                     );
                     this.emit("complete", mockFile);
                     mockFile.previewElement.classList.add(

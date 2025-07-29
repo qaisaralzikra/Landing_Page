@@ -11,10 +11,10 @@
         data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle"
     >
         <div
-            class="app-sidebar-logo px-6 border-end border-gray-300"
+            class="app-sidebar-logo px-6 py-4 border-end border-gray-300"
             id="kt_app_sidebar_logo"
         >
-            <Link href="/admin/dashboard">
+            <Link href="/dashboard">
                 <img
                     alt="Logo"
                     src="/public/assets/media/logos/afila-logo.svg"
@@ -68,9 +68,9 @@
                             <span
                                 :class="[
                                     $page.url.startsWith('/dashboard')
-                                        ? 'menu-title-after'
-                                        : 'menu-title'
-                                    
+                                        ? ['fw-bold', 'text-dark']
+                                        : 'menu-title ',
+                                    'fs-4',
                                 ]"
                                 >Dashboard</span
                             >
@@ -97,9 +97,9 @@
                             <span
                                 :class="[
                                     $page.url.startsWith('/daftarkab')
-                                        ? 'menu-title-after'
-                                        : 'menu-title'
-                                 
+                                        ? ['fw-bold', 'text-dark']
+                                        : 'menu-title',
+                                    ' fs-4',
                                 ]"
                                 >Daftar Daerah</span
                             >
@@ -146,9 +146,9 @@
                                     $page.url.startsWith(
                                         `/daerah/${daerah.nama_daerah}`
                                     )
-                                        ? 'menu-title-after'
+                                        ? ['fw-bold', 'text-dark', '']
                                         : 'menu-title ',
-                              
+                                    'fs-4',
                                 ]"
                             >
                                 {{ daerah.nama_daerah }}
@@ -192,7 +192,7 @@
                                             $page.url.startsWith(
                                                 `/daerah/${daerah.nama_daerah}`
                                             )
-                                                ? 'menu-title-after'
+                                                ? ['fw-bold', 'text-dark', '']
                                                 : 'menu-title ',
                                             'fs-4',
                                         ]"
@@ -253,8 +253,9 @@
                             <span
                                 :class="[
                                     $page.url.startsWith('/admin/user')
-                                        ? 'menu-title-after'
-                                        :'menu-title'
+                                        ? 'fw-bold'
+                                        : 'fw-semibold',
+                                    'menu-title fs-4',
                                 ]"
                                 >Pengaturan</span
                             >
@@ -281,8 +282,9 @@
                             <span
                                 :class="[
                                     $page.url.startsWith('/admin/user')
-                                        ? 'menu-title-after'
-                                        : 'menu-title '
+                                        ? 'fw-bold'
+                                        : 'fw-semibold',
+                                    'menu-title fs-4',
                                 ]"
                                 >Akun</span
                             >
@@ -291,7 +293,7 @@
                     <!-- button -->
                     <div
                         style="width: 90%"
-                        class=" mb-10 cursor-pointer mt-10 mx-auto menu-item py-10  border border-secondary border-dashed border-2  text-center rounded-2 d-flex flex-column flex-center justify-content-center"
+                        class="mb-10 cursor-pointer mt-10 mx-auto menu-item py-10 border border-secondary border-dashed border-2 text-center rounded-2 d-flex flex-column flex-center justify-content-center"
                     >
                         <div>
                             <!--begin::Icon-->
@@ -340,13 +342,7 @@ const post = page.props.daerahs;
 
 .menu-title {
     font-family: "NunitoSans", sans-serif;
-    font-size:16px ;
-}
-.menu-title-after{
-    font-family: "NunitoSans", sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    color: #000000;
+    font-weight: 600;
 }
 
 .menu-link-mysecondary,

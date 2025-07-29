@@ -46,7 +46,7 @@
                         class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5"
                     >
                         <div
-                            class="p-3 d-flex flex-row align-items-center align-items-md-start gap-7 bg-white rounded-2 w-550px"
+                            class="p-3 d-flex flex-md-row flex-column align-items-center align-items-md-start gap-7 bg-white rounded-2 w-550px"
                             style="border: 1px solid rgba(118, 118, 128, 0.12)"
                         >
                             <div style="justify-self: center">
@@ -56,7 +56,7 @@
                                     class="rounded-4 w-175px h-150px"
                                 />
                             </div>
-                            <div class="flex-column d-flex gap-md-3 gap-2">
+                            <div class="flex-column d-flex gap-md-3 gap-2 w-md-325px w-400px">
                                 <div
                                     class="d-flex flex-row gap-2"
                                     style="justify-self: center"
@@ -96,7 +96,7 @@
                                         <a
                                             :href="medsos.link_sosmed"
                                             target="_blank"
-                                            class="text-gray-700 hover:text-blue-600"
+                                            class="icon-link-hover"
                                         >
                                             <!-- Facebook -->
                                             <span

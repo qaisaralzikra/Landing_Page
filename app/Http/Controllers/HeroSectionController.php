@@ -66,9 +66,32 @@ class HeroSectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, HeroSection $heroSection)
+    public function update(Request $request, $nama_daerah, $id)
     {
-        //
+        $hero = HeroSection::findOrFail($id);
+        // ✅ Validasi lebih dulu sebelum update
+        $validated = $request->validate([
+            'bgimage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'title' => 'required|string',
+            'subtitle' => 'required|string',
+        ]);
+
+        // Temukan daerah berdasarkan nama_daerah
+        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
+
+        // Upload gambar baru jika ada
+        if ($request->hasFile('bgimage')) {
+            $validated['bgimage'] = $request->file('bgimage')->store('images', 'public');
+        }
+
+        // ✅ Update data daerah hanya sekali
+        $hero->update([
+            'bgimage' => $validated['bgimage'],
+            'title' => $validated['title'],
+            'subtitle' => $validated['subtitle'],
+        ]);
+
+        return redirect()->back()->with('success', 'Data berhasil diperbarui');
     }
 
     /**

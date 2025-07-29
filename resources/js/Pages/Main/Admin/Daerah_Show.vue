@@ -116,6 +116,7 @@ const { daerah } = defineProps({
                             () => {
                                 resetForm();
                                 openDrawer();
+                                isEditMode = false;
                             }
                         "
                         class="btn-primary btn py-1 rounded-2 text-white px-4 d-flex flex-row gap-3 align-items-center"

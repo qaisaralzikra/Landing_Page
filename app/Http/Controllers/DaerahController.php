@@ -126,29 +126,13 @@ class DaerahController extends Controller
      */
     public function store(Request $request)
     {
-        // $validated = $request->validate([
-        //     'logo_daerah' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'nama_daerah' => 'required|string',
-        //     'deskripsi' => 'required|string',
-        //     'daerah' => 'required|in:Kabupaten,Kota',
-        // ]);
-
-        // // Simpan gambar
-        // if ($request->hasFile('logo_daerah')) {
-        //     $validated['logo_daerah'] = $request->file('logo_daerah')->store('images', 'public');
-        // }
-
-        // Daerah::create($validated);
-
-
-
         $validated = $request->validate([
             'logo_daerah' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'daerah' => 'required|in:Kabupaten,Kota',
             'nama_daerah' => 'required|string',
             'deskripsi' => 'nullable|string',
-            'sosial_media' => 'array',
-            'sosial_media.*.media_sosial' => 'required|in:instagram,facebook,youtube,x,email',
+            'sosial_media' => 'nullable|array',
+            'sosial_media.*.media_sosial' => 'nullable|in:instagram,facebook,youtube,x,email',
             'sosial_media.*.link_sosmed' => 'nullable|string',
         ]);
 
@@ -196,10 +180,51 @@ class DaerahController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Daerah $daerah)
+    public function update(Request $request, $id)
     {
-        //
+        $daerah = Daerah::findOrFail($id);
+
+        // ✅ Validasi lebih dulu sebelum update
+        $validated = $request->validate([
+            'nama_daerah' => 'required|string',
+            'daerah' => 'required|string',
+            'logo_daerah' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'sosial_media' => 'nullable|array',
+            'sosial_media.*.media_sosial' => 'nullable|string',
+            'sosial_media.*.link_sosmed' => 'nullable|url',
+        ]);
+
+        // ✅ Simpan logo jika diupload
+        if ($request->hasFile('logo_daerah')) {
+            $path = $request->file('logo_daerah')->store('images', 'public');
+            $validated['logo_daerah'] = $path;
+        } else {
+            // Tetap pakai logo lama
+            $validated['logo_daerah'] = $daerah->logo_daerah;
+        }
+
+        // ✅ Update data daerah hanya sekali
+        $daerah->update([
+            'nama_daerah' => $validated['nama_daerah'],
+            'daerah' => $validated['daerah'],
+            'logo_daerah' => $validated['logo_daerah'],
+        ]);
+
+        // ✅ Simpan atau perbarui sosial media berdasarkan 'media_sosial'
+        if (!empty($validated['sosial_media'])) {
+            foreach ($validated['sosial_media'] as $item) {
+                $daerah->sosial_media()->updateOrCreate(
+                    ['media_sosial' => $item['media_sosial']], // kriteria pencarian
+                    [
+                        'link_sosmed' => $item['link_sosmed'] ?? '',
+                    ]
+                );
+            }
+        }
+
+        return redirect()->back()->with('success', 'Data berhasil diperbarui');
     }
+
 
     /**
      * Remove the specified resource from storage.
