@@ -15,7 +15,7 @@
                 </ol>
             </div>
             <div class="d-flex flex-row align-items-center gap-5">
-                <h1 class="fs-2qx">Daftar Daerah</h1>
+                <h1 class="fs-2qx text-bold">Daftar Daerah</h1>
                 <span
                     class="text-primary py-1 px-5 fs-5 rounded-4 fw-bold"
                     style="background-color: rgba(59, 130, 246, 0.1)"

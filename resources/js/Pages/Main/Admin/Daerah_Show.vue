@@ -36,11 +36,11 @@ const { daerah } = defineProps({
                     >
                 </ol>
             </div>
-            <div class="d-flex flex-row align-items-center gap-3">
-                <h1 class="fs-md-2qx fs-1 text-capitalize">
+            <div class="d-flex  flex-row align-items-center gap-3">
+                <h1 class="fs-md-2qx text-bold fs-1 text-capitalize">
                     {{ daerah.daerah }}
                 </h1>
-                <h1 class="fs-md-2qx fs-1 text-capitalize">
+                <h1 class=" fs-md-2qx text-bold fs-1 text-capitalize">
                     {{ daerah.nama_daerah }}
                 </h1>
             </div>

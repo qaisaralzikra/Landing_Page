@@ -107,8 +107,5 @@ const getInitial = computed(() => {
 </script>
 
 <style scoped>
-@font-face {
-    font-family: "NunitoSans";
-    src: url("/assets/media/font/NunitoSans2.ttf") format("truetype");
-}
+
 </style>

@@ -40,3 +40,15 @@
 import MainSidebar from "../Components/Sidebar/Main-Sidebar.vue";
 import MainHeader from "../Components/Header/Main-Header.vue";
 </script>
+<style>
+@font-face {
+    font-family: "NunitoSans";
+    src: url("/assets/media/font/NunitoSans2.ttf") format("truetype");
+}
+*{
+    font-family: "NunitoSans", sans-serif;
+}
+.text-bold {
+    font-weight: 800;
+}
+</style>

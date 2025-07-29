@@ -205,16 +205,16 @@
 
                         <!-- Tombol Toggle -->
                         <a
-                            class="btn btn-flex btn-color-primary d-flex gap-2 fs-5 p-0 ms-4 mb-2 toggle collapsible collapsed"
+                            class="btn btn-flex btn-color-primary fw-normal d-flex gap-2 fs-4 p-0 ms-4 mb-2 toggle collapsible collapsed"
                             data-bs-toggle="collapse"
                             href="#kt_app_sidebar_menu_dashboards_collapse"
                             data-kt-toggle-text="Sembunyikan"
                         >
                             <span class="svg-icon toggle-on svg-icon-2">
-                                <i class="ri-add-line fs-4"></i>
+                                <i class="ri-subtract-line fs-4"></i>
                             </span>
                             <span class="svg-icon toggle-off svg-icon-2">
-                                <i class="ri-subtract-line fs-4"></i>
+                                <i class="ri-add-line fs-4"></i>
                             </span>
                             <span data-kt-toggle-text-target="true"
                                 >Lihat {{ post.length - 5 }} Lainnya</span
@@ -361,8 +361,5 @@ const post = page.props.daerahs;
     color: #000000;
 }
 
-@font-face {
-    font-family: "NunitoSans";
-    src: url("/assets/media/font/NunitoSans2.ttf") format("truetype");
-}
+
 </style>
