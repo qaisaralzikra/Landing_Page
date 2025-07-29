@@ -46,7 +46,7 @@
                         class="my-1 d-flex flex-wrap gap-10 gap-md-15 gap-lg-5"
                     >
                         <div
-                            class="p-3 d-flex flex-row align-items-center align-items-md-start gap-7 bg-white rounded-2 w-550px"
+                            class="p-3 d-flex flex-md-row flex-column align-items-center align-items-md-start gap-7 bg-white rounded-2 w-550px"
                             style="border: 1px solid rgba(118, 118, 128, 0.12)"
                         >
                             <div style="justify-self: center">

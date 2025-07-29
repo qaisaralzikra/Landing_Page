@@ -22,6 +22,7 @@ Route::post('/daerah', [DaerahController::class, 'store'])->name('daerah.store')
 Route::post('/daerah/{nama_daerah}/herosection/store', [HeroSectionController::class, 'store'])->name('hero.store');
 Route::post('/daerah/{nama_daerah}/appsection/store', [AppSectionController::class, 'store'])->name('app.store');
 Route::post('/daerah/{nama_daerah}/appsection/{app}', [AppSectionController::class, 'update'])->name('app.update');
+Route::post('/daerah/{nama_daerah}/herosection/{app}', [HeroSectionController::class, 'update'])->name('hero.update');
 Route::get('/daftarkab', [DaerahController::class, 'index'])->name('index.admin');
 Route::post('/daftarkab/{id}', [DaerahController::class, 'update'])->name('daerah.update');
 Route::delete('/daftarkab/delete', [DaerahController::class, 'destroy'])->name('delete.daerah');
