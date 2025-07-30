@@ -3,7 +3,7 @@ import { createInertiaApp, Head } from '@inertiajs/vue3'
 import { Ziggy } from './ziggy'
 
 createInertiaApp({
-  title: title => `Admin ${title}`,
+  title: (title) => `PORTAL ${title}`,
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
     return pages[`./Pages/${name}.vue`]
@@ -20,7 +20,7 @@ createInertiaApp({
     delay: 250,
 
     // The color of the progress bar...
-    color: '#29d',
+    color: '#99d',
 
     // Whether to include the default NProgress styles...
     includeCSS: true,

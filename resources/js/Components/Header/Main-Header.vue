@@ -47,7 +47,7 @@
                         id="kt_header_user_menu_toggle"
                     >
                         <div style="font-family: 'NunitoSans'; font-weight: bold; "
-                            class="symbol-label rounded-circle fs-3 bg-primary text-white"
+                            class="symbol-label rounded-circle fs-4 bg-primary text-white"
                         >
                             {{ getInitial }}
                         </div>
@@ -63,7 +63,7 @@
 
                     <!-- Dropdown -->
                     <div
-                        class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold mt-3 py-4 fs-6 w-275px"
+                        class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold mt-3 py-4 fs-6 w-175px"
                         data-kt-menu="true"
                         
                     >

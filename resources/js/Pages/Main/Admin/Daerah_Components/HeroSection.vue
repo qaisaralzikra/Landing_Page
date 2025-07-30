@@ -1,4 +1,5 @@
 <template>
+    <Head title=" | Hero Section"></Head>
     <Daerah_Show
         :daerah="daerah"
         :reset-form="resetForm"

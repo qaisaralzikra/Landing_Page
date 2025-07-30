@@ -1,4 +1,5 @@
 <template>
+    <Head title=" | Footer Section"></Head>
     <Daerah_Show
         :daerah="daerah"
         :reset-form="resetForm"
@@ -82,7 +83,7 @@
                                             overflow: hidden;
                                             text-overflow: ellipsis;
                                             display: -webkit-box;
-                                            -webkit-line-clamp: 5; /* Batasi ke 2 baris */
+                                            -webkit-line-clamp: 5; 
                                             -webkit-box-orient: vertical;
                                         "
                                         >{{ daerah.deskripsi }}</span

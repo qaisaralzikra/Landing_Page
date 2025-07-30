@@ -1,4 +1,6 @@
 <template>
+    <Head title=" | Daftar Daerah">
+    </Head>
     <navigation>
         <div class="d-flex flex-column gap-1">
             <div>
@@ -155,12 +157,12 @@
                                 "
                             >
                                 <span
-                                    class="text-center fw-normal text-uppercase fs-6"
+                                    class="text-center fw-bold text-uppercase fs-6"
                                     style="color: rgba(60, 60, 67, 0.75)"
                                     >{{ daerah.daerah }}</span
                                 >
                                 <span
-                                    class="text-black text-center fw-bold text-uppercase fs-4"
+                                    class="text-black text-center fw-bolder text-uppercase fs-4"
                                     >{{ daerah.nama_daerah }}</span
                                 >
                             </Link>

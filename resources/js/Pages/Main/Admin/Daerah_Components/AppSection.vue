@@ -1,4 +1,5 @@
 <template>
+    <Head title=" | Apps Section"></Head>
     <Daerah_Show
         :daerah="daerah"
         :reset-form="resetForm"
