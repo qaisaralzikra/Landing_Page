@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppSectionController;
 use App\Http\Controllers\HeroSectionController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,6 +30,6 @@ Route::delete('/daftarkab/delete', [DaerahController::class, 'destroy'])->name('
 Route::delete('/daerah/{nama_daerah}/herosection', [DaerahController::class, 'destroyhero'])->name('delete.hero');
 Route::delete('/daerah/{nama_daerah}/appsection', [DaerahController::class, 'destroyapp'])->name('delete.app');
 Route::get('/daftarkab/search', [DaerahController::class, 'search'])->name('search.index');
-Route::get('/daerah/{nama_daerah}/herosection', [DaerahController::class, 'componentHeroSection'])->name('daerah.show.hero');
-Route::get('/daerah/{nama_daerah}/appsection', [DaerahController::class, 'componentAppSection'])->name('daerah.show.app');
-Route::get('/daerah/{nama_daerah}/footer', [DaerahController::class, 'componentFooterSection'])->name('daerah.show.footer');
+Route::get('/daerah/{nama_daerah}/herosection', [HeroSectionController::class, 'componentHeroSection'])->name('daerah.show.hero');
+Route::get('/daerah/{nama_daerah}/appsection', [AppSectionController::class, 'componentAppSection'])->name('daerah.show.app');
+Route::get('/daerah/{nama_daerah}/footer', [FooterController::class, 'componentFooterSection'])->name('daerah.show.footer');

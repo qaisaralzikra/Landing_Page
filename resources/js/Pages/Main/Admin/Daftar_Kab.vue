@@ -571,11 +571,12 @@ const destroy = (id) => {
     });
 };
 
+const editing = ref(null);
+const isEditMode = ref(false);
+
 const dropzoneKey = ref(Date.now());
 const dropzoneRef = ref(null);
 
-const editing = ref(null);
-const isEditMode = ref(false);
 
 const page = usePage();
 

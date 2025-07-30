@@ -3,16 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\Footer;
+use App\Models\Daerah;
+use App\Models\SosialMedia;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+
 
 class FooterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function componentFooterSection($nama_daerah, Request $request)
     {
-        //
+        // Decode nama daerah dari URL
+        $nama_daerah = urldecode($nama_daerah);
+
+        // Filter data AppSection berdasarkan daerah_id yang cocok
+
+        // Ambil hanya 1 data daerah yang cocok
+        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
+
+        $query = SosialMedia::where('daerah_id', $daerah->id);
+
+        $sosmed = $query->get();
+
+        // Kirim hanya data daerah itu ke view
+        return Inertia::render('Main/Admin/Daerah_Components/FooterSection', [
+            'daerah' => $daerah,
+            'sosmed' => $sosmed,
+        ]);
     }
 
     /**

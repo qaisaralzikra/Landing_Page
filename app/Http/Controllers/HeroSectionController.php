@@ -12,13 +12,32 @@ class HeroSectionController extends Controller
     /**
      * Display a listing of the resource.
      */
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function componentHeroSection($nama_daerah, Request $request)
     {
-        //
+        $search = $request->query('q');
+
+        // Decode nama daerah jika ada spasi atau karakter spesial
+        $nama_daerah = urldecode($nama_daerah);
+
+        // Cari data daerah berdasarkan nama
+        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
+
+        // Filter data AppSection berdasarkan daerah_id yang cocok
+        $query = HeroSection::where('daerah_id', $daerah->id);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%")
+                    ->orWhere('subtitle', 'like', "%$search%");
+            });
+        }
+
+        $heros = $query->get();
+
+        return Inertia::render('Main/Admin/Daerah_Components/HeroSection', [
+            'daerah' => $daerah,
+            'hero' => $heros, // Ganti dari 'app' agar lebih konsisten
+        ]);
     }
 
     /**
@@ -44,23 +63,6 @@ class HeroSectionController extends Controller
         return redirect()
             ->route('daerah.show.hero', ['nama_daerah' => $daerah->nama_daerah])
             ->with('success', 'Hero Section berhasil ditambahkan.');
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(HeroSection $heroSection)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(HeroSection $heroSection)
-    {
-        //
     }
 
     /**
@@ -97,8 +99,31 @@ class HeroSectionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(HeroSection $heroSection)
+    public function destroyhero(Request $request, $nama_daerah)
     {
-        //
+        // Temukan data daerah berdasarkan nama_daerah dari URL
+        $daerah = Daerah::where('nama_daerah', urldecode($nama_daerah))->firstOrFail();
+
+        // Ambil ID HeroSection dari request body
+        $id = $request->input('id');
+
+        // Cek jika ID tidak dikirim
+        if (!$id) {
+            return redirect()->back()->withErrors(['id' => 'ID HeroSection tidak dikirim.']);
+        }
+
+        // Temukan HeroSection berdasarkan ID dan daerah yang sesuai
+        $hero = HeroSection::where('id', $id)->where('daerah_id', $daerah->id)->first();
+
+        // Jika tidak ditemukan, kembalikan error
+        if (!$hero) {
+            return redirect()->back()->withErrors(['id' => 'Data HeroSection tidak ditemukan.']);
+        }
+
+        // Hapus HeroSection
+        $hero->delete();
+
+        // Redirect kembali (atau bisa return inertia redirect)
+        return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
 }

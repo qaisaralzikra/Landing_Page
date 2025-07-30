@@ -45,7 +45,7 @@ import MainHeader from "../Components/Header/Main-Header.vue";
     font-family: "NunitoSans";
     src: url("/assets/media/font/NunitoSans2.ttf") format("truetype");
 }
-*{
+* {
     font-family: "NunitoSans", sans-serif;
 }
 .text-bold {

@@ -5,23 +5,39 @@ namespace App\Http\Controllers;
 use App\Models\AppSection;
 use App\Models\Daerah;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AppSectionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function componentAppSection($nama_daerah, Request $request)
     {
-        //
-    }
+        $search = $request->query('q');
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        // Decode nama daerah jika ada spasi atau karakter spesial
+        $nama_daerah = urldecode($nama_daerah);
+
+        // Cari data daerah berdasarkan nama
+        $daerah = Daerah::where('nama_daerah', $nama_daerah)->firstOrFail();
+
+        // Filter data AppSection berdasarkan daerah_id yang cocok
+        $query = AppSection::where('daerah_id', $daerah->id);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_app', 'like', "%$search%")
+                    ->orWhere('deskripsi', 'like', "%$search%");
+            });
+        }
+
+        $apps = $query->get();
+
+        return Inertia::render('Main/Admin/Daerah_Components/AppSection', [
+            'daerah' => $daerah,
+            'apps' => $apps, // Ganti dari 'app' agar lebih konsisten
+        ]);
     }
 
     /**
@@ -50,25 +66,6 @@ class AppSectionController extends Controller
             ->with('success', 'App Section berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(AppSection $appSection)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AppSection $appSection)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $nama_daerah, $id)
     {
         $app = AppSection::findOrFail($id);
@@ -99,11 +96,31 @@ class AppSectionController extends Controller
         return redirect()->back()->with('success', 'Data berhasil diperbarui');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(AppSection $appSection)
+    public function destroyapp(Request $request, $nama_daerah)
     {
-        //
+        // Temukan data daerah berdasarkan nama_daerah dari URL
+        $daerah = Daerah::where('nama_daerah', urldecode($nama_daerah))->firstOrFail();
+
+        // Ambil ID HeroSection dari request body
+        $id = $request->input('id');
+
+        // Cek jika ID tidak dikirim
+        if (!$id) {
+            return redirect()->back()->withErrors(['id' => 'ID AppSection tidak dikirim.']);
+        }
+
+        // Temukan HeroSection berdasarkan ID dan daerah yang sesuai
+        $app = AppSection::where('id', $id)->where('daerah_id', $daerah->id)->first();
+
+        // Jika tidak ditemukan, kembalikan error
+        if (!$app) {
+            return redirect()->back()->withErrors(['id' => 'Data AppSection tidak ditemukan.']);
+        }
+
+        // Hapus HeroSection
+        $app->delete();
+
+        // Redirect kembali (atau bisa return inertia redirect)
+        return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
 }

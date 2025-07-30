@@ -291,27 +291,36 @@
                         </Link>
                     </div>
                     <!-- button -->
-                    <div
-                        style="width: 90%"
-                        class="mb-10 cursor-pointer mt-10 mx-auto menu-item py-10 border border-secondary border-dashed border-2 text-center rounded-2 d-flex flex-column flex-center justify-content-center"
-                    >
-                        <div>
-                            <!--begin::Icon-->
-                            <i
-                                style="font-size: 40px"
-                                class="ri-bank-fill text-primary"
-                            ></i>
+                    <div>
+                        <button
+                            @click="
+                                () => {
+                                    resetFormDaerah();
+                                    openDrawerDaerah();
+                                }
+                            "
+                            style="width: 90%"
+                            class="mb-10 cursor-pointer mt-10 mx-auto menu-item py-10 border border-secondary border-dashed border-2 text-center rounded-2 d-flex flex-column flex-center justify-content-center"
+                        >
+                            <div>
+                                <!--begin::Icon-->
+                                <i
+                                    style="font-size: 40px"
+                                    class="ri-bank-fill text-primary"
+                                ></i>
 
-                            <div class="d-flex flex-column">
-                                <h5 class="mb-1 text-capitalize">
-                                    tambah daerah
-                                </h5>
+                                <div class="d-flex flex-column">
+                                    <h5 class="mb-1 text-capitalize">
+                                        tambah daerah
+                                    </h5>
 
-                                <span class="textcapitalize fs-6 text-gray-600"
-                                    >portal aplikasi</span
-                                >
+                                    <span
+                                        class="textcapitalize fs-6 text-gray-600"
+                                        >portal aplikasi</span
+                                    >
+                                </div>
                             </div>
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -320,12 +329,16 @@
 </template>
 
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
+import { Head, useForm, usePage, router, Link } from "@inertiajs/vue3";
+import Swal from "sweetalert2";
+import { ref, nextTick, watch, onMounted } from "vue";
+import Dropzone from "dropzone";
 import route from "ziggy-js";
 
 const page = usePage();
 
 const post = page.props.daerahs;
+
 </script>
 
 <style>
@@ -356,6 +369,4 @@ const post = page.props.daerahs;
     background-color: #3b82f61a; /* abu lebih gelap */
     color: #000000;
 }
-
-
 </style>
