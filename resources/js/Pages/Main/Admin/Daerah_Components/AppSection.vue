@@ -50,17 +50,17 @@
                         <div
                             v-for="app in apps"
                             :key="app.id"
-                            class="p-3 d-flex flex-row flex-md-column gap-4 bg-white rounded-2 w-550px w-md-275px"
+                            class="p-3 d-flex flex-column gap-4 bg-white rounded-2 w-550px w-md-275px"
                             style="border: 1px solid rgba(118, 118, 128, 0.12)"
                         >
                             <div
-                                class="d-block overlay position-relative h-150px h-md-200px"
+                                class="d-block overlay position-relative align-content-center h-100px h-md-150px"
                             >
-                                <div style="justify-self: center">
+                                <div>
                                     <img
                                         :src="`/storage/${app.logo_app}`"
                                         alt=""
-                                        class="overlay-wrapper rounded-4 w-175px h-150px w-md-250px h-md-200px"
+                                        class="overlay-wrapper rounded-4 "
                                     />
                                 </div>
                                 <div
@@ -94,7 +94,7 @@
                                         }}</span>
                                         <div
                                             v-if="app.versi"
-                                            class="w-40px h-20px rounded-4 text-center fw-bolder"
+                                            class=" h-20px px-2 rounded-4 text-center fw-bolder"
                                             style="
                                                 background-color: rgba(
                                                     59,
