@@ -15,6 +15,7 @@ class AppSection extends Model
         'deskripsi',
         'daerah_id',
         'link',
+        'versi'
     ];
 
     public function daerah()

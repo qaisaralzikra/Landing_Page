@@ -50,6 +50,7 @@ class AppSectionController extends Controller
             'nama_app' => 'required|string',
             'deskripsi' => 'required|string',
             'link' => 'required|string',
+            'versi' => 'nullable|string',
             'daerah_id' => 'required|exists:daerahs,id',
         ]);
 
@@ -75,6 +76,7 @@ class AppSectionController extends Controller
             'nama_app' => 'required|string',
             'deskripsi' => 'required|string',
             'link' => 'required|string',
+            'versi' => 'nullable|string',
         ]);
 
         // Temukan daerah berdasarkan nama_daerah
@@ -91,6 +93,7 @@ class AppSectionController extends Controller
             'logo_app' => $validated['logo_app'],
             'deskripsi' => $validated['deskripsi'],
             'link' => $validated['link'],
+            'versi' => $validated['versi'],
         ]);
 
         return redirect()->back()->with('success', 'Data berhasil diperbarui');

@@ -19,7 +19,7 @@
             <div class="d-flex flex-row align-items-center gap-5">
                 <h1 class="fs-2qx text-bold">Daftar Daerah</h1>
                 <span
-                    class="text-primary py-1 px-5 fs-5 rounded-4 fw-bold"
+                    class="text-primary w-md-30px h-md-25px text-center fs-3 rounded-circle fw-bolder"
                     style="background-color: rgba(59, 130, 246, 0.1)"
                     >{{ jumlah }}</span
                 >
@@ -122,12 +122,14 @@
                                 border: 1px solid rgba(118, 118, 128, 0.12);
                             "
                         >
-                            <div class="d-block overlay position-relative">
-                                <img
-                                    :src="`/storage/${daerah.logo_daerah}`"
-                                    alt=""
-                                    class="overlay-wrapper w-100px h-100px w-lg-100px h-lg-100px rounded-2"
-                                />
+                            <div class="d-block overlay position-relative w-90px h-100px">
+                                <div class="w-90px ">
+                                    <img
+              :src="`/storage/${daerah.logo_daerah}`"
+                                        alt=""
+                                        class="overlay-wrapper rounded-2 w-85px h-100px"
+                                    />
+                                </div>
                                 <div
                                     class="overlay-layer position-absolute top-0 start-0 w-100 h-100 d-flex gap-3 align-items-center justify-content-center bg-dark bg-opacity-25 rounded-4"
                                 >
@@ -147,25 +149,27 @@
                                     </button>
                                 </div>
                             </div>
-                            <Link
-                                class="d-flex flex-column gap-0"
-                                :href="
-                                    route(
-                                        'daerah.show.hero',
-                                        daerah.nama_daerah
-                                    )
-                                "
-                            >
-                                <span
-                                    class="text-center fw-bold text-uppercase fs-6"
-                                    style="color: rgba(60, 60, 67, 0.75)"
-                                    >{{ daerah.daerah }}</span
+                            <div class="">
+                                <Link
+                                    class="d-flex flex-column gap-0"
+                                    :href="
+                                        route(
+                                            'daerah.show.hero',
+                                            daerah.nama_daerah
+                                        )
+                                    "
                                 >
-                                <span
-                                    class="text-black text-center fw-bolder text-uppercase fs-4"
-                                    >{{ daerah.nama_daerah }}</span
-                                >
-                            </Link>
+                                    <span
+                                        class="text-center fw-bold text-uppercase fs-6"
+                                        style="color: rgba(60, 60, 67, 0.75)"
+                                        >{{ daerah.daerah }}</span
+                                    >
+                                    <span
+                                        class="text-black text-center fw-bolder text-uppercase fs-4"
+                                        >{{ daerah.nama_daerah }}</span
+                                    >
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -187,7 +191,6 @@
                 <div class="card w-100 rounded-0">
                     <div
                         class="card-header ps-6 pe-3 h-60px border-bottom border-gray-300 h-60px h-lg-70px"
-                        style="min-height: unset"
                     >
                         <div class="card-title">
                             <h2>
@@ -455,13 +458,13 @@
                             <button
                                 type="submit"
                                 id="kt_drawer_submit_button"
-                                class="btn btn-sm btn-dark fs-5"
+                                class="btn btn-sm btn-primary fs-5"
                             >
                                 <span class="indicator-label">
                                     {{
                                         isEditMode
-                                            ? "Edit Partner"
-                                            : "Tambah Partner"
+                                            ? "Edit Daerah"
+                                            : "Tambah Daerah"
                                     }}
                                 </span>
                                 <span class="indicator-progress">

@@ -126,10 +126,13 @@
                 <div class="card w-100 rounded-0">
                     <div
                         class="card-header ps-6 pe-3 h-60px border-bottom border-gray-300 h-60px h-lg-70px"
-                        style="min-height: unset"
                     >
                         <div class="card-title">
-                            <h2>Tambah Hero Section</h2>
+                            {{
+                                        isEditMode
+                                            ? "Edit Hero Section"
+                                            : "Tambah Hero Section"
+                                    }}
                         </div>
                         <div
                             class="card-toolbar"
@@ -265,10 +268,14 @@
                             <button
                                 type="submit"
                                 id="kt_drawer_submit_button"
-                                class="btn btn-sm btn-dark fs-5"
+                                class="btn btn-sm btn-primary fs-5"
                             >
                                 <span class="indicator-label">
-                                    Tambah Hero Section
+                                    {{
+                                        isEditMode
+                                            ? "Edit Hero Section"
+                                            : "Tambah Hero Section"
+                                    }}
                                 </span>
                                 <span class="indicator-progress">
                                     Mohon Tunggu...

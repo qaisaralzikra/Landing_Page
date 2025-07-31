@@ -82,25 +82,47 @@
                                     </button>
                                 </div>
                             </div>
-                            <div
-                                class="w-425px w-md-250px d-flex flex-column gap-2"
-                            >
-                                <div>
-                                    <span class="fw-bolder fs-2">{{
-                                        app.nama_app
-                                    }}</span>
-                                </div>
+                            <div class="d-md-none w-400px w-md-250px">
                                 <div
-                                    style="
-                                        justify-self: center;
-                                        color: rgba(60, 60, 67, 0.75);
-                                    "
+                                    class="w-275px d-flex flex-column gap-1"
                                 >
-                                    <span class="fs-6" style="">{{
-                                        app.deskripsi
-                                    }}</span>
+                                    <div
+                                        class="d-flex flex-row gap-3 align-items-center"
+                                    >
+                                        <span class="fw-bolder fs-2">{{
+                                            app.nama_app
+                                        }}</span>
+                                        <div
+                                            v-if="app.versi"
+                                            class="w-40px h-20px rounded-4 text-center fw-bolder"
+                                            style="
+                                                background-color: rgba(
+                                                    59,
+                                                    130,
+                                                    246,
+                                                    0.1
+                                                );
+                                            "
+                                        >
+                                            <span
+                                                class="text-primary fw-bolder fs-6 text-center"
+                                            >
+                                                {{ app.versi }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="
+                                            justify-self: center;
+                                            color: rgba(60, 60, 67, 0.75);
+                                        "
+                                    >
+                                        <span class="fs-6" style="">{{
+                                            app.deskripsi
+                                        }}</span>
+                                    </div>
                                 </div>
-                                <div class="mt-auto">
+                                <div class="mt-3">
                                     <a
                                         target="_blank"
                                         :href="`${app.link}`"
@@ -126,6 +148,70 @@
                                     </a>
                                 </div>
                             </div>
+                            <div
+                                class="d-none w-300px w-md-250px d-md-flex flex-column gap-1"
+                            >
+                                <div
+                                    class="d-flex flex-row gap-3 align-items-center"
+                                >
+                                    <span class="fw-bolder fs-2">{{
+                                        app.nama_app
+                                    }}</span>
+                                    <div
+                                        v-if="app.versi"
+                                        class="w-40px h-20px rounded-4 text-center fw-bolder"
+                                        style="
+                                            background-color: rgba(
+                                                59,
+                                                130,
+                                                246,
+                                                0.1
+                                            );
+                                        "
+                                    >
+                                        <span
+                                            class="text-primary fw-bolder fs-6 text-center"
+                                        >
+                                            {{ app.versi }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div
+                                    style="
+                                        justify-self: center;
+                                        color: rgba(60, 60, 67, 0.75);
+                                    "
+                                >
+                                    <span class="fs-6">{{
+                                        app.deskripsi
+                                    }}</span>
+                                </div>
+                            </div>
+                            <div class="mt-auto d-none d-md-block">
+                                <a
+                                    target="_blank"
+                                    :href="`${app.link}`"
+                                    class="d-flex flex-row align-items-center justify-content-center mt-auto rounded-3 gap-1 text-white bg-primary py-3"
+                                >
+                                    <div
+                                        class="d-flex align-items-center gap-2 fw-bold"
+                                    >
+                                        <span>Buka Aplikasi</span>
+                                        <span
+                                            ><svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="w-15px h-15px"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                            >
+                                                <path
+                                                    d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"
+                                                ></path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -150,7 +236,11 @@
                         style="min-height: unset"
                     >
                         <div class="card-title">
-                            <h2>Tambah Apps Section</h2>
+                            {{
+                                        isEditMode
+                                            ? "Edit Apps Section"
+                                            : "Tambah Apps Section"
+                                    }}
                         </div>
                         <div
                             class="card-toolbar"
@@ -235,6 +325,26 @@
                                             {{ form.errors.nama_app }}
                                         </div>
                                     </div>
+                                    <div class="mb-5 fv-row">
+                                        <label
+                                            for="versi"
+                                            class="form-label fs-5"
+                                            >Versi Aplikasi</label
+                                        >
+                                        <input
+                                            type="text"
+                                            class="form-control fs-5"
+                                            v-model="form.versi"
+                                            required
+                                            placeholder="Masukkan Title..."
+                                        />
+                                        <div
+                                            v-if="form.errors.versi"
+                                            class="text-mydanger mt-2"
+                                        >
+                                            {{ form.errors.versi }}
+                                        </div>
+                                    </div>
 
                                     <div class="fv-row">
                                         <label class="required form-label fs-5"
@@ -301,10 +411,14 @@
                             <button
                                 type="submit"
                                 id="kt_drawer_submit_button"
-                                class="btn btn-sm btn-dark fs-5"
+                                class="btn btn-sm btn-primary fs-5"
                             >
                                 <span class="indicator-label">
-                                    Tambah Aplikasi
+                                    {{
+                                        isEditMode
+                                            ? "Edit Aplikasi"
+                                            : "Tambah Aplikasi"
+                                    }}
                                 </span>
                                 <span class="indicator-progress">
                                     Mohon Tunggu...
@@ -346,6 +460,7 @@ const form = useForm({
     nama_app: "",
     deskripsi: "",
     link: "",
+    versi: "",
     daerah_id: daerah.id,
 });
 
@@ -425,6 +540,7 @@ const resetForm = () => {
     form.nama_app = "";
     form.deskripsi = "";
     form.link = "";
+    form.versi = "";
 
     if (dropzoneRef.value) {
         dropzoneRef.value.removeAllFiles(true);
@@ -538,6 +654,7 @@ const editDaerah = (app) => {
     form.nama_app = app.nama_app;
     form.logo_app = app.logo_app;
     form.link = app.link;
+    form.versi = app.versi;
     form.deskripsi = app.deskripsi;
 
     openDrawer();
