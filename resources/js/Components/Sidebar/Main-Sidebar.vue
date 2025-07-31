@@ -145,43 +145,42 @@
                                 route('daerah.show.hero', daerah.nama_daerah)
                             "
                         >
-                            <img
-                                :src="`/storage/${daerah.logo_daerah}`"
-                                alt=""
-                                class="rounded-2 me-4 w-20px h-20px"
-                            />
+                            <div class="w-20px h-20px me-4">
+                                <img
+                                    :src="`/storage/${daerah.logo_daerah}`"
+                                    alt=""
+                                />
+                            </div>
                             <span
-                                    v-if="daerah.daerah ===
-                                                    'Kota'"
-                                        class="text-capitalize"
-                                        :class="[
-                                            $page.url.startsWith(
-                                                `/daerah/${daerah.nama_daerah}`
-                                            )
-                                                ? ['fw-bold', 'text-dark', '']
-                                                : 'menu-title ',
-                                            'fs-4',
-                                        ]"
-                                    >
-                                    Kota
-                                        {{ daerah.nama_daerah }}
-                                    </span>
-                                    <span
-                                    v-else-if="daerah.daerah ===
-                                                    'Kabupaten'"
-                                        class="text-capitalize"
-                                        :class="[
-                                            $page.url.startsWith(
-                                                `/daerah/${daerah.nama_daerah}`
-                                            )
-                                                ? ['fw-bold', 'text-dark', '']
-                                                : 'menu-title ',
-                                            'fs-4',
-                                        ]"
-                                    >
-                                    Kab.
-                                        {{ daerah.nama_daerah }}
-                                    </span>
+                                v-if="daerah.daerah === 'Kota'"
+                                class="text-capitalize"
+                                :class="[
+                                    $page.url.startsWith(
+                                        `/daerah/${daerah.nama_daerah}`
+                                    )
+                                        ? ['fw-bold', 'text-dark', '']
+                                        : 'menu-title ',
+                                    'fs-4',
+                                ]"
+                            >
+                                Kota
+                                {{ daerah.nama_daerah }}
+                            </span>
+                            <span
+                                v-else-if="daerah.daerah === 'Kabupaten'"
+                                class="text-capitalize"
+                                :class="[
+                                    $page.url.startsWith(
+                                        `/daerah/${daerah.nama_daerah}`
+                                    )
+                                        ? ['fw-bold', 'text-dark', '']
+                                        : 'menu-title ',
+                                    'fs-4',
+                                ]"
+                            >
+                                Kab.
+                                {{ daerah.nama_daerah }}
+                            </span>
                         </Link>
                     </div>
 
@@ -210,14 +209,14 @@
                                         )
                                     "
                                 >
-                                    <img
-                                        :src="`/storage/${daerah.logo_daerah}`"
-                                        alt=""
-                                        class="rounded-2 me-4 w-20px h-20px"
-                                    />
+                                    <div class="w-20px h-20px me-4">
+                                        <img
+                                            :src="`/storage/${daerah.logo_daerah}`"
+                                            alt=""
+                                        />
+                                    </div>
                                     <span
-                                    v-if="daerah.daerah ===
-                                                    'Kota'"
+                                        v-if="daerah.daerah === 'Kota'"
                                         class="text-capitalize"
                                         :class="[
                                             $page.url.startsWith(
@@ -228,12 +227,13 @@
                                             'fs-4',
                                         ]"
                                     >
-                                    Kota
+                                        Kota
                                         {{ daerah.nama_daerah }}
                                     </span>
                                     <span
-                                    v-else-if="daerah.daerah ===
-                                                    'Kabupaten'"
+                                        v-else-if="
+                                            daerah.daerah === 'Kabupaten'
+                                        "
                                         class="text-capitalize"
                                         :class="[
                                             $page.url.startsWith(
@@ -244,7 +244,7 @@
                                             'fs-4',
                                         ]"
                                     >
-                                    Kab.
+                                        Kab.
                                         {{ daerah.nama_daerah }}
                                     </span>
                                 </Link>

@@ -6,6 +6,8 @@ use App\Models\HeroSection;
 use App\Models\AppSection;
 use App\Models\Footer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 class Daerah extends Model
 {
@@ -17,6 +19,27 @@ class Daerah extends Model
         'nama_daerah',
         'deskripsi',
     ];
+    public function scopeWithinLastDays(Builder $query, int $days, string $tz = 'Asia/Makassar'): Builder
+    {
+        $end = Carbon::now($tz)->endOfDay();
+        $start = Carbon::now($tz)->subDays($days - 1)->startOfDay();
+
+        return $query->whereBetween('created_at', [
+            $start->clone()->timezone('UTC'),
+            $end->clone()->timezone('UTC'),
+        ]);
+    }
+
+    public function scopeBetweenDates(Builder $query, string $startDate, string $endDate, string $tz = 'Asia/Makassar'): Builder
+    {
+        $start = Carbon::parse($startDate, $tz)->startOfDay();
+        $end = Carbon::parse($endDate, $tz)->endOfDay();
+
+        return $query->whereBetween('created_at', [
+            $start->clone()->timezone('UTC'),
+            $end->clone()->timezone('UTC'),
+        ]);
+    }
 
     public function heroSections()
     {

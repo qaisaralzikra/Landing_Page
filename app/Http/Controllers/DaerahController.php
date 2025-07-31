@@ -6,6 +6,7 @@ use App\Models\Daerah;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use inertia\Inertia;
+use Carbon\Carbon;
 
 class DaerahController extends Controller
 {
@@ -16,6 +17,10 @@ class DaerahController extends Controller
     {
         $search = $request->query('q');
 
+        $tz = 'Asia/Makassar';
+        // range: 'week' | 'all' | 'custom'
+        $range = $request->input('range', 'all');
+
         $query = Daerah::query();
 
         if ($search) {
@@ -25,15 +30,39 @@ class DaerahController extends Controller
             });
         }
 
+        if ($range === 'week') {
+            // 7 hari terakhir (termasuk hari ini)
+
+            $start = now($tz)->startOfWeek(Carbon::MONDAY);
+            $end = now($tz)->endOfWeek(Carbon::SUNDAY);
+            $query->whereBetween('created_at', [
+                $start->timezone('UTC'),
+                $end->timezone('UTC'),
+            ]);
+
+        } elseif ($range === 'custom' && $request->filled(['start', 'end'])) {
+            $query->betweenDates($request->input('start'), $request->input('end'), $tz);
+        }
+
         $daerahs = $query->get();
         $jumlah = $daerahs->count();
 
+        $daerah = $query
+            ->latest()          // urut baru -> lama
+            ->paginate(10)      // sesuaikan
+            ->withQueryString(); // agar query string ikut di pagination
+
         return Inertia::render('Main/Admin/Daftar_Kab', [ // sesuai path Vue
+            'daerah' => $daerah,
             'daerahs' => $daerahs,
             'jumlah' => $jumlah,
+            'filters' => [
+                'range' => $range,
+                'start' => $request->input('start'),
+                'end' => $request->input('end'),
+            ],
         ]);
     }
-
 
     public function create()
     {

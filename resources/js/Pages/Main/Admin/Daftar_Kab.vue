@@ -1,6 +1,5 @@
 <template>
-    <Head title=" | Daftar Daerah">
-    </Head>
+    <Head title=" | Daftar Daerah"> </Head>
     <navigation>
         <div class="d-flex flex-column gap-1">
             <div>
@@ -44,6 +43,9 @@
                 </div>
                 <div class="d-flex flex-row gap-4 align-items-center">
                     <button
+                        @click="setRange('week')"
+                        :class="btnClass('week')"
+                        aria-pressed="form1.range === 'week'"
                         class="border-1 rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
                         style="
                             border: 1px solid;
@@ -54,6 +56,21 @@
                         <p class="ri-filter-3-line fs-1 m-0"></p>
                         <p class="fs-3 fw-semibold m-0">Terbaru</p>
                     </button>
+                    <button
+                        :class="btnClass('all')"
+                        @click="setRange('all')"
+                        aria-pressed="form1.all === 'all'"
+                        class="border-1 rounded-2 d-flex flex-row gap-3 align-items-center px-4 py-1"
+                        style="
+                            border: 1px solid;
+                            color: rgba(60, 60, 67, 0.75);
+                            border-color: rgba(60, 60, 67, 0.25);
+                        "
+                    >
+                        <p class="ri-filter-3-line fs-1 m-0"></p>
+                        <p class="fs-3 fw-semibold m-0">Semua</p>
+                    </button>
+
                     <button
                         @click="
                             () => {
@@ -122,10 +139,12 @@
                                 border: 1px solid rgba(118, 118, 128, 0.12);
                             "
                         >
-                            <div class="d-block overlay position-relative w-90px h-100px">
-                                <div class="w-90px ">
+                            <div
+                                class="d-block overlay position-relative w-90px h-100px"
+                            >
+                                <div class="w-90px">
                                     <img
-              :src="`/storage/${daerah.logo_daerah}`"
+                                        :src="`/storage/${daerah.logo_daerah}`"
                                         alt=""
                                         class="overlay-wrapper rounded-2 w-85px h-100px"
                                     />
@@ -361,7 +380,9 @@
                                             Hapus
                                         </button>
                                     </div>
-                                    <div class="fv-row d-flex flex-row mb-4 align-items-start">
+                                    <div
+                                        class="fv-row d-flex flex-row mb-4 align-items-start"
+                                    >
                                         <!-- Custom Dropdown -->
                                         <div class="relative">
                                             <button
@@ -489,20 +510,59 @@ defineOptions({
 
 import { Head, useForm, usePage, router, Link } from "@inertiajs/vue3";
 import Swal from "sweetalert2";
-import { ref, nextTick, watch, onMounted } from "vue";
+import { ref, nextTick, reactive, watch, onMounted } from "vue";
 import Dropzone from "dropzone";
 import navigation from "../../../Layout/navigation.vue";
 import { debounce } from "lodash";
 import route from "ziggy-js";
 
-defineProps({
+const props = defineProps({
     daerah: Object,
     daerahs: {
-        type: Array,
-        default: () => [],
+        type: Object,
     },
-    jumlah: Number,
+    jumlah: Number, // pagination object dari Laravel
+    filters: Object,
 });
+
+const form1 = reactive({
+    range: props.filters?.range ?? "all",
+    start: props.filters?.start ?? "",
+    end: props.filters?.end ?? "",
+});
+
+function setRange(val) {
+    if (form1.range === val) return;
+    form1.range = val;
+    // jika bukan custom, langsung apply
+    if (val !== "custom") applyFilter();
+}
+
+function btnClass(val) {
+    return [
+        form1.range === val ? "text-primary border-primary" : "btn-outline-secondary",
+    ];
+}
+
+function applyFilter() {
+    router.get(
+        route("index.admin"),
+        {
+            range: form1.range,
+            start: form1.range === "custom" ? form1.start : undefined,
+            end: form1.range === "custom" ? form1.end : undefined,
+        },
+        { preserveState: true, preserveScroll: true, replace: true }
+    );
+}
+
+// Otomatis apply saat range berubah (kecuali custom → klik tombol)
+watch(
+    () => form1.range,
+    (v) => {
+        if (v !== "custom") applyFilter();
+    }
+);
 
 // Ambil query q dari URL jika ada
 const search = ref(new URL(document.location).searchParams.get("q") || "");
@@ -579,7 +639,6 @@ const isEditMode = ref(false);
 
 const dropzoneKey = ref(Date.now());
 const dropzoneRef = ref(null);
-
 
 const page = usePage();
 
@@ -815,7 +874,7 @@ const editDaerah = (daerah) => {
               },
           ];
 
-          console.log("HASIL SETELAH MAPPING:", form.sosial_media);
+    console.log("HASIL SETELAH MAPPING:", form.sosial_media);
     openDrawer();
 };
 
