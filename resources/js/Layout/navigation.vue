@@ -28,6 +28,7 @@
                 >
                     <main-sidebar>
                     </main-sidebar>
+                    <dropzone/>
                     <div class="mx-10 my-5">
                         <slot />
                     </div>
@@ -39,6 +40,7 @@
 <script setup>
 import MainSidebar from "../Components/Sidebar/Main-Sidebar.vue";
 import MainHeader from "../Components/Header/Main-Header.vue";
+import Dropzone from "../Components/Dropzone.vue";
 </script>
 <style>
 @font-face {

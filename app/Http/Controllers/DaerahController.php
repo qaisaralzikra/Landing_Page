@@ -40,8 +40,6 @@ class DaerahController extends Controller
                 $end->timezone('UTC'),
             ]);
 
-        } elseif ($range === 'custom' && $request->filled(['start', 'end'])) {
-            $query->betweenDates($request->input('start'), $request->input('end'), $tz);
         }
 
         $daerahs = $query->get();
@@ -75,7 +73,7 @@ class DaerahController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'logo_daerah' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'logo_daerah' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
             'daerah' => 'required|in:Kabupaten,Kota',
             'nama_daerah' => 'required|string',
             'deskripsi' => 'nullable|string',

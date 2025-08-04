@@ -27,8 +27,8 @@ Route::post('/daerah/{nama_daerah}/herosection/{app}', [HeroSectionController::c
 Route::get('/daftarkab', [DaerahController::class, 'index'])->name('index.admin');
 Route::post('/daftarkab/{id}', [DaerahController::class, 'update'])->name('daerah.update');
 Route::delete('/daftarkab/delete', [DaerahController::class, 'destroy'])->name('delete.daerah');
-Route::delete('/daerah/{nama_daerah}/herosection', [DaerahController::class, 'destroyhero'])->name('delete.hero');
-Route::delete('/daerah/{nama_daerah}/appsection', [DaerahController::class, 'destroyapp'])->name('delete.app');
+Route::delete('/daerah/{nama_daerah}/herosection', [HeroSectionController::class, 'destroyhero'])->name('delete.hero');
+Route::delete('/daerah/{nama_daerah}/appsection', [AppSectionController::class, 'destroyapp'])->name('delete.app');
 Route::get('/daftarkab/search', [DaerahController::class, 'search'])->name('search.index');
 Route::get('/daerah/{nama_daerah}/herosection', [HeroSectionController::class, 'componentHeroSection'])->name('daerah.show.hero');
 Route::get('/daerah/{nama_daerah}/appsection', [AppSectionController::class, 'componentAppSection'])->name('daerah.show.app');

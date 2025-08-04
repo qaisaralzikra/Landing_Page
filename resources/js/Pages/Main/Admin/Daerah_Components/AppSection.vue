@@ -282,7 +282,7 @@
                                                 class="dz-message needsclick flex-column text-center gap-5 p-5"
                                             >
                                                 <i
-                                                    class="ri-image-add-line text-myprimary fs-3x"
+                                                    class="ri-image-add-line text-primary fs-3x"
                                                 ></i>
                                                 <div>
                                                     <h3
@@ -329,14 +329,13 @@
                                         <label
                                             for="versi"
                                             class="form-label fs-5"
-                                            >Versi Aplikasi</label
+                                            >Versi Aplikasi (<span class="text-danger">Optional</span>)</label
                                         >
                                         <input
                                             type="text"
                                             class="form-control fs-5"
                                             v-model="form.versi"
-                                            required
-                                            placeholder="Masukkan Title..."
+                                            placeholder="Masukkan Versi Aplikasi..."
                                         />
                                         <div
                                             v-if="form.errors.versi"
@@ -403,7 +402,7 @@
                         <div class="d-flex justify-content-end">
                             <button
                                 type="reset"
-                                class="btn btn-sm btn-mylight fs-5 me-3"
+                                class="btn btn-sm btn-danger fs-5 me-3"
                                 id="kt_drawer_example_advanced_close"
                             >
                                 Batal

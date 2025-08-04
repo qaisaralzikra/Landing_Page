@@ -137,6 +137,7 @@
 
 <script setup>
 import { Head, Link, router, usePage, useForm } from "@inertiajs/vue3";
+import route from 'ziggy-js';
 
 import Swal from "sweetalert2";
 

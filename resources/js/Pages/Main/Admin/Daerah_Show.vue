@@ -36,11 +36,11 @@ const { daerah } = defineProps({
                     >
                 </ol>
             </div>
-            <div class="d-flex  flex-row align-items-center gap-3">
+            <div class="d-flex flex-row align-items-center gap-3">
                 <h1 class="fs-md-2qx text-bold fs-1 text-capitalize">
                     {{ daerah.daerah }}
                 </h1>
-                <h1 class=" fs-md-2qx text-bold fs-1 text-capitalize">
+                <h1 class="fs-md-2qx text-bold fs-1 text-capitalize">
                     {{ daerah.nama_daerah }}
                 </h1>
             </div>
@@ -48,56 +48,64 @@ const { daerah } = defineProps({
                 class="d-flex flex-column gap-10 flex-lg-row justify-content-lg-between"
             >
                 <div class="d-flex flex-row gap-10 mt-7">
-                    <Link
-                        :href="
-                            daerah && daerah.nama_daerah
-                                ? route('daerah.show.hero', {
-                                        nama_daerah: daerah.nama_daerah,
-                                    })
-                                : '#'
-                        "
-                        :class="
-                            daerah &&
-                            daerah.nama_daerah &&
-                            $page.url.startsWith(
-                                `/daerah/${encodeURIComponent(
-                                    daerah.nama_daerah
-                                )}/herosection`
-                            )
-                                ? 'active'
-                                : 'no-active'
-                        "
-                    >
-                        <span class="fs-md-3 fs-5">Hero Section</span>
-                    </Link>
-                    <Link
-                        :href="route('daerah.show.app', daerah.nama_daerah)"
-                        :class="
-                            $page.url.startsWith(
-                                `/daerah/${encodeURIComponent(
-                                    daerah.nama_daerah
-                                )}/appsection`
-                            )
-                                ? 'active'
-                                : 'no-active'
-                        "
-                    >
-                        <span class="fs-md-3 fs-5">Apps Section</span>
-                    </Link>
-                    <Link
-                        :href="route('daerah.show.footer', daerah.nama_daerah)"
-                        :class="
-                            $page.url.startsWith(
-                                `/daerah/${encodeURIComponent(
-                                    daerah.nama_daerah
-                                )}/footer`
-                            )
-                                ? 'active'
-                                : 'no-active'
-                        "
-                    >
-                        <span class="fs-md-3 fs-5">Footer Section</span>
-                    </Link>
+                    <div>
+                        <Link
+                            :href="
+                                daerah && daerah.nama_daerah
+                                    ? route('daerah.show.hero', {
+                                          nama_daerah: daerah.nama_daerah,
+                                      })
+                                    : '#'
+                            "
+                            :class="
+                                daerah &&
+                                daerah.nama_daerah &&
+                                $page.url.startsWith(
+                                    `/daerah/${encodeURIComponent(
+                                        daerah.nama_daerah
+                                    )}/herosection`
+                                )
+                                    ? 'active'
+                                    : 'no-active'
+                            "
+                        >
+                            <span class="fs-md-3 fs-5">Hero Section</span>
+                        </Link>
+                    </div>
+                    <div>
+                        <Link
+                            :href="route('daerah.show.app', daerah.nama_daerah)"
+                            :class="
+                                $page.url.startsWith(
+                                    `/daerah/${encodeURIComponent(
+                                        daerah.nama_daerah
+                                    )}/appsection`
+                                )
+                                    ? 'active'
+                                    : 'no-active'
+                            "
+                        >
+                            <span class="fs-md-3 fs-5">Apps Section</span>
+                        </Link>
+                    </div>
+                    <div>
+                        <Link
+                            :href="
+                                route('daerah.show.footer', daerah.nama_daerah)
+                            "
+                            :class="
+                                $page.url.startsWith(
+                                    `/daerah/${encodeURIComponent(
+                                        daerah.nama_daerah
+                                    )}/footer`
+                                )
+                                    ? 'active'
+                                    : 'no-active'
+                            "
+                        >
+                            <span class="fs-md-3 fs-5">Footer Section</span>
+                        </Link>
+                    </div>
                 </div>
                 <div
                     class="d-flex flex-row gap-4 align-items-center"

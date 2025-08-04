@@ -260,7 +260,7 @@
                                                 class="dz-message needsclick flex-column text-center gap-5 p-5"
                                             >
                                                 <i
-                                                    class="ri-image-add-line text-myprimary fs-3x"
+                                                    class="ri-image-add-line text-primary fs-3x"
                                                 ></i>
                                                 <div>
                                                     <h3
@@ -471,7 +471,7 @@
                         <div class="d-flex justify-content-end">
                             <button
                                 type="reset"
-                                class="btn btn-sm btn-mylight fs-5 me-3"
+                                class="btn btn-sm btn-danger fs-5 me-3"
                                 id="kt_drawer_example_advanced_close"
                             >
                                 Batal
@@ -492,8 +492,8 @@
                                     Mohon Tunggu...
                                     <span
                                         class="spinner-border spinner-border-sm align-middle ms-2"
-                                    ></span>
-                                </span>
+                                        ></span>
+                                    </span>
                             </button>
                         </div>
                     </div>
@@ -515,6 +515,9 @@ import Dropzone from "dropzone";
 import navigation from "../../../Layout/navigation.vue";
 import { debounce } from "lodash";
 import route from "ziggy-js";
+
+const dropzoneKey = ref(Date.now());
+const dropzoneRef = ref(null);
 
 const props = defineProps({
     daerah: Object,
@@ -540,7 +543,9 @@ function setRange(val) {
 
 function btnClass(val) {
     return [
-        form1.range === val ? "text-primary border-primary" : "btn-outline-secondary",
+        form1.range === val
+            ? "text-primary border-primary"
+            : "btn-outline-secondary",
     ];
 }
 
@@ -637,8 +642,6 @@ const destroy = (id) => {
 const editing = ref(null);
 const isEditMode = ref(false);
 
-const dropzoneKey = ref(Date.now());
-const dropzoneRef = ref(null);
 
 const page = usePage();
 
